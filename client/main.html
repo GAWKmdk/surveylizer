@@ -1,0 +1,132 @@
+<template name="main">
+    <h3>Welcome to your Dashboard</h3>
+    <div id="dashboard">
+        <div id="widgets" class="row">
+            <div class="col-md-3">
+                <div class="widget widget-primary clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Surveys Accessed</h4>
+                            <p class="widget-facts">60</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-file"></i>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" style="width: 60%"></div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of surveys accessed today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-success clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Surveyors</h4>
+                            <p class="widget-facts">20</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" style="width: 40%"></div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of surveyors who have used the system today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-warning clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Answers</h4>
+                            <p class="widget-facts">2,897</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-chat"></i>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" style="width: 50%"></div>
+                    </div>
+                    <p class="widget-detail">
+                        Total number of answers filled out today.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-danger clearfix">
+                    <div class="widget-top row">
+                        <div class="widget-stats col-xs-8">
+                            <h4 class="widget-title">Reports</h4>
+                            <p class="widget-facts">3</p>
+                        </div>
+                        <div class="widget-icon col-xs-4">
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" style="width: 10%"></div>
+                    </div>
+                    <p class="widget-detail">
+                        The number of reports that have been generated today.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{> fullcalendar id="myCalendar" height=450 }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Room Status</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="row-action-primary">
+                                <i class="mdi-file-folder"></i>
+                            </div>
+                            <div class="row-content">
+                                <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                                <h4 class="list-group-item-heading">40 Vacant Rooms</h4>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>
+                        <div class="list-group-item">
+                            <div class="row-action-primary">
+                                <i class="mdi-file-folder"></i>
+                            </div>
+                            <div class="row-content">
+                                <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                                <h4 class="list-group-item-heading">5 Dirty Rooms</h4>
+                            </div>
+                        </div>
+                        <div class="list-group-separator"></div>
+                        <div class="list-group-item">
+                            <div class="row-action-primary">
+                                <i class="mdi-file-folder"></i>
+                            </div>
+                            <div class="row-content">
+                                <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                                <h4 class="list-group-item-heading">30 Occupied Rooms</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

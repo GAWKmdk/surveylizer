@@ -1,0 +1,19 @@
+<head>
+    <title>Survey Management System</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
+    <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>-->
+</head>
+
+<template name="layout">
+    <div class="container-fluid">
+        <section>
+            {{> toolbar}}
+            <div class="container-fluid">
+                {{> sidebar}}
+                <section id="main-content" class="col-md-10 col-md-offset-2">
+                    {{> yield}}
+                </section>
+            </div>
+        </section>
+    </div>
+</template>

@@ -1,0 +1,175 @@
+<template name="users">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Registered Users</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr class="text-center">
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Address</td>
+                    <td>City</td>
+                    <td>State</td>
+                    <td>Postal Code</td>
+                    <td>Account Type</td>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each systemUsers}}
+                    <tr class="{{selectedUser}}">
+                        <td>{{profile.firstName}}</td>
+                        <td>{{profile.lastName}}</td>
+                        <td>{{profile.address}}</td>
+                        <td>{{profile.city}}</td>
+                        <td>{{profile.state}}</td>
+                        <td>{{profile.postalCode}}</td>
+                        <td>{{userRole}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer text-right">
+            <a type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#sign-up-modal"><i class="fa fa-plus"></i> New</a>
+            {{#if isUserSelected}}
+                <a type="button" class="btn btn-warning btn-raised"><i class="fa fa-pencil"></i> Edit</a>
+                <a type="button" class="btn btn-danger btn-raised"><i class="fa fa-times"></i> Delete</a>
+            {{/if}}
+        </div>
+    </div>
+    {{> signUpModal }}
+</template>
+
+<template name="signUpModal">
+    <div id="sign-up-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Register New User</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#if hasErrors}}
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>Error!</strong> {{{ errors }}}
+                            </div>
+                        {{/if}}
+                        <div class="form-group">
+                            <input  id="sign-up-email" class="form-control" type="email" placeholder="Email address" value="">
+                        </div>
+                        <div class="form-group  ">
+                            <input id="sign-up-password" class="form-control" type="password" placeholder="Password">
+                            <span class="help-block small">
+                                 Password should be 8-14 characters long and contain a lowercase and an uppercase letter, at least one number (0-9) and a special character of either ()!#$^*_|
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <select id="sign-up-role" class="form-control">
+                                    <option value="empty" disabled selected>--Select Role--</option>
+                                    {{#each userRoles}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input  id="sign-up-first-name" class="form-control" type="text" placeholder="First Name" value="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input  id="sign-up-last-name" class="form-control" type="text" placeholder="Last Name" value="">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input  id="sign-up-address" class="form-control" type="text" placeholder="Address" value="">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input  id="sign-up-city" class="form-control" type="text" placeholder="City" value="">
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <input  id="sign-up-state" class="form-control" type="text" placeholder="State" value="">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <input  id="sign-up-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" tabindex="7"><i class="fa fa-user-plus"></i> Add User</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="editUserModal">
+    <div id="edit-user-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Register New User</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#if hasErrors}}
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>Error!</strong> {{{ errors }}}
+                            </div>
+                        {{/if}}
+                        <div class="form-group">
+                            <input  id="sign-up-email" class="form-control" type="email" placeholder="Email address" value="">
+                        </div>
+                        <div class="form-group  ">
+                            <input id="sign-up-password" class="form-control" type="password" placeholder="Password">
+                            <span class="help-block small">
+                                 Password should be 8-14 characters long and contain a lowercase and an uppercase letter, at least one number (0-9) and a special character of either ()!#$^*_|
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <select id="sign-up-role" class="form-control">
+                                    <option value="empty" disabled selected>--Select Role--</option>
+                                    {{#each userRoles}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input  id="sign-up-first-name" class="form-control" type="text" placeholder="First Name" value="">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input  id="sign-up-last-name" class="form-control" type="text" placeholder="Last Name" value="">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input  id="sign-up-address" class="form-control" type="text" placeholder="Address" value="">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input  id="sign-up-city" class="form-control" type="text" placeholder="City" value="">
+                            </div>
+                            <div class="col-md-5 form-group">
+                                <input  id="sign-up-state" class="form-control" type="text" placeholder="State" value="">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <input  id="sign-up-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" tabindex="7"><i class="fa fa-user-plus"></i> Add User</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
