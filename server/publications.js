@@ -9,3 +9,15 @@ Meteor.publish("roles", function(){
 Meteor.publish("permissions", function(){
     return permissions.find();
 });
+
+Meteor.publish("surveys", function(){
+    return surveys.find();
+});
+
+Meteor.publish("questionTypes", function(){
+    return questionTypes.find();
+});
+
+Meteor.publish("questionCategories", function(){
+    return questionCategories.find();
+});

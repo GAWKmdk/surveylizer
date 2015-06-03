@@ -37,3 +37,39 @@ Meteor.users.allow({
         return adminUser ? true : false;
     }
 });
+
+surveys.allow({
+    insert: function(){
+        return true;
+    },
+    update: function(){
+        return true;
+    },
+    remove: function(){
+        return true;
+    }
+});
+
+questionTypes.allow({
+    insert: function(){
+        return true;
+    },
+    update: function(){
+        return true;
+    },
+    remove: function(){
+        return true;
+    }
+});
+
+questionCategories.allow({
+    insert: function(){
+        return true;
+    },
+    update: function(){
+        return true;
+    },
+    remove: function(){
+        return true;
+    }
+});
