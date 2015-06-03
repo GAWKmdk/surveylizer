@@ -4,3 +4,4 @@ Meteor.subscribe("permissions");
 Meteor.subscribe("surveys");
 Meteor.subscribe("questionTypes");
 Meteor.subscribe("questionCategories");
+Meteor.subscribe("surveyors");

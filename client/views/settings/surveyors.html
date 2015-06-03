@@ -1,3 +1,154 @@
 <template name="surveyors">
-
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Add New Surveyor</h4>
+                </div>
+                <form id="new-surveyor-form">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="sr-only" for="new-surveyor-first-name">First Name</label>
+                            <input id="new-surveyor-first-name" class="form-control" name="newSurveyorFirstName"  placeholder="First Name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="new-surveyor-last-name">Last Name</label>
+                            <input id="new-surveyor-last-name" class="form-control" name="newSurveyorLastName"  placeholder="Last Name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="new-surveyor-position">Position</label>
+                            <input id="new-surveyor-position" class="form-control" name="newSurveyorPosition"  placeholder="Position" />
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="new-surveyor-email">Email</label>
+                            <input id="new-surveyor-email" class="form-control" name="newSurveyorEmail"  placeholder="Email" />
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="new-surveyor-telephone">Telephone</label>
+                            <input id="new-surveyor-telephone" class="form-control" name="newSurveyorTelephone"  placeholder="Telephone" />
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
+                        <button class="btn btn-danger" type="button"><i class="fa fa-eraser"></i> Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="pull-left">Available Surveyors</h4>
+                    <div class="pull-right">
+                        <form id="new-role-form" class="form-inline">
+                            <div class="input-group">
+                                <input id="search-surveyor" type="text" class="form-control" data-form-type="role" aria-label="Search surveyor" placeholder="Search">
+                                <span class="input-group-addon"><i class="fa fa-search" data-form-type="role"></i></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="surveyors-list" class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <td>Full Name</td>
+                            <td>Position</td>
+                            <td>Email</td>
+                            <td>Telephone</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each surveyors}}
+                            <tr class="{{selectedSurveyor}}">
+                                <td>{{fullName}}</td>
+                                <td>{{position}}</td>
+                                <td>{{email}}</td>
+                                <td>{{telephone}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    {{#if isSurveyorSelected}}
+                        <a type="button" class="btn btn-warning btn-raised" data-toggle="modal" data-target="#edit-surveyor-modal"><i class="fa fa-pencil"></i> Edit</a>
+                        <a type="button" class="btn btn-danger btn-raised" data-toggle="modal" data-target="#delete-surveyor-modal"><i class="fa fa-times"></i> Delete</a>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> editSurveyorModal }}
+    {{> deleteSurveyorModal }}
 </template>
+
+<template name="editSurveyorModal">
+    <div id="edit-surveyor-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Edit Surveyor</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedSurveyor}}
+                            <div class="form-group">
+                                <label class="sr-only" for="edit-surveyor-first-name">First Name</label>
+                                <input id="edit-surveyor-first-name" class="form-control" name="editSurveyorFirstName"  placeholder="First Name" value="{{firstName}}" />
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="edit-surveyor-last-name">Last Name</label>
+                                <input id="edit-surveyor-last-name" class="form-control" name="editSurveyorLastName"  placeholder="Last Name" value="{{lastName}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="edit-surveyor-position">Position</label>
+                                <input id="edit-surveyor-position" class="form-control" name="editSurveyorPosition"  placeholder="Position"  value="{{position}}" />
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="edit-surveyor-email">Email</label>
+                                <input id="edit-surveyor-email" class="form-control" name="editSurveyorEmail"  placeholder="Email"  value="{{email}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="edit-surveyor-telephone">Telephone</label>
+                                <input id="edit-surveyor-telephone" class="form-control" name="editSurveyorTelephone"  placeholder="Telephone"  value="{{telephone}}" />
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" tabindex="7" ><i class="fa fa-floppy-o"></i> Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="deleteSurveyorModal">
+    <div id="delete-surveyor-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Delete Surveyor <i class="fa fa-warning"></i></h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedSurveyor}}
+                            <div>
+                                <p>Are you sure you want to delete the surveyor: <strong>{{fullName}}</strong> ?</p>
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-check"></i> Accept</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
