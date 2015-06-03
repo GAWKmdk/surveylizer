@@ -25,25 +25,27 @@
                         <td>{{profile.city}}</td>
                         <td>{{profile.state}}</td>
                         <td>{{profile.postalCode}}</td>
-                        <td>{{userRole}}</td>
+                        <td>{{userRole.name}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
             </table>
         </div>
-        <div class="panel-footer text-right">
-            <a type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#sign-up-modal"><i class="fa fa-plus"></i> New</a>
+        <div class="panel-footer">
+            <a type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target="#new-user-modal"><i class="fa fa-plus"></i> New</a>
             {{#if isUserSelected}}
-                <a type="button" class="btn btn-warning btn-raised"><i class="fa fa-pencil"></i> Edit</a>
-                <a type="button" class="btn btn-danger btn-raised"><i class="fa fa-times"></i> Delete</a>
+                <a type="button" class="btn btn-warning btn-raised" data-toggle="modal" data-target="#edit-user-modal"><i class="fa fa-pencil"></i> Edit</a>
+                <a type="button" class="btn btn-danger btn-raised" data-toggle="modal" data-target="#delete-user-modal"><i class="fa fa-times"></i> Delete</a>
             {{/if}}
         </div>
     </div>
-    {{> signUpModal }}
+    {{> newUserModal }}
+    {{> editUserModal }}
+    {{> deleteUserModal }}
 </template>
 
-<template name="signUpModal">
-    <div id="sign-up-modal" class="modal">
+<template name="newUserModal">
+    <div id="new-user-modal" class="modal">
         <form>
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -61,17 +63,17 @@
                             </div>
                         {{/if}}
                         <div class="form-group">
-                            <input  id="sign-up-email" class="form-control" type="email" placeholder="Email address" value="">
+                            <input  id="new-user-email" class="form-control" type="email" placeholder="Email address" value="">
                         </div>
                         <div class="form-group  ">
-                            <input id="sign-up-password" class="form-control" type="password" placeholder="Password">
+                            <input id="new-user-password" class="form-control" type="password" placeholder="Password">
                             <span class="help-block small">
                                  Password should be 8-14 characters long and contain a lowercase and an uppercase letter, at least one number (0-9) and a special character of either ()!#$^*_|
                             </span>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <select id="sign-up-role" class="form-control">
+                                <select id="new-user-role" class="form-control">
                                     <option value="empty" disabled selected>--Select Role--</option>
                                     {{#each userRoles}}
                                         <option value="{{_id}}">{{name}}</option>
@@ -79,22 +81,22 @@
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
-                                <input  id="sign-up-first-name" class="form-control" type="text" placeholder="First Name" value="">
+                                <input  id="new-user-first-name" class="form-control" type="text" placeholder="First Name" value="">
                             </div>
                             <div class="col-md-6 form-group">
-                                <input  id="sign-up-last-name" class="form-control" type="text" placeholder="Last Name" value="">
+                                <input  id="new-user-last-name" class="form-control" type="text" placeholder="Last Name" value="">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input  id="sign-up-address" class="form-control" type="text" placeholder="Address" value="">
+                                <input  id="new-user-address" class="form-control" type="text" placeholder="Address" value="">
                             </div>
                             <div class="col-md-4 form-group">
-                                <input  id="sign-up-city" class="form-control" type="text" placeholder="City" value="">
+                                <input  id="new-user-city" class="form-control" type="text" placeholder="City" value="">
                             </div>
                             <div class="col-md-5 form-group">
-                                <input  id="sign-up-state" class="form-control" type="text" placeholder="State" value="">
+                                <input  id="new-user-state" class="form-control" type="text" placeholder="State" value="">
                             </div>
                             <div class="col-md-3 form-group">
-                                <input  id="sign-up-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
+                                <input  id="new-user-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
                             </div>
                         </div>
                     </div>
@@ -115,7 +117,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Register New User</h4>
+                        <h4 class="modal-title">Edit User</h4>
                     </div>
                     <div class="modal-body">
                         {{#if hasErrors}}
@@ -126,47 +128,66 @@
                                 <strong>Error!</strong> {{{ errors }}}
                             </div>
                         {{/if}}
-                        <div class="form-group">
-                            <input  id="sign-up-email" class="form-control" type="email" placeholder="Email address" value="">
-                        </div>
-                        <div class="form-group  ">
-                            <input id="sign-up-password" class="form-control" type="password" placeholder="Password">
-                            <span class="help-block small">
-                                 Password should be 8-14 characters long and contain a lowercase and an uppercase letter, at least one number (0-9) and a special character of either ()!#$^*_|
-                            </span>
-                        </div>
+                        {{#with selectedUser}}
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <select id="sign-up-role" class="form-control">
+                                <select id="edit-user-role" class="form-control">
                                     <option value="empty" disabled selected>--Select Role--</option>
                                     {{#each userRoles}}
-                                        <option value="{{_id}}">{{name}}</option>
+                                        <option value="{{_id}}" {{selectedRole _id}}>{{name}}</option>
                                     {{/each}}
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
-                                <input  id="sign-up-first-name" class="form-control" type="text" placeholder="First Name" value="">
+                                <input  id="edit-user-first-name" class="form-control" type="text" placeholder="First Name" value="{{profile.firstName}}">
                             </div>
                             <div class="col-md-6 form-group">
-                                <input  id="sign-up-last-name" class="form-control" type="text" placeholder="Last Name" value="">
+                                <input  id="edit-user-last-name" class="form-control" type="text" placeholder="Last Name" value="{{profile.lastName}}">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input  id="sign-up-address" class="form-control" type="text" placeholder="Address" value="">
+                                <input  id="edit-user-address" class="form-control" type="text" placeholder="Address" value="{{profile.address}}">
                             </div>
                             <div class="col-md-4 form-group">
-                                <input  id="sign-up-city" class="form-control" type="text" placeholder="City" value="">
+                                <input  id="edit-user-city" class="form-control" type="text" placeholder="City" value="{{profile.city}}">
                             </div>
                             <div class="col-md-5 form-group">
-                                <input  id="sign-up-state" class="form-control" type="text" placeholder="State" value="">
+                                <input  id="edit-user-state" class="form-control" type="text" placeholder="State" value="{{profile.state}}">
                             </div>
                             <div class="col-md-3 form-group">
-                                <input  id="sign-up-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
+                                <input  id="edit-user-postal-code" class="form-control" type="text" placeholder="Postal Code" value="{{profile.postalCode}}">
                             </div>
                         </div>
+                        {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" tabindex="7"><i class="fa fa-user-plus"></i> Add User</button>
+                        <button type="submit" class="btn btn-primary" tabindex="7" ><i class="fa fa-floppy-o"></i> Save</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="deleteUserModal">
+    <div id="delete-user-modal" class="modal">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Delete User <i class="fa fa-warning"></i></h4>
+                    </div>
+                    <div class="modal-body">
+                        {{#with selectedUser}}
+                            <div>
+                                <p>Are you sure you want to delete the user: <strong>{{fullName}}</strong> ?</p>
+                            </div>
+                        {{/with}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger" tabindex="7" ><i class="fa fa-check"></i> Accept</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                     </div>
                 </div>
             </div>
