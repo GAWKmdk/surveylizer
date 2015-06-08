@@ -25,3 +25,11 @@ Meteor.publish("questionCategories", function(){
 Meteor.publish("surveyors", function(){
     return surveyors.find();
 });
+
+Meteor.publish("questions", function(){
+    return questions.find();
+});
+
+Meteor.publish("questionChoices", function(){
+    return questionChoices.find();
+});

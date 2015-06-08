@@ -5,3 +5,5 @@ Meteor.subscribe("surveys");
 Meteor.subscribe("questionTypes");
 Meteor.subscribe("questionCategories");
 Meteor.subscribe("surveyors");
+Meteor.subscribe("questions");
+Meteor.subscribe("questionChoices");
