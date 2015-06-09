@@ -267,7 +267,6 @@
                             </div>
                             {{#if isQuestionType 'Multiple Choice'}}
                                 {{> choices}}
-
                             {{/if}}
                         {{/with}}
                     </div>
@@ -298,8 +297,8 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-check"></i> Accept</button>
-                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-check"></i> Accept</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                     </div>
                 </div>
             </div>
@@ -345,7 +344,7 @@
         </tr>
         </thead>
         <tbody>
-        {{#each question.choices}}
+        {{#each choices}}
             <tr>
                 <td><i class="delete-choice fa fa-times"></i></td>
                 <td>{{orderNumber}}</td>

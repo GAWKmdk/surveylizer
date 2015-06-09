@@ -166,7 +166,7 @@ Template.surveyQuestions.events({
                 surveyId: selectedSurveyId,
                 typeId: typeId,
                 categoryId: categoryId,
-                orderNumber: orderNumber,
+                orderNumber: parseInt(orderNumber),
                 detail: detail,
                 choices: [],
                 choiceType: ''
@@ -210,8 +210,8 @@ Template.choices.onRendered(function() {
 });
 
 Template.choices.helpers({
-    "question": function(){
-        return questions.findOne({_id: Session.get("selectedSurveyQuestion")}); //Template.parentData(1).choices;
+    "choices": function(){
+        return Template.parentData(0).choices;
     },
     "selectedChoiceType": function(choiceType){
         var selectedQuestion = questions.findOne({_id: Session.get("selectedSurveyQuestionId")});
@@ -271,7 +271,7 @@ Template.editSurveyQuestionModal.events({
             var doc = {
                 typeId: typeId,
                 categoryId: categoryId,
-                orderNumber: orderNumber,
+                orderNumber: parseInt(orderNumber),
                 detail: detail,
                 choiceType: choiceType
             };
