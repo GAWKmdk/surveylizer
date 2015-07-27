@@ -1,7 +1,7 @@
-<template name="continueSurvey">
+<template name="completedSurveys">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Continue Surveys</h3>
+            <h3>Completed Surveys</h3>
         </div>
         <div class="panel-body">
             <table class="table table-striped table-hover">
@@ -10,23 +10,25 @@
                     <td>Code</td>
                     <td>Name</td>
                     <td>User</td>
-                    <td>Started</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
                 </tr>
                 </thead>
                 <tbody>
-                {{#if hasContinueSurvey}}
-                    {{#each continueSurveyList}}
-                        <tr class="{{selectedContinueSurvey}}">
+                {{#if hasCompletedSurveys}}
+                    {{#each completedSurveysList}}
+                        <tr class="{{selectedCompletedSurvey}}">
                             <td>{{survey.code}}</td>
                             <td>{{survey.name}}</td>
                             <td>{{user.fullName}}</td>
-                            <td class="text-right">{{timeStarted}}</td>
+                            <td class="text-center">{{startDateDisplay}}</td>
+                            <td class="text-center">{{endDateDisplay}}</td>
                         </tr>
                     {{/each}}
-                {{else}}
+                    {{else}}
                     <tr>
                         <td colspan="5">
-                            <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"> </i> There are no surveys started yet!</div>
+                            <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"> </i> There are no completed surveys yet!</div>
                         </td>
                     </tr>
                 {{/if}}
@@ -34,8 +36,8 @@
             </table>
         </div>
         <div class="panel-footer">
-            {{#if isContinueSurveySelected}}
-                <a id="view-completed-survey" type="button" class="btn btn-sm btn-success btn-raised" ><i class="fa fa-forward"></i> Continue</a>
+            {{#if isCompletedSurveySelected}}
+                <a id="view-completed-survey" type="button" class="btn btn-sm btn-success btn-raised" ><i class="fa fa-list-ol"></i> View</a>
             {{/if}}
         </div>
     </div>

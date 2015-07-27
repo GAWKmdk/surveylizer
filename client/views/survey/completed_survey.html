@@ -1,0 +1,47 @@
+<template name="completedSurvey">
+    {{#with completedSurvey}}
+        <div class="panel">
+            <div class="panel-heading">
+                <h4>{{survey.name}}</h4>
+            </div>
+            <div class="panel-body">
+                {{#each survey.questions}}
+                    <div class="question-display">
+                        <h4>{{orderNumber}}. {{detail}}</h4>
+                        {{#each this.answers completedSurvey._id}}
+                            <div class="answer">
+                                <p>
+                                    {{#unless isTypeOpenEnded}}
+                                        <span class="">{{choiceOrderNumber}}</span>.
+                                    {{/unless}}
+                                    {{value}}
+                                </p>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    {{/with}}
+</template>
+
+<template name="radioInputView">
+    <div class="radio radio-primary">
+        <label>
+            <input type="radio" name="answer" id="answer" value="{{name}}" disabled/>
+            {{orderNumber}}. {{name}}
+        </label>
+    </div>
+</template>
+
+<template name="checkboxInputView">
+    <div class="checkbox checkbox-primary">
+        <label>
+            <input type="checkbox" name="answer" id="answer" value="{{name}}" disabled/>
+            {{orderNumber}}. {{name}}
+        </label>
+    </div>
+</template>

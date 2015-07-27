@@ -1,0 +1,68 @@
+<template name="completeSurvey">
+    {{#with surveyToComplete}}
+        {{> question}}
+    {{/with}}
+</template>
+
+<template name="question">
+    {{#with currentQuestion}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>{{orderNumber}}. {{detail}}</h4>
+            </div>
+            <div class="panel-body">
+                {{#if isTypeOpenEnded}}
+                    <textarea class="answer form-control" name="answer" rows="5"
+                              placeholder="Please provide your answer here">{{previousAnswer}}</textarea>
+                {{ else }}
+                    <div class="answer">
+                        {{#if isSingleChoice}}
+                            {{#each choices}}
+                                {{> radioInput}}
+                            {{/each}}
+                        {{ else }}
+                            {{#each choices}}
+                                {{> checkboxInput}}
+                            {{/each}}
+                        {{/if}}
+                    </div>
+                {{/if}}
+            </div>
+            <div class="panel-footer text-right">
+                {{#if canNavigateBackward}}
+                    <button id="previous-question" class="btn btn-sm  btn-success" type="button"><i
+                            class="fa fa-chevron-circle-left"></i> Previous
+                    </button>
+                {{/if}}
+                {{#if canNavigateForward}}
+                    <button id="next-question" class="btn btn-sm  btn-success" type="button"><i
+                            class="fa fa-chevron-circle-right"></i> Next
+                    </button>
+                {{/if}}
+                {{#if lastQuestion}}
+                    <button id="finish-survey" class="btn btn-sm  btn-success" type="button"><i
+                            class="fa fa-check-square-o"></i> Finish
+                    </button>
+                {{/if}}
+            </div>
+        </div>
+    {{/with}}
+</template>
+
+<template name="radioInput">
+    <div class="radio radio-primary">
+        <label>
+            <input type="radio" name="answer" value="{{name}}" data-order-number="{{orderNumber}}"/>
+            {{orderNumber}}. {{name}}
+        </label>
+    </div>
+</template>
+
+<template name="checkboxInput">
+    <div class="checkbox checkbox-primary">
+        <label>
+            <input type="checkbox" name="answer" value="{{name}}" data-order-number="{{orderNumber}}"/>
+            {{orderNumber}}. {{name}}
+        </label>
+    </div>
+</template>

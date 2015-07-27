@@ -1,3 +1,24 @@
+newCompletedTool = function(){
+    var currentSurveyId = Session.get("surveyToStartId");
+    var currentUserId = Meteor.userId();
+
+    if(currentSurveyId && currentUserId){
+        var currentCompletedSurveyId = completedSurveys.insert({
+            surveyId: currentSurveyId,
+            userId: currentUserId,
+            startDate: new Date().getTime(),
+            endDate: null,
+            status: settings.surveyStatusStarted,
+            orderNumber: 1
+        }, function(err){
+            if(err){
+                new Error.throw(err);
+            }
+        });
+        Session.set("currentCompletedSurveyId", currentCompletedSurveyId);
+    }
+};
+
 Template.startSurvey.onRendered(function(){
     Session.set("surveyToStartId", null);
     Session.set("surveyStarted", null);
@@ -10,7 +31,6 @@ Template.startSurvey.onDestroyed(function(){
 
 Template.startSurvey.helpers({
     "surveys": function(){
-
         return surveys.find();
     },
     "numberOfQuestions": function(){
@@ -36,68 +56,8 @@ Template.startSurvey.events({
         }
     },
     "click #start-survey": function(e, t){
-        Session.set("surveyStarted", true);
-        Session.set("questionOrderNumber", 1);
+        newCompletedTool();
+        Router.go('/complete_survey/' + Session.get("currentCompletedSurveyId"));
     }
 });
 
-Template.question.helpers({
-    "currentQuestion": function(){
-        return questions.findOne({surveyId: Session.get("surveyToStartId"), orderNumber: Session.get("questionOrderNumber")});
-    },
-    "isTypeOpenEnded": function(){
-        var currentQuestionType = questionTypes.findOne({_id: this.typeId});
-        return currentQuestionType.name == "Open Ended";
-    },
-    "isSingleChoice": function(){
-        return this.choiceType == "Single";
-    },
-    "canNavigateBackward": function(){
-        var currentQuestionOrderNumber = Session.get("questionOrderNumber");
-        return currentQuestionOrderNumber > 1 ?  true : false;
-    },
-    "canNavigateForward": function(){
-        var currentSurveyQuestionsCount = questions.find({surveyId: Session.get("surveyToStartId")}).count();
-        var currentQuestionOrderNumber = Session.get("questionOrderNumber");
-        return currentQuestionOrderNumber < currentSurveyQuestionsCount ?  true : false;
-    },
-    "lastQuestion": function(){
-        var currentSurveyQuestionsCount = questions.find({surveyId: Session.get("surveyToStartId")}).count();
-        var currentQuestionOrderNumber = Session.get("questionOrderNumber");
-        return currentQuestionOrderNumber == currentSurveyQuestionsCount ?  true : false;
-    }
-});
-
-Template.question.events({
-    "click #next-question": function(e, t){
-        var currentQuestionOrderNumber = Session.get("questionOrderNumber");
-        Session.set("questionOrderNumber", currentQuestionOrderNumber + 1);
-    },
-    "click #previous-question": function(e, t){
-        var currentQuestionOrderNumber = Session.get("questionOrderNumber");
-        Session.set("questionOrderNumber", currentQuestionOrderNumber - 1);
-    }
-});
-
-Template.radioInput.onRendered(function(){
-    $.material.radio();
-});
-
-Template.radioInput.helpers({
-    "name": function(){
-        return Template.parentData(0).name;
-    }
-});
-
-Template.checkboxInput.onRendered(function(){
-    $.material.checkbox();
-});
-
-Template.checkboxInput.helpers({
-    "name": function(){
-        return Template.parentData(0).name;
-    },
-    "orderNumber": function(){
-        return Template.parentData(0).orderNumber;
-    }
-});

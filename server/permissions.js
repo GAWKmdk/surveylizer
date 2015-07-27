@@ -86,7 +86,34 @@ surveyors.allow({
     }
 });
 
+answers.allow({
+    insert: function(userId, doc){
+        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
+        return userId == completedSurvey.userId ? true : false;
+    },
+    update: function(userId, doc){
+        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
+        return userId == completedSurvey.userId ? true : false;
+    },
+    remove: function(userId, doc){
+        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
+        return userId == completedSurvey.userId ? true : false;
+    }
+});
+
 questions.allow({
+    insert: function(){
+        return true;
+    },
+    update: function(){
+        return true;
+    },
+    remove: function(){
+        return true;
+    }
+});
+
+completedSurveys.allow({
     insert: function(){
         return true;
     },
