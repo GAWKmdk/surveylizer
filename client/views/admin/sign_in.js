@@ -1,6 +1,6 @@
 Template.signIn.helpers({
-    "emailHasError": function(){
-        return Session.get("emailHasError") ? "has-error" : "";
+    "usernameHasError": function(){
+        return Session.get("usernameHasError") ? "has-error" : "";
     },
     "passwordHasError": function(){
         return Session.get("passwordHasError") ? "has-error" : "";
@@ -20,25 +20,25 @@ Template.signIn.events({
     "submit #sign-in-form": function(e, t){
         e.preventDefault();
 
-        // Get email and password values
-        var email = t.find("#sign-in-email").value,
+        // Get username and password values
+        var username = t.find("#sign-in-username").value,
         password = t.find("#sign-in-password").value;
 
         // Clear Error Sessions
         Session.set("errorMessage", null);
-        Session.set("emailHasError", null);
+        Session.set("usernameHasError", null);
         Session.set("passwordHasError", null);
 
         // Trim fields
-        email = trimInput(email);
+        username = trimInput(username);
         password = trimInput(password);
 
-        // Validate email field
+        // Validate username field
         try{
-            check(email, checkEmail);
+            check(username, nonEmptyString);
         } catch(e) {
-            Session.set("emailHasError", true);
-            Session.set("errorMessage", "Please provide a proper email.");
+            Session.set("usernameHasError", true);
+            Session.set("errorMessage", "Please provide a proper username.");
             return false;
         }
 
@@ -52,12 +52,12 @@ Template.signIn.events({
         }
 
         // If valid input provided, attempt Sign In with credentials
-        Meteor.loginWithPassword(email, password, function(err){
+        Meteor.loginWithPassword(username, password, function(err){
             // Check if error has occured
             if(err){
-                Session.set("emailHasError", "Incorrect");
+                Session.set("usernameHasError", "Incorrect");
                 Session.set("passwordHasError", "Incorrect");
-                Session.set("errorMessage", "The email/password combination is incorrect.");
+                Session.set("errorMessage", "The username/password combination is incorrect.");
             } else {
                 // Move the user to main page
                 Router.go("/");

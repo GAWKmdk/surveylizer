@@ -13,8 +13,9 @@ tsega:bootstrap3-datetimepicker
 accounts-password
 fezvrasta:bootstrap-material-design
 rochal:slimscroll
-rzymek:fullcalendar
 momentjs:moment
 msavin:jetsetter
 msavin:mongol
 jagi:astronomy
+accounts-base
+jagi:astronomy-validators

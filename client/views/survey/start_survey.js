@@ -6,7 +6,7 @@ newCompletedTool = function(){
         var currentCompletedSurveyId = completedSurveys.insert({
             surveyId: currentSurveyId,
             userId: currentUserId,
-            startDate: new Date().getTime(),
+            startDate: new Date(),
             endDate: null,
             status: settings.surveyStatusStarted,
             orderNumber: 1

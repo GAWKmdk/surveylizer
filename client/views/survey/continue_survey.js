@@ -22,3 +22,11 @@ Template.continueSurvey.events({
         Router.go('/complete_survey/' + Session.get("selectedCompletedSurveyId"));
     }
 });
+
+Template.continueSurvey.onRendered(function(){
+    Session.set("selectedCompletedSurveyId", null);
+});
+
+Template.continueSurvey.onDestroyed(function(){
+    Session.set("selectedCompletedSurveyId", null);
+});

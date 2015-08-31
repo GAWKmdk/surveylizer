@@ -3,7 +3,7 @@ completeSurvey = function(){
 
     if(surveyToCompleteId){
         completedSurveys.update({_id: surveyToCompleteId}, {$set: {
-            endDate: new Date().getTime(),
+            endDate: new Date(),
             status: settings.surveyStatusFinished
         }});
     }
@@ -17,13 +17,14 @@ newAnswer = function(questionId, value, choiceOrderNumber){
         questionId: questionId,
         value: value,
         choiceOrderNumber: choiceOrderNumber,
-        answeredOn: new Date().getTime()
+        answeredOn: new Date()
     };
 
     var previousAnswer = answers.findOne({
         completedSurveyId: answer.completedSurveyId,
         userId: answer.userId,
-        questionId: answer.questionId
+        questionId: answer.questionId,
+        choiceOrderNumber: answer.choiceOrderNumber
     });
 
     if(previousAnswer){
@@ -80,7 +81,8 @@ Template.question.helpers({
     "previousAnswer": function(){
         var previousAnswer = this.answer(Session.get("surveyToCompleteId"));
         return previousAnswer ? previousAnswer.value : null;
-    }
+    },
+
 });
 
 Template.question.events({
@@ -109,8 +111,22 @@ Template.radioInput.onRendered(function(){
 });
 
 Template.radioInput.helpers({
-    "name": function(){
-        return Template.parentData(0).name;
+    "previousChoice": function(choiceOrderNumber){
+        var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
+        return previousChoice ? "checked" : "";
+    }
+});
+
+Template.radioInput.events({
+    "change input": function(e, t){
+        if(!e.currentTarget.checked){
+            var choiceOrderNumber = e.currentTarget.dataset.orderNumber;
+            var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
+            if(previousChoice){
+                // Remove answer from collection
+                answers.remove({_id: previousChoice._id});
+            }
+        }
     }
 });
 
@@ -119,10 +135,22 @@ Template.checkboxInput.onRendered(function(){
 });
 
 Template.checkboxInput.helpers({
-    "name": function(){
-        return Template.parentData(0).name;
-    },
-    "orderNumber": function(){
-        return Template.parentData(0).orderNumber;
+    "previousChoice": function(choiceOrderNumber){
+        var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
+        return previousChoice ? "checked" : "";
+    }
+});
+
+Template.checkboxInput.events({
+    "change input": function(e, t){
+        if(!e.currentTarget.checked){
+            var choiceOrderNumber = e.currentTarget.dataset.orderNumber;
+            var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
+            if(previousChoice){
+                // Remove answer from collection
+                answers.remove({_id: previousChoice._id});
+            }
+
+        }
     }
 });

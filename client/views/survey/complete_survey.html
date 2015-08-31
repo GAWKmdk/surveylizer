@@ -52,7 +52,7 @@
 <template name="radioInput">
     <div class="radio radio-primary">
         <label>
-            <input type="radio" name="answer" value="{{name}}" data-order-number="{{orderNumber}}"/>
+            <input type="radio" name="answer" value="{{name}}" data-order-number="{{orderNumber}}" {{previousChoice orderNumber}} />
             {{orderNumber}}. {{name}}
         </label>
     </div>
@@ -61,7 +61,7 @@
 <template name="checkboxInput">
     <div class="checkbox checkbox-primary">
         <label>
-            <input type="checkbox" name="answer" value="{{name}}" data-order-number="{{orderNumber}}"/>
+            <input type="checkbox" name="answer" value="{{name}}" data-order-number="{{orderNumber}}" {{previousChoice orderNumber}} />
             {{orderNumber}}. {{name}}
         </label>
     </div>

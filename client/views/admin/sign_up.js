@@ -1,6 +1,6 @@
 Template.signUp.helpers({
-    "emailHasError": function(){
-        return Session.get("emailHasError") ? "has-error" : "";
+    "usernameHasError": function(){
+        return Session.get("usernameHasError") ? "has-error" : "";
     },
     "passwordHasError": function(){
         return Session.get("passwordHasError") ? "has-error" : "";
@@ -35,8 +35,8 @@ Template.signUp.events({
     "submit #sign-up-form": function(e, t){
         e.preventDefault();
 
-        // Get email and password values
-        var email = t.find("#sign-up-email").value,
+        // Get username and password values
+        var username = t.find("#sign-up-username").value,
             password = t.find("#sign-up-password").value,
             firstName = t.find("#sign-up-first-name").value,
             lastName = t.find("#sign-up-last-name").value,
@@ -47,7 +47,7 @@ Template.signUp.events({
 
         // Clear Error Sessions
         Session.set("errorMessage", null);
-        Session.set("emailHasError", null);
+        Session.set("usernameHasError", null);
         Session.set("passwordHasError", null);
         Session.set("firstNameHasError", null);
         Session.set("lastNameHasError", null);
@@ -57,7 +57,7 @@ Template.signUp.events({
         Session.set("postalCodeHasError", null);
 
         // Trim fields
-        email = trimInput(email);
+        username = trimInput(username);
         password = trimInput(password);
         firstName = trimInput(firstName);
         lastName = trimInput(lastName);
@@ -69,12 +69,12 @@ Template.signUp.events({
         // Errors Array
         var errors = [];
 
-        // Validate email field
+        // Validate username field
         try{
-            check(email, checkEmail);
+            check(username, nonEmptyString);
         } catch(e) {
-            Session.set("emailHasError", true);
-            errors.push("A proper <em>Email</em> is required.");
+            Session.set("usernameHasError", true);
+            errors.push("A proper <em>Username</em> is required.");
         }
 
         // Validate first name field
@@ -188,26 +188,24 @@ Template.signUp.events({
 
         // New user document
         var userDoc = {
-            email: email,
+            username: username,
             password: password,
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            city: city,
-            state: state,
-            postalCode: postalCode
+            profile: {
+                firstName: firstName,
+                lastName: lastName,
+                address: address,
+                city: city,
+                state: state,
+                postalCode: postalCode
+            }
         };
 
         // If valid input provided, create user and login to system
         Accounts.createUser(userDoc, function(err){
           if (err) {
-            // Handle any errors, also checks for uniqueness of email address
+            // Handle any errors, also checks for uniqueness of username address
             Session.set("errorMessage", err.reason);
           } else {
-
-            // Send email verification message
-            Meteor.call("sendEmailVerificationMessage");
-
             // Redirect to main page on successful user account creation
             Router.go("/");
           }
