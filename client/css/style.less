@@ -7,6 +7,13 @@ body {
 }
 
 nav.navbar{
+  a#sidebar-toggle{
+    float: left;
+    font-size: 2em;
+    font-weight: lighter;
+    color: #fff;
+    padding: 10px 15px;
+  }
   a.navbar-brand{
     font-family: sans-serif;
     font-size: 2em;
@@ -18,10 +25,10 @@ nav.navbar{
 aside#sidebar{
   position: absolute;
   left: 0;
-  top: 0;
+  top: 60px;
   bottom: 0;
-  padding: 60px 0 0 0;
   background: #2d353c;
+  padding: 0 0 0 0;
   color: #afafaf;
   z-index: 10;
   -webkit-transform: translateZ(0);
@@ -99,6 +106,7 @@ aside#sidebar{
     }
   }
 }
+
 table.table{
   thead{
     tr{
