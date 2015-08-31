@@ -1,1 +1,3 @@
-# Hotel Management System
+# Surveylizer
+
+A survey data collection and analysis tool. TOC
