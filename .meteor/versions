@@ -11,6 +11,7 @@ blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
 check@1.0.5
+chrismbeckett:toastr@2.1.2_1
 dburles:mongo-collection-instances@0.3.3
 ddp@1.1.0
 deps@1.0.7
@@ -75,6 +76,7 @@ stylus@1.0.7
 templating@1.1.1
 tracker@1.0.7
 tsega:bootstrap3-datetimepicker@4.7.14_4
+tsega:filter-collections@0.1.5
 twbs:bootstrap@3.3.4
 ui@1.0.6
 underscore@1.0.3

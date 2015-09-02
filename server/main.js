@@ -29,7 +29,7 @@ Meteor.startup(function(){
     //Create the Super Administrators user if it does not exist
     if(Meteor.users.find({username: "Admin"}).count() == 0){
         // Get the Admin Role
-        var adminRoleId = roles.findOne({name: "Administrator"});
+        var adminRole = roles.findOne({name: "Administrator"});
         // Create the Administrator User
         Accounts.createUser({
             username: "Admin",
@@ -37,7 +37,7 @@ Meteor.startup(function(){
             profile: {
                 firstName: "Super",
                 lastName: "Admin",
-                roleId: adminRoleId,
+                roleId: adminRole._id,
                 address: "N/A",
                 city: "N/A",
                 state: "N/A",

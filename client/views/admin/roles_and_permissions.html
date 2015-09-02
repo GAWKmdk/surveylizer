@@ -62,7 +62,7 @@
                         <tbody>
                         {{#each permissions}}
                         <tr class="{{selectedPermission}}">
-                            <td>{{name}}</td>
+                            <td>{{ module }} - {{ operation }}</td>
                         </tr>
                         {{/each}}
                         </tbody>
@@ -104,7 +104,7 @@
                                         <select id="available-permission" class="form-control">
                                             <option value="empty" disabled selected>--Select Permission--</option>
                                             {{#each availablePermissions}}
-                                                <option value="{{_id}}">{{name}}</option>
+                                                <option value="{{_id}}">{{ module }} - {{ operation }}</option>
                                             {{/each}}
                                         </select>
                                         <span class="input-group-addon"><i id="add-permission-button" class="fa fa-plus" data-form-type="role"></i></span>

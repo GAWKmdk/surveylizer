@@ -24,30 +24,6 @@ Template.newUserModal.helpers({
     "userRoles": function(){
         return roles.find();
     },
-    "emailHasError": function(){
-        return Session.get("emailHasError") ? "has-error" : "";
-    },
-    "passwordHasError": function(){
-        return Session.get("passwordHasError") ? "has-error" : "";
-    },
-    "firstNameHasError": function(){
-        return Session.get("firstNameHasError") ? "has-error" : "";
-    },
-    "lastNameHasError": function(){
-        return Session.get("lastNameHasError") ? "has-error" : "";
-    },
-    "addressHasError": function(){
-        return Session.get("addressHasError") ? "has-error" : "";
-    },
-    "cityHasError": function(){
-        return Session.get("cityHasError") ? "has-error" : "";
-    },
-    "stateHasError": function(){
-        return Session.get("stateHasError") ? "has-error" : "";
-    },
-    "zipCodeHasError": function(){
-        return Session.get("zipCodeHasError") ? "has-error" : "";
-    },
     "hasErrors": function(){
         return Session.get("errorMessage") ? true : false;
     },
@@ -60,190 +36,33 @@ Template.newUserModal.events({
     "submit #new-user-modal form": function(e, t){
         e.preventDefault();
 
-        // Get email and password values
-        var email = t.find("#new-user-email").value,
-            password = t.find("#new-user-password").value,
-            roleId = t.find("#new-user-role").value,
-            firstName = t.find("#new-user-first-name").value,
-            lastName = t.find("#new-user-last-name").value,
-            address = t.find("#new-user-address").value,
-            city = t.find("#new-user-city").value,
-            state = t.find("#new-user-state").value,
-            postalCode = t.find("#new-user-postal-code").value;
-
-        // Clear Error Sessions
-        Session.set("errorMessage", null);
-        Session.set("emailHasError", null);
-        Session.set("passwordHasError", null);
-        Session.set("roleHasError", null);
-        Session.set("firstNameHasError", null);
-        Session.set("lastNameHasError", null);
-        Session.set("addressHasError", null);
-        Session.set("cityHasError", null);
-        Session.set("stateHasError", null);
-        Session.set("postalCodeHasError", null);
-
-        // Trim fields
-        email = trimInput(email);
-        password = trimInput(password);
-        roleId = trimInput(roleId);
-        firstName = trimInput(firstName);
-        lastName = trimInput(lastName);
-        address = trimInput(address);
-        city = trimInput(city);
-        state = trimInput(state);
-        postalCode = trimInput(postalCode);
-
-        // Errors Array
-        var errors = [];
-
-        // Validate email field
-        try{
-            check(email, checkEmail);
-        } catch(e) {
-            Session.set("emailHasError", true);
-            errors.push("A proper <em>Email</em> is required.");
-        }
-
-        // Validate role field
-        try{
-            check(roleId, nonEmptyString);
-        } catch(e) {
-            Session.set("roleHasError", true);
-            errors.push("<em>Role</em> is required.");
-        }
-
-        // Validate first name field
-        try{
-            check(firstName, nonEmptyString);
-        } catch(e) {
-            Session.set("firstNameHasError", true);
-            errors.push("<em>First Name</em> is required.");
-        }
-
-        // Validate last name field
-        try{
-            check(lastName, nonEmptyString);
-        } catch(e) {
-            Session.set("lastNameHasError", true);
-            errors.push("<em>Last Name</em> is required.");
-        }
-
-        //// Validate address field
-        //try{
-        //    check(address, nonEmptyString);
-        //} catch(e) {
-        //    Session.set("addressHasError", true);
-        //    errors.push("Your <em>Address</em> is required.");
-        //}
-        //
-        //// Validate city field
-        //try{
-        //    check(city, nonEmptyString);
-        //} catch(e) {
-        //    Session.set("cityHasError", true);
-        //    errors.push("Your <em>City</em> is required.");
-        //}
-        //
-        //// Validate state field
-        //try{
-        //    check(state, nonEmptyString);
-        //} catch(e) {
-        //    Session.set("stateHasError", true);
-        //    errors.push("Your <em>State</em> is required.");
-        //}
-        //
-        //// Validate postal code field
-        //try{
-        //    check(postalCode, nonEmptyString);
-        //} catch(e) {
-        //    Session.set("postalCodeHasError", true);
-        //    errors.push("Your <em>postal Code</em> is required.");
-        //}
-
-        // Check if the password field contains at least one lowercase alphabet
-        try{
-            check(password, passwordLowercase);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to include at least <em>1 Lowercase</em> Alphabet.");
-        }
-
-        // Check if the password field contains at least one uppercase alphabet
-        try{
-            check(password, passwordUppercase);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to include at least <em>1 Uppercase</em> Alphabet.");
-        }
-
-        // Check if the password field contains at least one number
-        try{
-            check(password, passwordNumber);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to include at least <em>1 Number.</em>");
-        }
-
-        // Check if the password field contains at least one special alphabet
-        try{
-            check(password, passwordSpecialCharacter);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to include at least <em>1 Special Character.</em>");
-        }
-
-        // Check if the password is at least 8 characters long
-        try{
-            check(password, passwordMinLength);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to be a minimum of <em>8 characters.</em>");
-        }
-
-        // Check if the password is at most 14 characters long
-        try{
-            check(password, passwordMaxLength);
-        } catch(e) {
-            Session.set("passwordHasError", true);
-            errors.push("Password needs to be a maximum of <em>14 characters</em>");
-        }
-
-        // Check if there are any errors
-        if(errors.length){
-            var error_messages = "";
-            _.each(errors, function(error){
-                error_messages += "<li>"+error+"</li>";
-            });
-            Session.set("errorMessage", "Please correct the following errors:" +
-                "<ul>" +
-                error_messages +
-                "</ul>");
-            return false;
-        }
-
         // New user document
         var userDoc = {
-            email: email,
-            password: password,
-            roleId: roleId,
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            city: city,
-            state: state,
-            postalCode: postalCode
+            username: t.find("#new-user-username").value,
+            password: t.find("#new-user-password").value,
+            profile: {
+                roleId: t.find("#new-user-role").value != "empty" ? t.find("#new-user-role").value : "",
+                firstName: t.find("#new-user-first-name").value,
+                lastName: t.find("#new-user-last-name").value,
+                address: t.find("#new-user-address").value,
+                city: t.find("#new-user-city").value,
+                state: t.find("#new-user-state").value,
+                postalCode: t.find("#new-user-postal-code").value
+            }
         };
 
-        // If valid input provided, create user and login to system
-        Accounts.createUser(userDoc, function(err){
-            if (err) {
-                // Handle any errors, also checks for uniqueness of email address
-                Session.set("errorMessage", err.reason);
-            } else {
-                $("#new-user-modal").modal('hide');
-            }
-        });
+        this.user.set(userDoc);
+
+        if(this.user.validateAll()){
+            Meteor.call('addNewUser', userDoc, function(err){
+                if(err){
+                    Session.set("errorMessage", err.reason);
+                } else {
+                    $("#new-user-modal").modal('hide');
+                    toastr.success("User successfully created!");
+                }
+            });
+        }
 
         // Prevent form reload
         return false;
@@ -256,30 +75,6 @@ Template.editUserModal.helpers({
     },
     "selectedRole": function(roleId){
         return Template.parentData(1).profile.roleId == roleId ? "selected" : "";
-    },
-    "emailHasError": function(){
-        return Session.get("emailHasError") ? "has-error" : "";
-    },
-    "passwordHasError": function(){
-        return Session.get("passwordHasError") ? "has-error" : "";
-    },
-    "firstNameHasError": function(){
-        return Session.get("firstNameHasError") ? "has-error" : "";
-    },
-    "lastNameHasError": function(){
-        return Session.get("lastNameHasError") ? "has-error" : "";
-    },
-    "addressHasError": function(){
-        return Session.get("addressHasError") ? "has-error" : "";
-    },
-    "cityHasError": function(){
-        return Session.get("cityHasError") ? "has-error" : "";
-    },
-    "stateHasError": function(){
-        return Session.get("stateHasError") ? "has-error" : "";
-    },
-    "zipCodeHasError": function(){
-        return Session.get("zipCodeHasError") ? "has-error" : "";
     },
     "hasErrors": function(){
         return Session.get("errorMessage") ? true : false;
@@ -417,6 +212,8 @@ Template.deleteUserModal.events({
                     Session.set("errorMessage", err.reason);
                 } else {
                     $("#delete-user-modal").modal('hide');
+                    Session.set("selectedUserId", null);
+                    toastr.success("User successfully deleted!");
                 }
             });
         }
