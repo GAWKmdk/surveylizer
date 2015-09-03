@@ -53,3 +53,13 @@ passwordMaxLength = Match.Where(function(password){
     check(password, nonEmptyString);
     return password.length < 14;
 });
+
+getErrorMessage = function(errorObject){
+    var message = "";
+    for (var key in errorObject) {
+        if (errorObject.hasOwnProperty(key)) {
+            message += errorObject[key] + "</br>";
+        }
+    }
+    return message;
+};
