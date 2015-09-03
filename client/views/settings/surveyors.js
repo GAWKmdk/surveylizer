@@ -21,30 +21,34 @@ Template.surveyors.events({
     "submit #new-surveyor-form": function(e, t){
         e.preventDefault();
 
-        var firstName = t.find("#new-surveyor-first-name").value,
-            lastName = t.find("#new-surveyor-last-name").value,
-            position = t.find("#new-surveyor-position").value,
-            email = t.find("#new-surveyor-email").value,
-            telephone = t.find("#new-surveyor-telephone").value;
+        var surveyorDoc = {
+            firstName: t.find("#new-surveyor-first-name").value,
+            lastName: t.find("#new-surveyor-last-name").value,
+            position: t.find("#new-surveyor-position").value,
+            email: t.find("#new-surveyor-email").value,
+            telephone: t.find("#new-surveyor-telephone").value
+        };
 
-        if(firstName && lastName && position && email && telephone){
-            surveyors.insert({
-                firstName: firstName,
-                lastName: lastName,
-                position: position,
-                email: email,
-                telephone: telephone
-            });
+        this.surveyor.set(surveyorDoc);
+
+
+        if(this.surveyor.validateAll()){
+            this.surveyor.save();
+            toastr.success("Surveyor successfully created!");
         }
 
         // Prevent form reload
         return false;
+    },
+    "click button.clear": function(e, t){
+        t.find("#new-surveyor-form").reset();
     }
 });
 
 Template.editSurveyorModal.helpers({
     "selectedSurveyor": function(){
-        return surveyors.findOne({_id: Session.get("selectedSurveyorId")});
+        this.selectedSurveyor = surveyors.findOne({_id: Session.get("selectedSurveyorId")});
+        return this.selectedSurveyor;
     }
 });
 
@@ -52,35 +56,29 @@ Template.editSurveyorModal.events({
     "submit #edit-surveyor-modal form": function(e, t){
         e.preventDefault();
 
-        var firstName = t.find("#edit-surveyor-first-name").value,
-            lastName = t.find("#edit-surveyor-last-name").value,
-            position = t.find("#edit-surveyor-position").value,
-            email = t.find("#edit-surveyor-email").value,
-            telephone = t.find("#edit-surveyor-telephone").value;
+        var selectedSurveyorId = Session.get("selectedSurveyorId");
 
-        if(firstName && lastName && position && email && telephone){
+        if(selectedSurveyorId){
 
-            var doc = {
-                firstName: firstName,
-                lastName: lastName,
-                position: position,
-                email: email,
-                telephone: telephone
+            var surveyorDoc = {
+                _id: selectedSurveyorId,
+                firstName: t.find("#edit-surveyor-first-name").value,
+                lastName: t.find("#edit-surveyor-last-name").value,
+                position: t.find("#edit-surveyor-position").value,
+                email: t.find("#edit-surveyor-email").value,
+                telephone: t.find("#edit-surveyor-telephone").value
             };
 
-            var selectedSurveyorId = Session.get("selectedSurveyorId");
+            this.selectedSurveyor.set(surveyorDoc);
 
-            if(selectedSurveyorId){
-                surveyors.update({_id: selectedSurveyorId}, {$set: doc}, function(err){
-                    if (err) {
-                        // Handle any errors, also checks for uniqueness of email address
-                        Session.set("errorMessage", err.reason);
-                    } else {
-                        $("#edit-surveyor-modal").modal('hide');
-                    }
-                });
+
+            if(this.selectedSurveyor.validateAll()){
+                this.selectedSurveyor.save();
+                $("#edit-surveyor-modal").modal('hide');
+                toastr.success("Surveyor successfully edited!");
             }
         }
+
 
         // Prevent form reload
         return false;
@@ -92,7 +90,7 @@ Template.deleteSurveyorModal.helpers({
         return surveyors.findOne({_id: Session.get("selectedSurveyorId")});
     },
     "fullName": function(){
-        return this.fistName + " " + this.lastName;
+        return this.firstName + " " + this.lastName;
     }
 });
 
@@ -105,12 +103,14 @@ Template.deleteSurveyorModal.events({
         if(selectedSurveyorId){
             surveyors.remove({_id: selectedSurveyorId}, function(err){
                 if (err) {
-                    // Handle any errors, also checks for uniqueness of email address
-                    Session.set("errorMessage", err.reason);
+                    toastr.error(err.reason);
                 } else {
                     $("#delete-surveyor-modal").modal('hide');
+                    toastr.success("Surveyor successfully deleted!");
                 }
             });
+
+            Session.set("selectedSurveyorId", null);
         }
 
         // Prevent form reload

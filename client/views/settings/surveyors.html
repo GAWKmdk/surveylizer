@@ -6,31 +6,53 @@
                     <h4>Add New Surveyor</h4>
                 </div>
                 <form id="new-surveyor-form">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="sr-only" for="new-surveyor-first-name">First Name</label>
-                            <input id="new-surveyor-first-name" class="form-control" name="newSurveyorFirstName"  placeholder="First Name" />
+                    {{#with surveyor}}
+                        <div class="panel-body">
+                            <div class="form-group {{#if hasValidationError 'firstName'}} has-error {{/if}}">
+                                <label class="sr-only" for="new-surveyor-first-name">First Name</label>
+                                <input id="new-surveyor-first-name" class="form-control" name="newSurveyorFirstName"
+                                       placeholder="First Name"/>
+                                {{#if hasValidationError 'firstName'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'firstName'}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="form-group {{#if hasValidationError 'lastName'}} has-error {{/if}}">
+                                <label class="sr-only" for="new-surveyor-last-name">Last Name</label>
+                                <input id="new-surveyor-last-name" class="form-control" name="newSurveyorLastName"
+                                       placeholder="Last Name"/>
+                                {{#if hasValidationError 'lastName'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'lastName'}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="form-group {{#if hasValidationError 'email'}} has-error {{/if}}">
+                                <label class="sr-only" for="new-surveyor-email">Email</label>
+                                <input id="new-surveyor-email" class="form-control" name="newSurveyorEmail"
+                                       placeholder="Email"/>
+                                {{#if hasValidationError 'email'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'email'}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="form-group {{#if hasValidationError 'telephone'}} has-error {{/if}}">
+                                <label class="sr-only" for="new-surveyor-telephone">Telephone</label>
+                                <input id="new-surveyor-telephone" class="form-control" name="newSurveyorTelephone"
+                                       placeholder="Telephone"/>
+                                {{#if hasValidationError 'telephone'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'telephone'}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="form-group {{#if hasValidationError 'position'}} has-error {{/if}}">
+                                <label class="sr-only" for="new-surveyor-position">Position</label>
+                                <input id="new-surveyor-position" class="form-control" name="newSurveyorPosition"
+                                       placeholder="Position"/>
+                                {{#if hasValidationError 'position'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'position'}}</span>
+                                {{/if}}
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="new-surveyor-last-name">Last Name</label>
-                            <input id="new-surveyor-last-name" class="form-control" name="newSurveyorLastName"  placeholder="Last Name" />
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="new-surveyor-position">Position</label>
-                            <input id="new-surveyor-position" class="form-control" name="newSurveyorPosition"  placeholder="Position" />
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="new-surveyor-email">Email</label>
-                            <input id="new-surveyor-email" class="form-control" name="newSurveyorEmail"  placeholder="Email" />
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="new-surveyor-telephone">Telephone</label>
-                            <input id="new-surveyor-telephone" class="form-control" name="newSurveyorTelephone"  placeholder="Telephone" />
-                        </div>
-                    </div>
+                    {{/with}}
                     <div class="panel-footer text-right">
                         <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                        <button class="btn btn-sm btn-danger" type="button"><i class="fa fa-eraser"></i> Clear</button>
+                        <button class="btn btn-sm btn-danger clear" type="button"><i class="fa fa-eraser"></i> Clear</button>
                     </div>
                 </form>
             </div>
@@ -39,11 +61,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Available Surveyors</h4>
+
                     <div class="pull-right">
                         <form id="new-role-form" class="form-inline">
                             <div class="input-group">
-                                <input id="search-surveyor" type="text" class="form-control" data-form-type="role" aria-label="Search surveyor" placeholder="Search">
-                                <span class="input-group-addon"><i class="fa fa-search" data-form-type="role"></i></span>
+                                <input id="search-surveyor" type="text" class="form-control" data-form-type="role"
+                                       aria-label="Search surveyor" placeholder="Search">
+                                <span class="input-group-addon"><i class="fa fa-search"
+                                                                   data-form-type="role"></i></span>
                             </div>
                         </form>
                     </div>
@@ -72,8 +97,10 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isSurveyorSelected}}
-                        <a type="button" class="btn btn-sm btn-warning btn-raised" data-toggle="modal" data-target="#edit-surveyor-modal"><i class="fa fa-pencil"></i> Edit</a>
-                        <a type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal" data-target="#delete-surveyor-modal"><i class="fa fa-times"></i> Delete</a>
+                        <a type="button" class="btn btn-sm btn-warning btn-raised" data-toggle="modal"
+                           data-target="#edit-surveyor-modal"><i class="fa fa-pencil"></i> Edit</a>
+                        <a type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
+                           data-target="#delete-surveyor-modal"><i class="fa fa-times"></i> Delete</a>
                     {{/if}}
                 </div>
             </div>
@@ -94,31 +121,55 @@
                     </div>
                     <div class="modal-body">
                         {{#with selectedSurveyor}}
-                            <div class="form-group">
+                            <div class="form-group {{#if hasValidationError 'firstName'}} has-error {{/if}}">
                                 <label class="sr-only" for="edit-surveyor-first-name">First Name</label>
-                                <input id="edit-surveyor-first-name" class="form-control" name="editSurveyorFirstName"  placeholder="First Name" value="{{firstName}}" />
+                                <input id="edit-surveyor-first-name" class="form-control" name="editSurveyorFirstName"
+                                       placeholder="First Name" value="{{firstName}}"/>
+                                {{#if hasValidationError 'firstName'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'firstName'}}</span>
+                                {{/if}}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{#if hasValidationError 'lastName'}} has-error {{/if}}">
                                 <label class="sr-only" for="edit-surveyor-last-name">Last Name</label>
-                                <input id="edit-surveyor-last-name" class="form-control" name="editSurveyorLastName"  placeholder="Last Name" value="{{lastName}}"/>
+                                <input id="edit-surveyor-last-name" class="form-control" name="editSurveyorLastName"
+                                       placeholder="Last Name" value="{{lastName}}"/>
+                                {{#if hasValidationError 'lastName'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'lastName'}}</span>
+                                {{/if}}
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="edit-surveyor-position">Position</label>
-                                <input id="edit-surveyor-position" class="form-control" name="editSurveyorPosition"  placeholder="Position"  value="{{position}}" />
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group {{#if hasValidationError 'email'}} has-error {{/if}}">
                                 <label class="sr-only" for="edit-surveyor-email">Email</label>
-                                <input id="edit-surveyor-email" class="form-control" name="editSurveyorEmail"  placeholder="Email"  value="{{email}}"/>
+                                <input id="edit-surveyor-email" class="form-control" name="editSurveyorEmail"
+                                       placeholder="Email" value="{{email}}"/>
+                                {{#if hasValidationError 'email'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'email'}}</span>
+                                {{/if}}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{#if hasValidationError 'telephone'}} has-error {{/if}}">
                                 <label class="sr-only" for="edit-surveyor-telephone">Telephone</label>
-                                <input id="edit-surveyor-telephone" class="form-control" name="editSurveyorTelephone"  placeholder="Telephone"  value="{{telephone}}" />
+                                <input id="edit-surveyor-telephone" class="form-control" name="editSurveyorTelephone"
+                                       placeholder="Telephone" value="{{telephone}}"/>
+                                {{#if hasValidationError 'telephone'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'telephone'}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="form-group {{#if hasValidationError 'position'}} has-error {{/if}}">
+                                <label class="sr-only" for="edit-surveyor-position">Position</label>
+                                <input id="edit-surveyor-position" class="form-control" name="editSurveyorPosition"
+                                       placeholder="Position" value="{{position}}"/>
+                                {{#if hasValidationError 'position'}}
+                                    <span class="helper-block small has-error">{{getValidationError 'position'}}</span>
+                                {{/if}}
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7" ><i class="fa fa-floppy-o"></i> Save</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7"><i class="fa fa-floppy-o"></i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
+                                class="fa fa-times"></i> Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -144,7 +195,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-check"></i> Accept</button>
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i
+                                class="fa fa-times"></i> Cancel
+                        </button>
                     </div>
                 </div>
             </div>
