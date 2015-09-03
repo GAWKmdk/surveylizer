@@ -16,39 +16,72 @@
                                     <strong>Error!</strong> {{{ errors }}}
                                 </div>
                             {{/if}}
-
-                            <div id="trial">
-                                <div class="form-group {{#if usernameHasError}} has-error {{/if}}">
-                                    <input  id="sign-up-username" class="form-control" type="text" placeholder="Username" value="">
+                            {{#with user}}
+                                <div>
+                                    <div class="form-group {{#if hasValidationError 'username'}} has-error {{/if}}">
+                                        <input id="sign-up-username" class="form-control" type="text"
+                                               placeholder="Username" value="">
+                                        {{#if hasValidationError 'username'}}
+                                            <span class="helper-block small has-error">{{getValidationError 'username'}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <div class="form-group {{#if hasValidationError 'password'}} has-error {{/if}}">
+                                        <input id="sign-up-password" class="form-control" type="password"
+                                               placeholder="Password">
+                                        <span class="help-block small">
+                                            Password should be 8-14 characters long and contain a lowercase and an uppercase
+                                            letter, at least one number (0-9) and a special character of either ()!#$^*_|
+                                        </span>
+                                        {{#if hasValidationError 'password'}}
+                                            <span class="helper-block small has-error">{{getValidationError 'password'}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group {{#if hasValidationError 'profile.firstName'}} has-error {{/if}}">
+                                            <input id="sign-up-first-name" class="form-control" type="text"
+                                                   placeholder="First Name" value="">
+                                            {{#if hasValidationError 'profile.firstName'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.firstName'}}</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-md-6 form-group {{#if hasValidationError 'profile.lastName'}} has-error {{/if}}">
+                                            <input id="sign-up-last-name" class="form-control" type="text"
+                                                   placeholder="Last Name" value="">
+                                            {{#if hasValidationError 'profile.lastName'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.lastName'}}</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-md-12 form-group {{#if hasValidationError 'profile.address'}} has-error {{/if}}">
+                                            <input id="sign-up-address" class="form-control" type="text"
+                                                   placeholder="Address" value="">
+                                            {{#if hasValidationError 'profile.address'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.address'}}</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-md-4 form-group {{#if hasValidationError 'profile.city'}} has-error {{/if}}">
+                                            <input id="sign-up-city" class="form-control" type="text" placeholder="City"
+                                                   value="">
+                                            {{#if hasValidationError 'profile.city'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.city'}}</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-md-5 form-group {{#if hasValidationError 'profile.state'}} has-error {{/if}}">
+                                            <input id="sign-up-state" class="form-control" type="text"
+                                                   placeholder="State" value="">
+                                            {{#if hasValidationError 'profile.state'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.state'}}</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-md-3 form-group {{#if hasValidationError 'profile.postalCode'}} has-error {{/if}}">
+                                            <input id="sign-up-postal-code" class="form-control" type="text"
+                                                   placeholder="Postal Code" value="">
+                                            {{#if hasValidationError 'profile.postalCode'}}
+                                                <span class="helper-block small has-error">{{getValidationError 'profile.postalCode'}}</span>
+                                            {{/if}}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group {{#if passwordHasError}} has-error {{/if}}">
-                                    <input id="sign-up-password" class="form-control" type="password" placeholder="Password">
-                            <span class="help-block small">
-                                 Password should be 8-14 characters long and contain a lowercase and an uppercase letter, at least one number (0-9) and a special character of either ()!#$^*_|
-                            </span>
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-6 form-group {{#if firstNameHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-first-name" class="form-control" type="text" placeholder="First Name" value="">
-                                    </div>
-                                    <div class="col-md-6 form-group {{#if lastNameHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-last-name" class="form-control" type="text" placeholder="Last Name" value="">
-                                    </div>
-                                    <div class="col-md-12 form-group {{#if addressHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-address" class="form-control" type="text" placeholder="Address" value="">
-                                    </div>
-                                    <div class="col-md-4 form-group {{#if cityHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-city" class="form-control" type="text" placeholder="City" value="">
-                                    </div>
-                                    <div class="col-md-5 form-group {{#if stateHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-state" class="form-control" type="text" placeholder="State" value="">
-                                    </div>
-                                    <div class="col-md-3 form-group {{#if postalCodeHasError}} has-error {{/if}}">
-                                        <input  id="sign-up-postal-code" class="form-control" type="text" placeholder="Postal Code" value="">
-                                    </div>
-                                </div>
-                            </div>
+                            {{/with}}
                         </div>
                         <div class="panel-footer text-right">
                             <button type="submit" class="btn btn-sm btn-primary" tabindex="7">Sign Up</button>

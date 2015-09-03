@@ -11,11 +11,14 @@ Template.signUp.events({
     "submit #sign-up-form": function(e, t){
         e.preventDefault();
 
+        var surveyorRole = roles.findOne({name: "Surveyor"});
+
         // New user document
         var userDoc = {
             username: t.find("#sign-up-username").value,
             password: t.find("#sign-up-password").value,
             profile: {
+                roleId: surveyorRole._id,
                 firstName: t.find("#sign-up-first-name").value,
                 lastName: t.find("#sign-up-last-name").value,
                 address: t.find("#sign-up-address").value,
@@ -25,9 +28,9 @@ Template.signUp.events({
             }
         };
 
-        var newUser = new User(userDoc);
+        this.user.set(userDoc);
 
-        if(newUser.validateAll()) {
+        if(this.user.validateAll()) {
             // If valid input provided, create user and login to system
             Accounts.createUser(userDoc, function (err) {
                 if (err) {

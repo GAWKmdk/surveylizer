@@ -14,16 +14,26 @@ Meteor.startup(function(){
 
     // Create the Administrator Role if it does not exist
     if(roles.find({name: "Administrator"}).count() == 0){
-        // Create the Administrator Role
         var adminRole = {
             name: "Administrator",
             permissions: []
         };
-        var permissionIds = permissions.find({}, {_id: 1});
+
+        // Add all permission available
+        var permissionIds = permissions.find({}, {_id: 1}).fetch();
         for(var k=0; k < permissionIds.length; k++){
             adminRole.permissions.push(permissionIds[k]._id);
         }
         roles.insert(adminRole);
+    }
+
+    // Create the Surveyor Role if it does not exist
+    if(roles.find({name: "Surveyor"}).count() == 0){
+        var surveyorRole = {
+            name: "Surveyor",
+            permissions: []
+        };
+        roles.insert(surveyorRole);
     }
 
     //Create the Super Administrators user if it does not exist

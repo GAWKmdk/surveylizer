@@ -83,7 +83,8 @@ Template.editUserModal.helpers({
         return Session.get("errorMessage");
     },
     "selectedUser": function(){
-        return Meteor.users.findOne({_id: Session.get("selectedUserId")});
+        this.selectedUser = Meteor.users.findOne({_id: Session.get("selectedUserId")});
+        return this.selectedUser;
     }
 });
 
@@ -91,97 +92,42 @@ Template.editUserModal.events({
     "submit #edit-user-modal form": function(e, t){
         e.preventDefault();
 
-        // Get profile values
-        var roleId = t.find("#edit-user-role").value,
-            firstName = t.find("#edit-user-first-name").value,
-            lastName = t.find("#edit-user-last-name").value,
-            address = t.find("#edit-user-address").value,
-            city = t.find("#edit-user-city").value,
-            state = t.find("#edit-user-state").value,
-            postalCode = t.find("#edit-user-postal-code").value;
-
-        // Clear Error Sessions
-        Session.set("errorMessage", null);
-        Session.set("roleHasError", null);
-        Session.set("firstNameHasError", null);
-        Session.set("lastNameHasError", null);
-        Session.set("addressHasError", null);
-        Session.set("cityHasError", null);
-        Session.set("stateHasError", null);
-        Session.set("postalCodeHasError", null);
-
-        // Trim fields
-        roleId = trimInput(roleId);
-        firstName = trimInput(firstName);
-        lastName = trimInput(lastName);
-        address = trimInput(address);
-        city = trimInput(city);
-        state = trimInput(state);
-        postalCode = trimInput(postalCode);
-
-        // Errors Array
-        var errors = [];
-
-        // Validate role field
-        try{
-            check(roleId, nonEmptyString);
-        } catch(e) {
-            Session.set("roleHasError", true);
-            errors.push("<em>Role</em> is required.");
-        }
-
-        // Validate first name field
-        try{
-            check(firstName, nonEmptyString);
-        } catch(e) {
-            Session.set("firstNameHasError", true);
-            errors.push("<em>First Name</em> is required.");
-        }
-
-        // Validate last name field
-        try{
-            check(lastName, nonEmptyString);
-        } catch(e) {
-            Session.set("lastNameHasError", true);
-            errors.push("<em>Last Name</em> is required.");
-        }
-
-        // Check if there are any errors
-        if(errors.length){
-            var error_messages = "";
-            _.each(errors, function(error){
-                error_messages += "<li>"+error+"</li>";
-            });
-            Session.set("errorMessage", "Please correct the following errors:" +
-                "<ul>" +
-                error_messages +
-                "</ul>");
-            return false;
-        }
-
-        // New user document
+        // Edit user document
         var userDoc = {
-            "profile.roleId": roleId,
-            "profile.firstName": firstName,
-            "profile.lastName": lastName,
-            "profile.address": address,
-            "profile.city": city,
-            "profile.state": state,
-            "profile.postalCode": postalCode
+            profile: {
+                roleId: t.find("#edit-user-role").value != "empty" ? t.find("#edit-user-role").value : "",
+                firstName: t.find("#edit-user-first-name").value,
+                lastName: t.find("#edit-user-last-name").value,
+                address: t.find("#edit-user-address").value,
+                city: t.find("#edit-user-city").value,
+                state: t.find("#edit-user-state").value,
+                postalCode: t.find("#edit-user-postal-code").value
+            }
         };
+
 
         var selectedUserId = Session.get("selectedUserId");
 
         if(selectedUserId){
-            // Update the selected user
-            Meteor.users.update({_id: selectedUserId}, {$set: userDoc}, function(err){
-                if (err) {
-                    // Handle any errors, also checks for uniqueness of email address
-                    Session.set("errorMessage", err.reason);
-                } else {
-                    $("#edit-user-modal").modal('hide');
-                }
-            });
+
+            this.selectedUser.set(userDoc);
+
+            // Hack: Temporarily add password field so that the validation will pass
+            this.selectedUser.set({password: "P@ssw0rd!"});
+
+            if(this.selectedUser.validateAll()){
+                // Update the selected user
+                Meteor.users.update({_id: selectedUserId}, {$set: userDoc}, function(err){
+                    if (err) {
+                        // Handle any errors, also checks for uniqueness of email address
+                        Session.set("errorMessage", err.reason);
+                    } else {
+                        Session.set("selectedUserId", null);
+                        $("#edit-user-modal").modal('hide');
+                    }
+                });
+            }
+
         }
 
         // Prevent form reload

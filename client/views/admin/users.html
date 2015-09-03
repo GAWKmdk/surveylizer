@@ -174,20 +174,29 @@
                         {{#with selectedUser}}
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <select id="edit-user-role" class="form-control">
+                                    <select id="edit-user-role" class="form-control {{#if hasValidationError 'profile.roleId'}} has-error {{/if}}">
                                         <option value="empty" disabled selected>--Select Role--</option>
                                         {{#each userRoles}}
                                             <option value="{{_id}}" {{selectedRole _id}}>{{name}}</option>
                                         {{/each}}
                                     </select>
+                                    {{#if hasValidationError 'profile.roleId'}}
+                                        <span class="helper-block small has-error">{{getValidationError 'profile.roleId'}}</span>
+                                    {{/if}}
                                 </div>
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{#if hasValidationError 'profile.firstName'}} has-error {{/if}}">
                                     <input id="edit-user-first-name" class="form-control" type="text"
                                            placeholder="First Name" value="{{profile.firstName}}">
+                                    {{#if hasValidationError 'profile.firstName'}}
+                                        <span class="helper-block small has-error">{{getValidationError 'profile.firstName'}}</span>
+                                    {{/if}}
                                 </div>
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{#if hasValidationError 'profile.lastName'}} has-error {{/if}}">
                                     <input id="edit-user-last-name" class="form-control" type="text"
                                            placeholder="Last Name" value="{{profile.lastName}}">
+                                    {{#if hasValidationError 'profile.lastName'}}
+                                        <span class="helper-block small has-error">{{getValidationError 'profile.lastName'}}</span>
+                                    {{/if}}
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <input id="edit-user-address" class="form-control" type="text" placeholder="Address"
