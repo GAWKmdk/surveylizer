@@ -30,8 +30,11 @@ Template.startSurvey.onDestroyed(function(){
 });
 
 Template.startSurvey.helpers({
-    "surveys": function(){
-        return surveys.find();
+    "hasQuestionnaires": function(){
+        return questionnaires.find().count > 0;
+    },
+    "questionnaires": function(){
+        return questionnaires.find();
     },
     "numberOfQuestions": function(){
         return questions.find({surveyId: this._id}).count();

@@ -2,7 +2,7 @@ completeSurvey = function(){
     var surveyToCompleteId = Session.get("surveyToCompleteId");
 
     if(surveyToCompleteId){
-        completedSurveys.update({_id: surveyToCompleteId}, {$set: {
+        surveys.update({_id: surveyToCompleteId}, {$set: {
             endDate: new Date(),
             status: settings.surveyStatusFinished
         }});
@@ -61,7 +61,7 @@ submitAnswer = function(template, question){
 
 Template.completeSurvey.helpers({
     "surveyToComplete": function(){
-        return completedSurveys.findOne({_id: Session.get("surveyToCompleteId")});
+        return surveys.findOne({_id: Session.get("surveyToCompleteId")});
     }
 });
 

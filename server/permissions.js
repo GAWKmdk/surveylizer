@@ -38,7 +38,7 @@ Meteor.users.allow({
     }
 });
 
-surveys.allow({
+questionnaires.allow({
     insert: function(){
         return true;
     },
@@ -52,13 +52,13 @@ surveys.allow({
 
 questionTypes.allow({
     insert: function(){
-        return true;
+        return false;
     },
     update: function(){
-        return true;
+        return false;
     },
     remove: function(){
-        return true;
+        return false;
     }
 });
 
@@ -113,7 +113,7 @@ questions.allow({
     }
 });
 
-completedSurveys.allow({
+surveys.allow({
     insert: function(){
         return true;
     },

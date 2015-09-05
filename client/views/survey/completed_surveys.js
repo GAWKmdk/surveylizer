@@ -1,9 +1,9 @@
 Template.completedSurveys.helpers({
     hasCompletedSurveys: function(){
-        return completedSurveys.find({userId: Meteor.userId(), status: "finished"}).count() > 0;
+        return surveys.find({userId: Meteor.userId(), status: "finished"}).count() > 0;
     },
     completedSurveysList: function(){
-        return completedSurveys.find({userId: Meteor.userId(),status: "finished"}, {sort: {startDate: -1}});
+        return surveys.find({userId: Meteor.userId(),status: "finished"}, {sort: {startDate: -1}});
     },
     selectedCompletedSurvey: function(){
         return Session.equals("selectedCompletedSurveyId", this._id) ? "btn-primary" : "";

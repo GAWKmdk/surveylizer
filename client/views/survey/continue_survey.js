@@ -1,9 +1,9 @@
 Template.continueSurvey.helpers({
     hasContinueSurvey: function(){
-        return completedSurveys.find({userId: Meteor.userId(), status: "started"}).count() > 0;
+        return surveys.find({userId: Meteor.userId(), status: "started"}).count() > 0;
     },
     continueSurveyList: function(){
-        return completedSurveys.find({userId: Meteor.userId(), status: "started"});
+        return surveys.find({userId: Meteor.userId(), status: "started"});
     },
     selectedContinueSurvey: function(){
         return Session.equals("selectedCompletedSurveyId", this._id) ? "btn-primary" : "";

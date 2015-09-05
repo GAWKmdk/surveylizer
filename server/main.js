@@ -55,6 +55,12 @@ Meteor.startup(function(){
             }
         });
     }
+
+    // Create Question Types
+    if(questionTypes.find({}).count() ==0){
+        questionTypes.insert({name: "Open Ended"});
+        questionTypes.insert({name: "Multiple Choice"});
+    }
 });
 
 

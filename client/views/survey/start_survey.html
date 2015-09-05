@@ -14,7 +14,7 @@
         <div class="panel-body">
             <table id="surveys-list" class="table table-striped table-hover">
                 <thead>
-                <tr>
+                <tr class="text-center">
                     <td>Code</td>
                     <td>Name</td>
                     <td>Description</td>
@@ -22,14 +22,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{#each surveys}}
-                    <tr class="{{isSelected}}">
-                        <td>{{code}}</td>
-                        <td>{{name}}</td>
-                        <td>{{description}}</td>
-                        <td class="text-center">{{numberOfQuestions}}</td>
+                {{#if hasQuestionnaires}}
+                    {{#each questionnaires}}
+                        <tr class="{{isSelected}}">
+                            <td>{{code}}</td>
+                            <td>{{name}}</td>
+                            <td>{{description}}</td>
+                            <td class="text-center">{{numberOfQuestions}}</td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                        <td colspan="5">
+                            <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"> </i>
+                                There are no questionnaires created yet!
+                            </div>
+                        </td>
                     </tr>
-                {{/each}}
+                {{/if}}
                 </tbody>
             </table>
         </div>

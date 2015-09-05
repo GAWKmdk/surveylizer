@@ -10,8 +10,8 @@ Meteor.publish("permissions", function(){
     return permissions.find();
 });
 
-Meteor.publish("surveys", function(){
-    return surveys.find();
+Meteor.publish("questionnaires", function(){
+    return questionnaires.find();
 });
 
 Meteor.publish("questionTypes", function(){
@@ -26,8 +26,8 @@ Meteor.publish("surveyors", function(){
     return surveyors.find();
 });
 
-Meteor.publish("completedSurveys", function(){
-    return completedSurveys.find();
+Meteor.publish("surveys", function(){
+    return surveys.find();
 });
 
 Meteor.publish("questions", function(){
