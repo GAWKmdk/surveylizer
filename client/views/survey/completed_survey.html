@@ -3,6 +3,11 @@
         <div class="panel">
             <div class="panel-heading">
                 <h4>{{questionnaire.name}}</h4>
+                <ul>
+                   <li><strong>Address:</strong> {{location.address}}</li>
+                    <li><strong>Latitude:</strong> {{location.latitude}}</li>
+                    <li><strong>Longitude:</strong> {{location.longitude}}</li>
+                </ul>
             </div>
             <div class="panel-body">
                 {{#each questionnaire.questions}}

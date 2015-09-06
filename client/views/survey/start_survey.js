@@ -1,24 +1,3 @@
-newCompletedTool = function(){
-    var currentQuestionnaireId = Session.get("questionnaireToStartId");
-    var currentUserId = Meteor.userId();
-
-    if(currentQuestionnaireId && currentUserId){
-        var currentSurveyId = surveys.insert({
-            questionnaireId: currentQuestionnaireId,
-            userId: currentUserId,
-            startDate: new Date(),
-            endDate: null,
-            status: settings.surveyStatusStarted,
-            orderNumber: 1
-        }, function(err){
-            if(err){
-                new Error.throw(err);
-            }
-        });
-        Session.set("currentSurveyId", currentSurveyId);
-    }
-};
-
 Template.startSurvey.onRendered(function(){
     Session.set("questionnaireToStartId", null);
     Session.set("surveyStarted", null);
@@ -57,10 +36,46 @@ Template.startSurvey.events({
         } else {
             Session.set("questionnaireToStartId", this._id);
         }
-    },
-    "click #start-survey": function(e, t){
-        newCompletedTool();
-        Router.go('/complete_survey/' + Session.get("currentSurveyId"));
     }
+});
+
+Template.startSurveyModal.helpers({
+    "geoLocation": function(){
+        return Geolocation.latLng();
+    }
+});
+
+Template.startSurveyModal.events({
+   "submit form": function(e, t){
+       e.preventDefault();
+
+       var currentQuestionnaireId = Session.get("questionnaireToStartId");
+       var currentUserId = Meteor.userId();
+
+       if(currentQuestionnaireId && currentUserId){
+           var currentSurveyId = surveys.insert({
+               questionnaireId: currentQuestionnaireId,
+               userId: currentUserId,
+               startDate: new Date(),
+               location:{
+                   address: t.find("#survey-address").value,
+                   latitude: t.find("#survey-geo-latitude").value,
+                   longitude: t.find("#survey-geo-longitude").value
+               },
+               endDate: null,
+               status: settings.surveyStatusStarted,
+               orderNumber: 1
+           }, function(err){
+               if(err){
+                   new Error.throw(err);
+               }
+           });
+           Session.set("currentSurveyId", currentSurveyId);
+       }
+       $("#start-survey-modal").modal("hide");
+       // TODO: @tsega Notification that a survey has been started
+
+       Router.go('/complete_survey/' + Session.get("currentSurveyId"));
+   }
 });
 
