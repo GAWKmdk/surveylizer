@@ -35,7 +35,7 @@
             <a type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
                data-target="#new-user-modal"><i class="fa fa-plus"></i> New</a>
             {{#if isUserSelected}}
-                <a type="button" class="btn btn-sm btn-warning btn-raised" data-toggle="modal"
+                <a type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
                    data-target="#edit-user-modal"><i class="fa fa-pencil"></i> Edit</a>
                 <a type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
                    data-target="#delete-user-modal"><i class="fa fa-times"></i> Delete</a>
@@ -218,11 +218,11 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7"><i class="fa fa-floppy-o"></i>
-                            Save
+                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7">
+                            <i class="fa fa-floppy-o"></i>Save
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
-                                class="fa fa-times"></i> Close
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Close
                         </button>
                     </div>
                 </div>

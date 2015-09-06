@@ -63,11 +63,13 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isQuestionCategorySelected}}
-                        <button id="edit-permission" class="btn btn-sm btn-warning" data-toggle="modal"
-                                data-target="#edit-question-category-modal"><i class="fa fa-pencil"></i> Edit
+                        <button id="edit-permission" class="btn btn-sm btn-primary" data-toggle="modal"
+                                data-target="#edit-question-category-modal">
+                            <i class="fa fa-pencil"></i> Edit
                         </button>
                         <button id="delete-permission" class="btn btn-sm btn-danger" data-toggle="modal"
-                                data-target="#delete-question-category-modal"><i class="fa fa-times"></i> Delete
+                                data-target="#delete-question-category-modal">
+                            <i class="fa fa-times"></i> Delete
                         </button>
                     {{/if}}
                 </div>
@@ -99,11 +101,11 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7"><i class="fa fa-floppy-o"></i>
-                            Save
+                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7">
+                            <i class="fa fa-floppy-o"></i> Save
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
-                                class="fa fa-times"></i> Close
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Close
                         </button>
                     </div>
                 </div>

@@ -35,11 +35,11 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isRoleSelected}}
-                        <button id="edit-role" class="btn btn-sm btn-warning" data-toggle="modal"
-                                data-target="#edit-role-modal"><i class="fa fa-pencil"></i> Edit
+                        <button id="edit-role" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-role-modal">
+                            <i class="fa fa-pencil"></i> Edit
                         </button>
-                        <button id="delete-role" class="btn btn-sm btn-danger" data-toggle="modal"
-                                data-target="#delete-role-modal"><i class="fa fa-times"></i> Delete
+                        <button id="delete-role" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-role-modal">
+                            <i class="fa fa-times"></i> Delete
                         </button>
                     {{/if}}
                 </div>
@@ -88,11 +88,11 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isPermissionSelected}}
-                        <button id="edit-permission" class="btn btn-sm btn-warning" data-toggle="modal"
-                                data-target="#edit-permission-modal"><i class="fa fa-pencil"></i> Edit
+                        <button id="edit-permission" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit-permission-modal">
+                            <i class="fa fa-pencil"></i> Edit
                         </button>
-                        <button id="delete-permission" class="btn btn-sm btn-danger" data-toggle="modal"
-                                data-target="#delete-permission-modal"><i class="fa fa-times"></i> Delete
+                        <button id="delete-permission" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-permission-modal">
+                            <i class="fa fa-times"></i> Delete
                         </button>
                     {{/if}}
                 </div>
@@ -139,13 +139,14 @@
                                     <ul id="role-permissions" class="list-group">
                                         {{#if hasPermissions}}
                                             {{#each rolePermissions}}
-                                                <li class="list-group-item"><a href="#"><i
-                                                        class="remove-permission fa fa-times-circle"></i></a> {{module}}
-                                                    - {{operation}}</li>
+                                                <li class="list-group-item">
+                                                    <a href="#"><i class="remove-permission fa fa-times-circle"></i></a>
+                                                    {{module}} - {{operation}}
+                                                </li>
                                             {{/each}}
                                         {{ else }}
-                                            <li class="list-group-item"><i class="fa fa-info"></i> No Permissions added
-                                                yet!
+                                            <li class="list-group-item">
+                                                <i class="fa fa-info"></i> No Permissions added yet!
                                             </li>
                                         {{/if}}
                                     </ul>
@@ -180,11 +181,11 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-danger" tabindex="7"><i class="fa fa-check"></i>
-                            Accept
+                        <button type="submit" class="btn btn-sm btn-danger" tabindex="7">
+                            <i class="fa fa-check"></i> Accept
                         </button>
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i
-                                class="fa fa-times"></i> Cancel
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancel
                         </button>
                     </div>
                 </div>

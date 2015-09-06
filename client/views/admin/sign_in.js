@@ -53,7 +53,7 @@ Template.signIn.events({
 
         // If valid input provided, attempt Sign In with credentials
         Meteor.loginWithPassword(username, password, function(err){
-            // Check if error has occured
+            // Check if error has occurred
             if(err){
                 Session.set("usernameHasError", "Incorrect");
                 Session.set("passwordHasError", "Incorrect");

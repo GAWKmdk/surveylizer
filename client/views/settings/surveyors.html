@@ -52,7 +52,7 @@
                     {{/with}}
                     <div class="panel-footer text-right">
                         <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-plus"></i> Add</button>
-                        <button class="btn btn-sm btn-danger clear" type="button"><i class="fa fa-eraser"></i> Clear</button>
+                        <button class="btn btn-sm btn-danger btn-clear" type="button"><i class="fa fa-eraser"></i> Clear</button>
                     </div>
                 </form>
             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isSurveyorSelected}}
-                        <a type="button" class="btn btn-sm btn-warning btn-raised" data-toggle="modal"
+                        <a type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
                            data-target="#edit-surveyor-modal"><i class="fa fa-pencil"></i> Edit</a>
                         <a type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
                            data-target="#delete-surveyor-modal"><i class="fa fa-times"></i> Delete</a>
@@ -164,8 +164,8 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7"><i class="fa fa-floppy-o"></i>
-                            Save
+                        <button type="submit" class="btn btn-sm btn-primary" tabindex="7">
+                            <i class="fa fa-floppy-o"></i> Save
                         </button>
                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
                                 class="fa fa-times"></i> Close

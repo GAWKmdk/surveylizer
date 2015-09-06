@@ -35,8 +35,11 @@
                         {{/with}}
                     </div>
                     <div class="panel-footer text-right">
-                        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-plus"></i> Add</button>
-                        <button class="btn btn-danger btn-sm btn-clear" type="button"><i class="fa fa-eraser"></i> Clear
+                        <button class="btn btn-primary btn-sm" type="submit">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                        <button class="btn btn-danger btn-sm btn-clear" type="button">
+                            <i class="fa fa-eraser"></i> Clear
                         </button>
                     </div>
                 </form>
@@ -52,8 +55,9 @@
                             <div class="input-group">
                                 <input id="search-questionnaire" type="text" class="form-control" data-form-type="role"
                                        aria-label="Search Questionnaire" placeholder="Search">
-                                <span class="input-group-addon"><i class="fa fa-search"
-                                                                   data-form-type="role"></i></span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search" data-form-type="role"></i>
+                                </span>
                             </div>
                         </form>
                     </div>
@@ -80,10 +84,14 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isQuestionnaireSelected}}
-                        <a type="button" class="btn btn-warning btn-sm btn-raised" data-toggle="modal"
-                           data-target="#edit-questionnaire-modal"><i class="fa fa-pencil"></i> Edit</a>
+                        <a type="button" class="btn btn-primary btn-sm btn-raised" data-toggle="modal"
+                           data-target="#edit-questionnaire-modal">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
                         <a type="button" class="btn btn-danger btn-sm btn-raised" data-toggle="modal"
-                           data-target="#delete-questionnaire-modal"><i class="fa fa-times"></i> Delete</a>
+                           data-target="#delete-questionnaire-modal">
+                            <i class="fa fa-times"></i> Delete
+                        </a>
                     {{/if}}
                 </div>
             </div>
@@ -135,8 +143,8 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-sm" tabindex="7"><i class="fa fa-floppy-o"></i>
-                            Save
+                        <button type="submit" class="btn btn-primary btn-sm" tabindex="7">
+                            <i class="fa fa-floppy-o"></i> Save
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i
                                 class="fa fa-times"></i> Close
@@ -231,9 +239,11 @@
                             </div>
                         </div>
                         <div class="panel-footer text-right">
-                            <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-plus"></i> Add</button>
-                            <button class="btn btn-danger btn-sm btn-clear" type="button"><i class="fa fa-eraser"></i>
-                                Clear
+                            <button class="btn btn-primary btn-sm" type="submit">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                            <button class="btn btn-danger btn-sm btn-clear" type="button">
+                                <i class="fa fa-eraser"></i> Clear
                             </button>
                         </div>
                     {{/with}}
@@ -278,7 +288,7 @@
                 </div>
                 <div class="panel-footer">
                     {{#if isQuestionnaireQuestionSelected}}
-                        <a type="button" class="btn btn-warning btn-sm btn-raised" data-toggle="modal"
+                        <a type="button" class="btn btn-primary btn-sm btn-raised" data-toggle="modal"
                            data-target="#edit-questionnaire-question-modal"><i class="fa fa-pencil"></i> Edit</a>
                         <a type="button" class="btn btn-danger btn-sm btn-raised" data-toggle="modal"
                            data-target="#delete-questionnaire-question-modal"><i class="fa fa-times"></i> Delete</a>
@@ -382,7 +392,9 @@
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-check"></i> Accept</button>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="fa fa-check"></i> Accept
+                        </button>
                         <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i
                                 class="fa fa-times"></i> Cancel
                         </button>
@@ -423,7 +435,7 @@
                        placeholder="Name"/>
             </div>
             <div class="col-md-2">
-                <a id="add-choice" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add</a>
+                <a id="add-choice" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</a>
             </div>
         </div>
     </form>

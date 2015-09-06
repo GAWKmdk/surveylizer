@@ -16,9 +16,7 @@ Template.questionnaires.events({
             Session.set("selectedQuestionnaireId", null) : Session.set("selectedQuestionnaireId", this._id);
     },
     "click .btn-clear": function (e, t) {
-        t.find("#new-questionnaire-name").value = "";
-        t.find("#new-questionnaire-code").value = "";
-        t.find("#new-questionnaire-description").value = "";
+        t.find("#new-questionnaire-form").reset();
     },
     "submit #new-questionnaire-form": function (e, t) {
         e.preventDefault();

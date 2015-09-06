@@ -40,7 +40,7 @@ Template.surveyors.events({
         // Prevent form reload
         return false;
     },
-    "click button.clear": function(e, t){
+    "click button.btn-clear": function(e, t){
         t.find("#new-surveyor-form").reset();
     }
 });
