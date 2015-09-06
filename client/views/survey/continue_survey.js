@@ -18,7 +18,7 @@ Template.continueSurvey.events({
         Session.equals("selectedCompletedSurveyId", this._id) ?
             Session.set("selectedCompletedSurveyId", null) : Session.set("selectedCompletedSurveyId", this._id) ;
     },
-    "click a#view-completed-survey": function(e, t){
+    "click a#continue-completed-survey": function(e, t){
         Router.go('/complete_survey/' + Session.get("selectedCompletedSurveyId"));
     }
 });
@@ -29,4 +29,13 @@ Template.continueSurvey.onRendered(function(){
 
 Template.continueSurvey.onDestroyed(function(){
     Session.set("selectedCompletedSurveyId", null);
+});
+
+Template.viewSurveyModal.helpers({
+    selectedSurvey: function(){
+        return surveys.findOne({_id: Session.get("selectedCompletedSurveyId")});
+    },
+    isTypeOpenEnded: function(){
+        return Template.parentData(1).isTypeOpenEnded();
+    }
 });

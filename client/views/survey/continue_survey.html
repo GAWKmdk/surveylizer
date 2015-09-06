@@ -35,8 +35,59 @@
         </div>
         <div class="panel-footer">
             {{#if isContinueSurveySelected}}
-                <a id="view-completed-survey" type="button" class="btn btn-sm btn-primary btn-raised" ><i class="fa fa-forward"></i> Continue</a>
+                <a id="continue-completed-survey" type="button" class="btn btn-sm btn-primary btn-raised" >
+                    <i class="fa fa-forward"></i> Continue
+                </a>
+                <a id="view-completed-survey" type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
+                   data-target="#view-survey-modal" >
+                    <i class="fa fa-list-ol"></i> View
+                </a>
             {{/if}}
+        </div>
+    </div>
+    {{> viewSurveyModal }}
+</template>
+
+<template name="viewSurveyModal">
+    <div id="view-survey-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Survey Details</h4>
+                </div>
+                <div class="modal-body">
+                    {{#with selectedSurvey}}
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4>{{questionnaire.name}}</h4>
+                                <ul>
+                                    <li><strong>Address:</strong> {{location.address}}</li>
+                                    <li><strong>Latitude:</strong> {{location.latitude}}</li>
+                                    <li><strong>Longitude:</strong> {{location.longitude}}</li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                {{#each questionnaire.questions}}
+                                    <div class="question-display">
+                                        <h4>{{orderNumber}}. {{detail}}</h4>
+                                        {{#each this.answers selectedSurvey._id}}
+                                            <div class="answer">
+                                                <p>
+                                                    {{#unless isTypeOpenEnded}}
+                                                        <span class="">{{choiceOrderNumber}}</span>.
+                                                    {{/unless}}
+                                                    {{value}}
+                                                </p>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/with}}
+                </div>
+            </div>
         </div>
     </div>
 </template>
