@@ -88,16 +88,16 @@ surveyors.allow({
 
 answers.allow({
     insert: function(userId, doc){
-        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
-        return userId == completedSurvey.userId ? true : false;
+        var survey = surveys.findOne({_id: doc.surveyId});
+        return userId == survey.userId ? true : false;
     },
     update: function(userId, doc){
-        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
-        return userId == completedSurvey.userId ? true : false;
+        var survey = surveys.findOne({_id: doc.surveyId});
+        return userId == survey.userId ? true : false;
     },
     remove: function(userId, doc){
-        var completedSurvey = completedSurveys.findOne({_id: doc.completedSurveyId});
-        return userId == completedSurvey.userId ? true : false;
+        var survey = surveys.findOne({_id: doc.surveyId});
+        return userId == survey.userId ? true : false;
     }
 });
 

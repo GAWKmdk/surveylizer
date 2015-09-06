@@ -2,10 +2,10 @@
     {{#with completedSurvey}}
         <div class="panel">
             <div class="panel-heading">
-                <h4>{{survey.name}}</h4>
+                <h4>{{questionnaire.name}}</h4>
             </div>
             <div class="panel-body">
-                {{#each survey.questions}}
+                {{#each questionnaire.questions}}
                     <div class="question-display">
                         <h4>{{orderNumber}}. {{detail}}</h4>
                         {{#each this.answers completedSurvey._id}}

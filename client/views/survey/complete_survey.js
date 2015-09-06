@@ -12,7 +12,7 @@ completeSurvey = function(){
 newAnswer = function(questionId, value, choiceOrderNumber){
     var surveyToCompleteId = Session.get("surveyToCompleteId");
     var answer = {
-        completedSurveyId: surveyToCompleteId,
+        surveyId: surveyToCompleteId,
         userId: Meteor.userId(),
         questionId: questionId,
         value: value,
@@ -21,7 +21,7 @@ newAnswer = function(questionId, value, choiceOrderNumber){
     };
 
     var previousAnswer = answers.findOne({
-        completedSurveyId: answer.completedSurveyId,
+        surveyId: answer.surveyId,
         userId: answer.userId,
         questionId: answer.questionId,
         choiceOrderNumber: answer.choiceOrderNumber
@@ -81,8 +81,7 @@ Template.question.helpers({
     "previousAnswer": function(){
         var previousAnswer = this.answer(Session.get("surveyToCompleteId"));
         return previousAnswer ? previousAnswer.value : null;
-    },
-
+    }
 });
 
 Template.question.events({

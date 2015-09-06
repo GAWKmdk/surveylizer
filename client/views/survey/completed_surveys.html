@@ -17,12 +17,12 @@
                 <tbody>
                 {{#if hasCompletedSurveys}}
                     {{#each completedSurveysList}}
-                        <tr class="{{selectedCompletedSurvey}}">
-                            <td>{{survey.code}}</td>
-                            <td>{{survey.name}}</td>
+                        <tr class="text-center {{selectedCompletedSurvey}}">
+                            <td>{{questionnaire.code}}</td>
+                            <td>{{questionnaire.name}}</td>
                             <td>{{user.fullName}}</td>
-                            <td class="text-center">{{startDateDisplay}}</td>
-                            <td class="text-center">{{endDateDisplay}}</td>
+                            <td>{{startDateDisplay}}</td>
+                            <td>{{endDateDisplay}}</td>
                         </tr>
                     {{/each}}
                     {{else}}
