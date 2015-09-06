@@ -15,7 +15,8 @@ Template.questionnaires.events({
         Session.equals("selectedQuestionnaireId", this._id) ?
             Session.set("selectedQuestionnaireId", null) : Session.set("selectedQuestionnaireId", this._id);
     },
-    "click .btn-clear": function (e, t) {
+    "click #new-questionnaire-form .btn-clear": function (e, t) {
+        this.questionnaire._errors.clear();
         t.find("#new-questionnaire-form").reset();
     },
     "submit #new-questionnaire-form": function (e, t) {
@@ -135,7 +136,8 @@ Template.questionnaireQuestions.events({
         Session.equals("selectedQuestionnaireQuestionId", this._id) ?
             Session.set("selectedQuestionnaireQuestionId", null) : Session.set("selectedQuestionnaireQuestionId", this._id);
     },
-    "click .btn-clear": function (e, t) {
+    "click #new-questionnaire-question-form .btn-clear": function (e, t) {
+        Template.parentData(1).question._errors.clear();
         t.find("#new-questionnaire-question-form").reset();
     },
     "submit #new-questionnaire-question-form": function (e, t) {
