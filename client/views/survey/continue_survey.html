@@ -42,10 +42,15 @@
                    data-target="#view-survey-modal" >
                     <i class="fa fa-list-ol"></i> View
                 </a>
+                <a id="delete-completed-survey" type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
+                   data-target="#delete-survey-modal" >
+                    <i class="fa fa-times"></i> Delete
+                </a>
             {{/if}}
         </div>
     </div>
     {{> viewSurveyModal }}
+    {{> deleteSurveyModal }}
 </template>
 
 <template name="viewSurveyModal">
