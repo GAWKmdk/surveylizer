@@ -170,7 +170,10 @@ ul.navbar-nav{
 
 .notification-list{
   li {
-    max-width: 150px;
+    &.all{
+      font-size: .9em;
+      font-style: italic;
+    }
     overflow: hidden;
     a {
       h5{
@@ -282,5 +285,14 @@ form{
   }
   .input-group-addon {
     cursor: pointer;
+  }
+}
+
+table{
+  td.select{
+    width: 60px;
+    div{
+      margin: 0 0 0 0;
+    }
   }
 }

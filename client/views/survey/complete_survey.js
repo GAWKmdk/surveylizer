@@ -6,6 +6,7 @@ completeSurvey = function(){
             endDate: new Date(),
             status: settings.surveyStatusFinished
         }});
+        Notify.user("Survey Completed", "You have completed a Survey!", Meteor.userId());
     }
 };
 

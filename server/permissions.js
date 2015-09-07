@@ -124,3 +124,15 @@ surveys.allow({
         return true;
     }
 });
+
+notifications.allow({
+    insert: function(){
+        return true;
+    },
+    update: function(userId, doc){
+        return userId == doc.receiverId;
+    },
+    remove: function(userId, doc){
+        return userId == doc.receiverId;
+    }
+});

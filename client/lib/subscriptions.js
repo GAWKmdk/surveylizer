@@ -8,3 +8,4 @@ Meteor.subscribe("surveyors");
 Meteor.subscribe("questions");
 Meteor.subscribe("surveys");
 Meteor.subscribe("answers");
+Meteor.subscribe("notifications");

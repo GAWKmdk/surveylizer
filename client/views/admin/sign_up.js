@@ -1,14 +1,14 @@
 Template.signUp.helpers({
-    "hasErrors": function(){
+    "hasErrors": function () {
         return Session.get("errorMessage") ? true : false;
     },
-    "errors": function(){
+    "errors": function () {
         return Session.get("errorMessage");
     }
 });
 
 Template.signUp.events({
-    "submit #sign-up-form": function(e, t){
+    "submit #sign-up-form": function (e, t) {
         e.preventDefault();
 
         var surveyorRole = roles.findOne({name: "Surveyor"});
@@ -30,12 +30,14 @@ Template.signUp.events({
 
         this.user.set(userDoc);
 
-        if(this.user.validateAll()) {
+        if (this.user.validateAll()) {
             // If valid input provided, create user and login to system
             Accounts.createUser(userDoc, function (err) {
                 if (err) {
                     Session.set("errorMessage", err.reason);
                 } else {
+                    // Send notification to Admin(s)
+                    Notify.admin("New user signed up!", "A new user has signed up");
                     // Redirect to main page on successful user account creation
                     Router.go("/");
                 }

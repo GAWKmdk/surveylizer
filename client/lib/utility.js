@@ -1,15 +1,15 @@
-trimInput = function(val){
+trimInput = function (val) {
     return val.replace(/^\s*|\s*$/g, "");
 };
 
-cleanOutput = function(val){
-    if(val == undefined){
+cleanOutput = function (val) {
+    if (val == undefined) {
         val = "false";
     }
     return val;
 };
 
-checkEmail = Match.Where(function(email){
+checkEmail = Match.Where(function (email) {
     check(email, String);
     return email.match(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/);
 });
@@ -19,42 +19,42 @@ nonEmptyString = Match.Where(function (x) {
     return x.length > 0;
 });
 
-securePassword = Match.Where(function(password){
+securePassword = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,14}/);
 });
 
-passwordLowercase = Match.Where(function(password){
+passwordLowercase = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.match(/^(?=.*[a-z])/);
 });
 
-passwordUppercase = Match.Where(function(password){
+passwordUppercase = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.match(/^(?=.*[A-Z])/);
 });
 
-passwordNumber = Match.Where(function(password){
+passwordNumber = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.match(/^(?=.*\d)/);
 });
 
-passwordSpecialCharacter = Match.Where(function(password){
+passwordSpecialCharacter = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.match(/^(?=.*[$@$!%*?&])/);
 });
 
-passwordMinLength = Match.Where(function(password){
+passwordMinLength = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.length > 8;
 });
 
-passwordMaxLength = Match.Where(function(password){
+passwordMaxLength = Match.Where(function (password) {
     check(password, nonEmptyString);
     return password.length < 14;
 });
 
-getErrorMessage = function(errorObject){
+getErrorMessage = function (errorObject) {
     var message = "";
     for (var key in errorObject) {
         if (errorObject.hasOwnProperty(key)) {
@@ -62,4 +62,26 @@ getErrorMessage = function(errorObject){
         }
     }
     return message;
+};
+
+Notify = {
+    user: function (title, detail, receiverId) {
+        // Send notification to User
+        var notification = new Notification({
+            receiverId: receiverId,
+            title: title,
+            detail: detail,
+            isRead: false
+        });
+        notification.save();
+    },
+    admin: function (title, detail) {
+        // Send notification to Admin(s)
+        var notification = new Notification({
+            title: title,
+            detail: detail,
+            isRead: false
+        });
+        notification.sendToAdmin();
+    }
 };

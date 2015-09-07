@@ -73,7 +73,7 @@ Template.startSurveyModal.events({
            Session.set("currentSurveyId", currentSurveyId);
        }
        $("#start-survey-modal").modal("hide");
-       // TODO: @tsega Notification that a survey has been started
+       Notify.user("New Survey Started", "A new survey has been started", Meteor.userId());
 
        Router.go('/complete_survey/' + Session.get("currentSurveyId"));
    }

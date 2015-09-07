@@ -37,3 +37,7 @@ Meteor.publish("questions", function(){
 Meteor.publish("answers", function(){
     return answers.find();
 });
+
+Meteor.publish("notifications", function(){
+    return notifications.find();
+});

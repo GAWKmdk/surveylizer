@@ -59,6 +59,8 @@ Template.newUserModal.events({
                     Session.set("errorMessage", err.reason);
                 } else {
                     $("#new-user-modal").modal('hide');
+                    // Send notification to Admin(s)
+                    Notify.admin("New User Created", "A new user has been created!");
                     toastr.success("User successfully created!");
                 }
             });

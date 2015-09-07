@@ -32,6 +32,8 @@ Template.questionnaires.events({
 
         if (this.questionnaire.validateAll()) {
             this.questionnaire.save();
+            // Notify the user
+            Notify.user("New Questionnaire Created", "A new questionnaire has been created!", Meteor.userId());
             t.find("#new-questionnaire-form").reset();
             toastr.success("Questionnaire successfully created!");
         }
