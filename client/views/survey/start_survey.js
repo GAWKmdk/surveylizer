@@ -19,7 +19,7 @@ Template.startSurvey.helpers({
             return questions.find({questionnaireId: this._id}).count();
     },
     "isSelected": function(){
-        return Session.get("questionnaireToStartId") ? "btn-primary" : "";
+        return Session.get("questionnaireToStartId") == this._id ? "btn-primary" : "";
     },
     "canStartSurvey": function(){
         return Session.get("questionnaireToStartId") ? "" : "disabled";

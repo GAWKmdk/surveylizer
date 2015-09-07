@@ -89,17 +89,11 @@ Template.deleteQuestionnaireModal.events({
         var selectedQuestionnaireId = Session.get("selectedQuestionnaireId");
 
         if (selectedQuestionnaireId) {
-            questionnaires.remove({_id: selectedQuestionnaireId}, function (err) {
-                if (err) {
-                    // Handle any errors, also checks for uniqueness of email address
-                    Session.set("errorMessage", err.reason);
-                    console.log(err.reason);
-                } else {
-                    //TODO: @tsega Delete Questionnaire Questions as well
-                    Session.set("selectedQuestionnaireId", null);
-                    $("#delete-questionnaire-modal").modal('hide');
-                }
-            });
+            var questionnaire = questionnaires.findOne({_id: selectedQuestionnaireId});
+            questionnaire.remove();
+            Session.set("selectedQuestionnaireId", null);
+            $("#delete-questionnaire-modal").modal('hide');
+            toastr.success("Questionnaire successfully deleted!");
         }
 
         // Prevent form reload
@@ -153,7 +147,7 @@ Template.questionnaireQuestions.events({
                 categoryId: t.find("#new-questionnaire-question-category").value != "empty" ?
                     t.find("#new-questionnaire-question-category").value : "",
                 orderNumber: t.find("#new-questionnaire-question-order-number").value != "" ?
-                    t.find("#edit-questionnaire-question-order-number").value : null,
+                    t.find("#new-questionnaire-question-order-number").value : null,
                 detail: t.find("#new-questionnaire-question-detail").value
             };
 
