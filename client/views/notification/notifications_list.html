@@ -25,7 +25,7 @@
                 <tbody>
                 {{#if hasNotifications}}
                     {{#each notificationsList}}
-                        <tr>
+                        <tr class="{{#unless isRead}} unread {{/unless}}">
                             <td class="select">
                                 <div class="checkbox checkbox-primary">
                                     <label>
