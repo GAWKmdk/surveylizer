@@ -3,7 +3,7 @@ Template.rolesAndPermissions.helpers({
         return roles.find();
     },
     permissions: function () {
-        return permissions.find();
+        return permissionsPaginator.pagedItems();
     },
     numberOfUsers: function (roleId) {
         return Meteor.users.find({"profile.roleId": roleId}).count();
