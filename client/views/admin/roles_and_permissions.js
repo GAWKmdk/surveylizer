@@ -1,9 +1,14 @@
+permissionsPaginator = new Paginator(permissions, 5);
+
 Template.rolesAndPermissions.helpers({
     roles: function () {
         return roles.find();
     },
     permissions: function () {
         return permissionsPaginator.pagedItems();
+    },
+    permissionsPaginator: function(){
+      return permissionsPaginator;
     },
     numberOfUsers: function (roleId) {
         return Meteor.users.find({"profile.roleId": roleId}).count();
@@ -78,6 +83,7 @@ Template.rolesAndPermissions.events({
             Session.set("selectedRoleId", null) : Session.set("selectedRoleId", this._id);
     }
 });
+
 
 Template.editRoleModal.helpers({
     "selectedRole": function () {
