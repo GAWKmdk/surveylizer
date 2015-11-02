@@ -1,11 +1,11 @@
-permissionsPaginator = new Paginator(permissions, 5);
+permissionsPaginator = new Paginator(permissions, 10);
 
 Template.rolesAndPermissions.helpers({
     roles: function () {
         return roles.find();
     },
     permissions: function () {
-        return permissionsPaginator.pagedItems();
+        return permissionsPaginator.pagedItems({});
     },
     permissionsPaginator: function(){
       return permissionsPaginator;
@@ -43,9 +43,10 @@ Template.rolesAndPermissions.events({
         };
 
         this.role.set(roleDoc);
+        var newRole = new Role(roleDoc);
 
         if (this.role.validateAll()) {
-            this.role.save();
+            newRole.save();
             t.find("form").reset();
             toastr.success("Role successfully created!");
         } else {
@@ -63,9 +64,10 @@ Template.rolesAndPermissions.events({
         };
 
         this.permission.set(permissionDoc);
+        var newPermission = new Permission(permissionDoc);
 
         if(this.permission.validateAll()){
-            this.permission.save();
+            newPermission.save();
             t.find("form").reset();
             toastr.success("Permission successfully created!");
         } else {

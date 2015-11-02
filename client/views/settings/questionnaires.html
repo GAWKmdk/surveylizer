@@ -80,6 +80,15 @@
                             </tr>
                         {{/each}}
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="3">
+                              {{#with questionnairesPaginator}}
+                              {{> pagination }}
+                              {{/with}}
+                            </td>
+                          </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="panel-footer">
@@ -287,6 +296,15 @@
                             </tr>
                         {{/each}}
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="4">
+                              {{#with questionsPaginator}}
+                              {{> pagination }}
+                              {{/with}}
+                            </td>
+                          </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="panel-footer">
@@ -461,5 +479,3 @@
         </tbody>
     </table>
 </template>
-
-

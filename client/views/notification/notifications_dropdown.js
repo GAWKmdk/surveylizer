@@ -6,6 +6,6 @@ Template.notificationsDropDown.helpers({
         return notifications.find({receiverId: Meteor.userId(), isRead: false}).count();
     },
     "unreadNotifications": function(){
-        return notifications.find({receiverId: Meteor.userId(), isRead: false});
+        return notifications.find({receiverId: Meteor.userId(), isRead: false}, {limit: 5, sort: {date_created: -1}});
     }
 });

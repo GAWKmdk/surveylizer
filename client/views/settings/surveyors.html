@@ -93,6 +93,15 @@
                             </tr>
                         {{/each}}
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="4">
+                              {{#with surveyorsPaginator}}
+                              {{> pagination }}
+                              {{/with}}
+                            </td>
+                          </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="panel-footer">
@@ -204,4 +213,3 @@
         </form>
     </div>
 </template>
-

@@ -59,6 +59,15 @@
                             </tr>
                         {{/each}}
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>
+                              {{#with questionCategoriesPaginator}}
+                                {{> pagination }}
+                              {{/with}}
+                            </td>
+                          </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="panel-footer">
