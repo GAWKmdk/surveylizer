@@ -31,6 +31,6 @@ Template.sidebar.events({
     },
     'click #navigation a.main-menu-item>*': function(e, t){
         $(e.target).parent().next("ul").slideToggle();
-        toggleOpenIcon($(e.target).children("i.pull-right"));
+        toggleOpenIcon($(e.target).parent().children("i.pull-right"));
     }
 });
