@@ -1,14 +1,20 @@
-notificationsPaginator = new Paginator(notifications, 5);
+Template.notificationsList.created = function () {
+  this.pagination = new Meteor.Pagination(Notifications, {
+    sort: {
+      sentOn: -1
+    }
+  });
+}
 
 Template.notificationsList.helpers({
-  notificationsPaginator: function(){
-    return notificationsPaginator;
-  },
-  hasNotifications: function () {
-    return notificationsPaginator.totalPagedItems({receiverId: Meteor.userId()}) > 0;
+  templatePagination: function () {
+    return Template.instance().pagination;
   },
   notificationsList: function () {
-    return notificationsPaginator.pagedItems({receiverId: Meteor.userId()});
+    return Template.instance().pagination.getPage();
+  },
+  hasNotifications: function () {
+    return Notifications.find({receiverId: Meteor.userId()}).count() > 0;
   },
   isNotificationSelected: function () {
     return Session.get("isNotificationSelected");

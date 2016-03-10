@@ -1,15 +1,15 @@
 Template.continueSurvey.helpers({
     hasContinueSurvey: function(){
-        return surveys.find({userId: Meteor.userId(), status: "started"}).count() > 0;
+        return Surveys.find({userId: Meteor.userId(), status: "started"}).count() > 0;
     },
     continueSurveyList: function(){
-        return surveys.find({userId: Meteor.userId(), status: "started"});
+        return Surveys.find({userId: Meteor.userId(), status: "started"});
     },
     selectedContinueSurvey: function(){
-        return Session.equals("selectedSurveyId", this._id) ? "btn-primary" : "";
+        return Session.equals("selectedSurveyId", this._id) ? "active" : "";
     },
-    isContinueSurveySelected: function(){
-        return Session.get("selectedSurveyId");
+    canContinueSurvey: function(){
+        return Session.get("selectedSurveyId") ? "" : "disabled";
     }
 });
 
@@ -33,7 +33,7 @@ Template.continueSurvey.onDestroyed(function(){
 
 Template.viewSurveyModal.helpers({
     selectedSurvey: function(){
-        return surveys.findOne({_id: Session.get("selectedSurveyId")});
+        return Surveys.findOne({_id: Session.get("selectedSurveyId")});
     },
     isTypeOpenEnded: function(){
         return Template.parentData(1).isTypeOpenEnded();

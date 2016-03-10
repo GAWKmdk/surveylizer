@@ -1,4 +1,4 @@
-roles.allow({
+Roles.allow({
     insert: function(){
         return true;
     },
@@ -10,7 +10,7 @@ roles.allow({
     }
 });
 
-permissions.allow({
+Permissions.allow({
     insert: function(){
         return true;
     },
@@ -24,7 +24,7 @@ permissions.allow({
 
 Meteor.users.allow({
     insert: function(userId, doc){
-        var adminRole = roles.find({name: "Administrator"});
+        var adminRole = Roles.Collection.find({name: "Administrator"});
         var adminUser = Meteor.users.find({_id: userId, "profile.roleId": adminRole.roleId});
         return adminUser ? true : false;
     },
@@ -32,13 +32,13 @@ Meteor.users.allow({
         return true;
     },
     remove: function(userId, doc){
-        var adminRole = roles.find({name: "Administrator"});
+        var adminRole = Roles.Collection.find({name: "Administrator"});
         var adminUser = Meteor.users.find({_id: userId, "profile.roleId": adminRole.roleId});
         return adminUser ? true : false;
     }
 });
 
-questionnaires.allow({
+Questionnaires.allow({
     insert: function(){
         return true;
     },
@@ -50,7 +50,7 @@ questionnaires.allow({
     }
 });
 
-questionTypes.allow({
+QuestionTypes.allow({
     insert: function(){
         return false;
     },
@@ -62,7 +62,7 @@ questionTypes.allow({
     }
 });
 
-questionCategories.allow({
+QuestionCategories.allow({
     insert: function(){
         return true;
     },
@@ -74,7 +74,7 @@ questionCategories.allow({
     }
 });
 
-surveyors.allow({
+Surveyors.allow({
     insert: function(){
         return true;
     },
@@ -86,22 +86,22 @@ surveyors.allow({
     }
 });
 
-answers.allow({
+Answers.allow({
     insert: function(userId, doc){
-        var survey = surveys.findOne({_id: doc.surveyId});
+        var survey = Surveys.findOne({_id: doc.surveyId});
         return userId == survey.userId ? true : false;
     },
     update: function(userId, doc){
-        var survey = surveys.findOne({_id: doc.surveyId});
+        var survey = Surveys.findOne({_id: doc.surveyId});
         return userId == survey.userId ? true : false;
     },
     remove: function(userId, doc){
-        var survey = surveys.findOne({_id: doc.surveyId});
+        var survey = Surveys.findOne({_id: doc.surveyId});
         return userId == survey.userId ? true : false;
     }
 });
 
-questions.allow({
+Questions.allow({
     insert: function(){
         return true;
     },
@@ -113,7 +113,7 @@ questions.allow({
     }
 });
 
-surveys.allow({
+Surveys.allow({
     insert: function(){
         return true;
     },
@@ -125,7 +125,7 @@ surveys.allow({
     }
 });
 
-notifications.allow({
+Notifications.allow({
     insert: function(){
         return true;
     },

@@ -9,22 +9,22 @@ Template.startSurvey.onDestroyed(function(){
 });
 
 Template.startSurvey.helpers({
-    "hasQuestionnaires": function(){
-        return questionnaires.find().count() > 0;
+    hasQuestionnaires: function(){
+        return Questionnaires.find().count() > 0;
     },
-    "questionnaires": function(){
-        return questionnaires.find();
+    questionnaires: function(){
+        return Questionnaires.find();
     },
-    "numberOfQuestions": function(){
-            return questions.find({questionnaireId: this._id}).count();
+    numberOfQuestions: function(){
+            return Questions.find({questionnaireId: this._id}).count();
     },
-    "isSelected": function(){
-        return Session.get("questionnaireToStartId") == this._id ? "btn-primary" : "";
+    isSelected: function(){
+        return Session.get("questionnaireToStartId") == this._id ? "active" : "";
     },
-    "canStartSurvey": function(){
+    canStartSurvey: function(){
         return Session.get("questionnaireToStartId") ? "" : "disabled";
     },
-    "surveyStarted": function(){
+    surveyStarted: function(){
         return Session.get("surveyStarted");
     }
 });
@@ -40,7 +40,7 @@ Template.startSurvey.events({
 });
 
 Template.startSurveyModal.helpers({
-    "geoLocation": function(){
+    geoLocation: function(){
         return Geolocation.latLng();
     }
 });
@@ -53,7 +53,7 @@ Template.startSurveyModal.events({
        var currentUserId = Meteor.userId();
 
        if(currentQuestionnaireId && currentUserId){
-           var currentSurveyId = surveys.insert({
+           var currentSurveyId = Surveys.insert({
                questionnaireId: currentQuestionnaireId,
                userId: currentUserId,
                startDate: new Date(),
@@ -77,5 +77,9 @@ Template.startSurveyModal.events({
 
        Router.go('/complete_survey/' + Session.get("currentSurveyId"));
    }
+});
+
+Template.startSurveyModal.onRendered(function(){
+    $.material.init();
 });
 

@@ -74,10 +74,16 @@ aside#sidebar{
         padding: 10px 20px;
         color: #a8acb1;
         text-decoration: none;
-        font-size: 12px;
-        line-height: 20px;
-        b.caret{
-          margin-top: 9px;
+        font-size: 14px;
+        font-weight: lighter;
+        line-height: 25px;
+        i{
+          &.fa{
+            font-size: 20px;
+          }
+          &.fa-chevron-right, &.fa-chevron-down{
+            font-size: 15px;
+          }
         }
       }
       a:hover{
@@ -85,6 +91,8 @@ aside#sidebar{
         background: #232a2f;
       }
       >li{
+        border-top: solid 1px #444;
+        border-bottom: solid 1px #222;
         ul.sub-menu-1{
           display: none;
           background-color: #1a2229;
@@ -101,6 +109,10 @@ aside#sidebar{
           width: 14px;
           text-align: center;
           line-height: 20px;
+          &.pull-right {
+            margin-right: 0px;
+            margin-left: 20px;
+          }
         }
       }
     }
@@ -115,11 +127,42 @@ table.table{
       }
     }
   }
+  tbody {
+    > tr.active {
+      > td{
+        background-color: #009688 !important;
+        color: #fff;
+      }
+    }
+  }
+  tfoot{
+    tr{
+      td{
+        ul.pagination{
+          li{
+            a{
+              border-radius: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 div.panel{
+  div.panel-heading{
+    div.form-group{
+      margin-top: 0px;
+    }
+  }
   div.panel-footer{
     ul.pagination{
       margin: 0 0 0 0;
+      li{
+        a{
+          border-radius: 0px;
+        }
+      }
     }
   }
 }
@@ -289,6 +332,26 @@ form{
 }
 
 table{
+  &.table{
+    margin-bottom: 0px;
+    thead{
+      td{
+        cursor: pointer;
+      }
+    }
+    tbody{
+      tr.active{
+        td.active{
+          color: #333;
+        }
+      }
+    }
+    tfoot{
+      td{
+        padding: 0px;
+      }
+    }
+  }
   tr.unread{
     td{
       a {
@@ -301,5 +364,11 @@ table{
     div{
       margin: 0 0 0 0;
     }
+  }
+}
+button.btn-fab.btn-fab-mini{
+  &:hover{
+    color: #ffffff;
+    background-color: #009688 !important;
   }
 }

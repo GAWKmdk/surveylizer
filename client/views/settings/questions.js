@@ -1,109 +1,112 @@
-questionCategoriesPaginator = new Paginator(questionCategories, 10);
+Template.questions.created = function () {
+    this.pagination = new Meteor.Pagination(QuestionCategories, {
+        sort: {
+            name: 1
+        }
+    });
+};
 
 Template.questions.helpers({
-  questionTypes: function(){
-    return questionTypes.find();
-  },
-  questionCategoriesPaginator: function(){
-    return questionCategoriesPaginator;
-  },
-  questionCategories: function(){
-    return questionCategoriesPaginator.pagedItems();
-  },
-  selectedQuestionCategory: function(){
-    return Session.equals("selectedQuestionCategoryId", this._id) ? "btn-primary" : "";
-  },
-  isQuestionCategorySelected: function(){
-    return Session.get("selectedQuestionCategoryId") ? true : false;
-  }
+    questionTypes: function () {
+        return QuestionTypes.find();
+    },
+    templatePagination: function () {
+        return Template.instance().pagination;
+    },
+    questionCategories: function () {
+        return Template.instance().pagination.getPage();
+    },
+    selectedQuestionCategory: function () {
+        return Session.equals("selectedQuestionCategoryId", this._id) ? "active" : "";
+    },
+    canEditQuestionCategory: function () {
+        return Session.get("selectedQuestionCategoryId") ? "" : "disabled";
+    }
 });
 
 Template.questions.events({
-  'click form#new-question-category-form .input-group-addon': function(e, t){
-    $("#new-question-category-form").trigger("submit");
-  },
-  'submit #new-question-category-form': function(e, t){
-    e.preventDefault();
-    var questionCategoryDoc = {
-      name: t.find("#new-question-category-name").value
-    };
+    "click form#new-question-category-form button": function (e, t) {
+        $("#new-question-category-form").trigger("submit");
+    },
+    "submit #new-question-category-form": function (e, t) {
+        e.preventDefault();
+        var questionCategoryDoc = {
+            name: t.find("#new-question-category-name").value
+        };
 
-    this.questionCategory.set(questionCategoryDoc);
-    var newQuetionCategory = new QuestionCategory(questionCategoryDoc);
+        this.questionCategory.set(questionCategoryDoc);
+        var newQuestionCategory = new QuestionCategory(questionCategoryDoc);
 
-    if(this.questionCategory.validateAll()){
-      newQuestionCategory.save();
-      t.find("#new-question-category-form").reset();
-      toastr.success("Question Category successfully created!");
+        if (this.questionCategory.validate()) {
+            newQuestionCategory.save();
+            t.find("#new-question-category-form").reset();
+            toastr.success("Question Category successfully created!");
+        }
+
+        return false;
+    },
+    "click #question-categories-list tr": function (e, t) {
+        Session.equals("selectedQuestionCategoryId", this._id) ?
+            Session.set("selectedQuestionCategoryId", null) : Session.set("selectedQuestionCategoryId", this._id);
     }
-
-    return false;
-  },
-  'click #question-categories-list tr': function(e, t){
-    Session.equals("selectedQuestionCategoryId", this._id) ?
-    Session.set("selectedQuestionCategoryId", null) : Session.set("selectedQuestionCategoryId", this._id);
-  }
 });
 
 
 Template.editQuestionCategoryModal.helpers({
-  selectedQuestionCategory: function(){
-    this.selectedQuestionCategory = questionCategories.findOne({_id: Session.get("selectedQuestionCategoryId")})
-    return this.selectedQuestionCategory;
-  }
+    selectedQuestionCategory: function () {
+        this.selectedQuestionCategory = QuestionCategories.findOne({_id: Session.get("selectedQuestionCategoryId")})
+        return this.selectedQuestionCategory;
+    }
 });
 
 Template.editQuestionCategoryModal.events({
-  "submit #edit-question-category-modal form": function(e, t){
-    e.preventDefault();
+    "submit #edit-question-category-modal form": function (e, t) {
+        e.preventDefault();
 
-    var selectedQuestionCategoryId = Session.get("selectedQuestionCategoryId");
+        var selectedQuestionCategoryId = Session.get("selectedQuestionCategoryId");
 
-    if(selectedQuestionCategoryId){
+        if (selectedQuestionCategoryId) {
 
-      this.selectedQuestionCategory.set({
-        _id: selectedQuestionCategoryId,
-        name: t.find("#edit-question-category-name").value
-      });
+            this.selectedQuestionCategory.set({
+                _id: selectedQuestionCategoryId,
+                name: t.find("#edit-question-category-name").value
+            });
 
-      if(this.selectedQuestionCategory.validateAll()){
-        this.selectedQuestionCategory.save();
-        $("#edit-question-category-modal").modal('hide');
-        toastr.success("Question Category successfully edited!");
-      }
+            if (this.selectedQuestionCategory.validate()) {
+                this.selectedQuestionCategory.save();
+                $("#edit-question-category-modal").modal("hide");
+                toastr.success("Question Category successfully edited!");
+            }
+        }
+
+        // Prevent form reload
+        return false;
     }
-
-    // Prevent form reload
-    return false;
-  }
 });
 
 Template.deleteQuestionCategoryModal.helpers({
-  selectedQuestionCategory: function(){
-    return questionCategories.findOne({_id: Session.get("selectedQuestionCategoryId")});
-  }
+    selectedQuestionCategory: function () {
+        return QuestionCategories.findOne({_id: Session.get("selectedQuestionCategoryId")});
+    }
 });
 
 Template.deleteQuestionCategoryModal.events({
-  "submit #delete-question-category-modal form": function(e, t){
-    e.preventDefault();
+    "click #delete-question-category": function (e, t) {
+        e.preventDefault();
 
-    var selectedQuestionCategoryId = Session.get("selectedQuestionCategoryId");
+        var selectedQuestionCategoryId = Session.get("selectedQuestionCategoryId");
 
-    if(selectedQuestionCategoryId){
-      questionCategories.remove({_id: selectedQuestionCategoryId}, function(err){
-        if (err) {
-          Session.set("errorMessage", err.reason);
-          toastr.error(err.reason);
-        } else {
-          $("#delete-question-category-modal").modal('hide');
-          toastr.success("Question Category successfully deleted!");
-          Session.set("selectedQuestionCategoryId", null);
+        if (selectedQuestionCategoryId) {
+            QuestionCategories.remove({_id: selectedQuestionCategoryId}, function (err) {
+                if (err) {
+                    Session.set("errorMessage", err.reason);
+                    toastr.error(err.reason);
+                } else {
+                    $("#delete-question-category-modal").modal("hide");
+                    toastr.success("Question Category successfully deleted!");
+                    Session.set("selectedQuestionCategoryId", null);
+                }
+            });
         }
-      });
     }
-
-    // Prevent form reload
-    return false;
-  }
 });

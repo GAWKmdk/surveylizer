@@ -4,6 +4,14 @@ Template.sidebar.onRendered(function(){
     });
 });
 
+toggleOpenIcon = function(icon){
+    if(icon.hasClass("fa-rotate-90")){
+        icon.removeClass("fa-rotate-90");
+    } else {
+        icon.addClass("fa-rotate-90");
+    }
+};
+
 Template.sidebar.helpers({
     currentUser: function(){
         return Meteor.user();
@@ -19,8 +27,10 @@ Template.sidebar.helpers({
 Template.sidebar.events({
     'click #navigation a.main-menu-item': function(e, t){
         $(e.target).next("ul").slideToggle();
+        toggleOpenIcon($(e.target).children("i.pull-right"));
     },
     'click #navigation a.main-menu-item>*': function(e, t){
         $(e.target).parent().next("ul").slideToggle();
+        toggleOpenIcon($(e.target).children("i.pull-right"));
     }
 });

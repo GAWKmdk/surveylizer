@@ -11,7 +11,7 @@ Template.signUp.events({
     "submit #sign-up-form": function (e, t) {
         e.preventDefault();
 
-        var surveyorRole = roles.findOne({name: "Surveyor"});
+        var surveyorRole = Roles.Collection.findOne({name: "Surveyor"});
 
         // New user document
         var userDoc = {
@@ -30,7 +30,7 @@ Template.signUp.events({
 
         this.user.set(userDoc);
 
-        if (this.user.validateAll()) {
+        if (this.user.validate()) {
             // If valid input provided, create user and login to system
             Accounts.createUser(userDoc, function (err) {
                 if (err) {

@@ -1,6 +1,6 @@
 Template.deleteSurveyModal.helpers({
     "selectedSurvey": function () {
-        return surveys.findOne({_id: Session.get("selectedSurveyId")});
+        return Surveys.findOne({_id: Session.get("selectedSurveyId")});
     }
 });
 
@@ -11,7 +11,7 @@ Template.deleteSurveyModal.events({
         var selectedSurveyId = Session.get("selectedSurveyId");
 
         if (selectedSurveyId) {
-            var survey = surveys.findOne({_id: selectedSurveyId});
+            var survey = Surveys.findOne({_id: selectedSurveyId});
             survey.remove();
             Session.set("selectedSurveyId", null);
             $("#delete-survey-modal").modal('hide');

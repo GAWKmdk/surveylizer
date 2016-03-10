@@ -2,7 +2,7 @@ completeSurvey = function(){
     var surveyToCompleteId = Session.get("surveyToCompleteId");
 
     if(surveyToCompleteId){
-        surveys.update({_id: surveyToCompleteId}, {$set: {
+        Surveys.update({_id: surveyToCompleteId}, {$set: {
             endDate: new Date(),
             status: settings.surveyStatusFinished
         }});
@@ -21,7 +21,7 @@ newAnswer = function(questionId, value, choiceOrderNumber){
         answeredOn: new Date()
     };
 
-    var previousAnswer = answers.findOne({
+    var previousAnswer = Answers.findOne({
         surveyId: answer.surveyId,
         userId: answer.userId,
         questionId: answer.questionId,
@@ -29,13 +29,13 @@ newAnswer = function(questionId, value, choiceOrderNumber){
     });
 
     if(previousAnswer){
-        answers.update({_id: previousAnswer._id}, {$set: answer}, function(err){
+        Answers.update({_id: previousAnswer._id}, {$set: answer}, function(err){
             if(err){
                 throw new Meteor.Error(err);
             }
         });
     } else {
-        answers.insert(answer, function(err){
+        Answers.insert(answer, function(err){
             if(err){
                 throw new Meteor.Error(err);
             }
@@ -62,7 +62,7 @@ submitAnswer = function(template, question){
 
 Template.completeSurvey.helpers({
     "surveyToComplete": function(){
-        return surveys.findOne({_id: Session.get("surveyToCompleteId")});
+        return Surveys.findOne({_id: Session.get("surveyToCompleteId")});
     }
 });
 
@@ -124,7 +124,7 @@ Template.radioInput.events({
             var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
             if(previousChoice){
                 // Remove answer from collection
-                answers.remove({_id: previousChoice._id});
+                Answers.remove({_id: previousChoice._id});
             }
         }
     }
@@ -148,7 +148,7 @@ Template.checkboxInput.events({
             var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
             if(previousChoice){
                 // Remove answer from collection
-                answers.remove({_id: previousChoice._id});
+                Answers.remove({_id: previousChoice._id});
             }
 
         }

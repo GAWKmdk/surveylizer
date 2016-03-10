@@ -40,9 +40,7 @@
         <tfoot>
           <tr>
             <td colspan="4">
-              {{#with notificationsPaginator}}
-              {{> pagination }}
-              {{/with}}
+              {{> defaultBootstrapPaginator pagination=templatePagination limit=6 containerClass="text-center"}}
             </td>
           </tr>
         </tfoot>
@@ -50,7 +48,7 @@
     </div>
     <div class="panel-footer">
       {{#if isNotificationSelected }}
-      <a id="mark-as-read" type="button" class="btn btn-sm btn-primary btn-raised">
+      <a id="mark-as-read" type="button" class="btn btn-raised btn-primary">
         <i class="fa fa-check"></i> Mark as Read
       </a>
       <a id="mark-as-unread" type="button" class="btn btn-sm btn-primary btn-raised">

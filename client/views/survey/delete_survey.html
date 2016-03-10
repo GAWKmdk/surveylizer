@@ -11,15 +11,15 @@
                         {{#with selectedSurvey}}
                             <div>
                                 <p>Are you sure you want to delete the survey: <strong>{{questionnaire.name}}</strong> ?</p>
-                                <p class="alert alert-info">
+                                <p class="alert alert-danger">
                                     <strong>WARNING:</strong> All related Answers will also be removed!
                                 </p>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-check"></i> Accept</button>
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                        <button type="submit" class="btn btn-sm btn-danger btn-raised"><i class="fa fa-check"></i> Accept</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-raised" data-dismiss="modal">
                             <i class="fa fa-times"></i> Cancel
                         </button>
                     </div>

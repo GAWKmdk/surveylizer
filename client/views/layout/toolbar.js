@@ -1,8 +1,3 @@
-Accounts.ui.config({
-    passwordSignupFields: 'USERNAME_ONLY'
-});
-
-
 Template.toolbar.events({
     'click a#sidebar-toggle': function (e, t) {
         if ($("aside#sidebar").is(":visible")) {

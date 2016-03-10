@@ -1,43 +1,11 @@
-Meteor.publish("users", function(){
-    return Meteor.users.find();
-});
-
-Meteor.publish("roles", function(){
-    return roles.find();
-});
-
-Meteor.publish("permissions", function(){
-    return permissions.find();
-});
-
-Meteor.publish("questionnaires", function(){
-    return questionnaires.find();
-});
-
-Meteor.publish("questionTypes", function(){
-    return questionTypes.find();
-});
-
-Meteor.publish("questionCategories", function(){
-    return questionCategories.find();
-});
-
-Meteor.publish("surveyors", function(){
-    return surveyors.find();
-});
-
-Meteor.publish("surveys", function(){
-    return surveys.find();
-});
-
-Meteor.publish("questions", function(){
-    return questions.find();
-});
-
-Meteor.publish("answers", function(){
-    return answers.find();
-});
-
-Meteor.publish("notifications", function(){
-    return notifications.find();
-});
+new Meteor.Pagination(Meteor.users);
+new Meteor.Pagination(Roles);
+new Meteor.Pagination(Permissions);
+new Meteor.Pagination(Questionnaires);
+new Meteor.Pagination(QuestionTypes);
+new Meteor.Pagination(QuestionCategories);
+new Meteor.Pagination(Surveyors);
+new Meteor.Pagination(Surveys);
+new Meteor.Pagination(Questions);
+new Meteor.Pagination(Answers);
+new Meteor.Pagination(Notifications);

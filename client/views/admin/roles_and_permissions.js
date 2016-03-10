@@ -1,29 +1,9 @@
-permissionsPaginator = new Paginator(permissions, 10);
-
 Template.rolesAndPermissions.helpers({
-    roles: function () {
-        return roles.find();
+    canEditRole: function () {
+        return Session.get("selectedRoleId") ? "" : "disabled";
     },
-    permissions: function () {
-        return permissionsPaginator.pagedItems({});
-    },
-    permissionsPaginator: function(){
-      return permissionsPaginator;
-    },
-    numberOfUsers: function (roleId) {
-        return Meteor.users.find({"profile.roleId": roleId}).count();
-    },
-    selectedRole: function () {
-        return Session.equals("selectedRoleId", this._id) ? "btn-primary" : "";
-    },
-    selectedPermission: function () {
-        return Session.equals("selectedPermissionId", this._id) ? "btn-primary" : "";
-    },
-    isRoleSelected: function () {
-        return Session.get("selectedRoleId") ? true : false;
-    },
-    isPermissionSelected: function () {
-        return Session.get("selectedPermissionId") ? true : false;
+    canEditPermission: function () {
+        return Session.get("selectedPermissionId") ? "" : "disabled";
     }
 });
 
@@ -45,12 +25,13 @@ Template.rolesAndPermissions.events({
         this.role.set(roleDoc);
         var newRole = new Role(roleDoc);
 
-        if (this.role.validateAll()) {
+        if (this.role.validate()) {
             newRole.save();
             t.find("form").reset();
             toastr.success("Role successfully created!");
         } else {
-            toastr.error(getErrorMessage(this.role.getValidationErrors()));;
+            toastr.error(getErrorMessage(this.role.getValidationErrors()));
+            ;
         }
 
         return false;
@@ -66,7 +47,7 @@ Template.rolesAndPermissions.events({
         this.permission.set(permissionDoc);
         var newPermission = new Permission(permissionDoc);
 
-        if(this.permission.validateAll()){
+        if (this.permission.validate()) {
             newPermission.save();
             t.find("form").reset();
             toastr.success("Permission successfully created!");
@@ -86,19 +67,75 @@ Template.rolesAndPermissions.events({
     }
 });
 
+Template.roles.created = function () {
+    this.pagination = new Meteor.Pagination(Roles, {
+        sort: {
+            name: 1
+        }
+    });
+};
+
+Template.roles.helpers({
+    templatePagination: function () {
+        return Template.instance().pagination;
+    },
+    roles: function () {
+        return Template.instance().pagination.getPage();
+    }
+});
+
+Template.role.helpers({
+    numberOfUsers: function (roleId) {
+        return Meteor.users.find({"profile.roleId": roleId}).count();
+    },
+    selectedRole: function () {
+        return Session.equals("selectedRoleId", this._id) ? "active" : "";
+    }
+});
+
+Template.role.onRendered(function () {
+    $.material.init();
+});
+
+Template.permissions.created = function () {
+    this.pagination = new Meteor.Pagination(Permissions, {
+        sort: {
+            name: 1
+        }
+    });
+};
+
+Template.permissions.helpers({
+    templatePagination: function () {
+        return Template.instance().pagination;
+    },
+    permissions: function () {
+        return Template.instance().pagination.getPage();
+    }
+});
+
+Template.permission.helpers({
+    selectedPermission: function () {
+        return Session.equals("selectedPermissionId", this._id) ? "active" : "";
+    }
+});
+
+Template.permission.onRendered(function () {
+    $.material.init();
+});
 
 Template.editRoleModal.helpers({
-    "selectedRole": function () {
-        return roles.findOne({_id: Session.get("selectedRoleId")});
+    selectedRole: function () {
+        return Roles.findOne({_id: Session.get("selectedRoleId")});
     },
     availablePermissions: function () {
-        return permissions.find({_id: {$nin: this.permissions}});
+        return Permissions.find({_id: {$nin: this.permissions}});
     },
     hasPermissions: function () {
         return this.permissions ? true : false;
     },
     rolePermissions: function () {
-        return permissions.find({_id: {$in: this.permissions}});
+        return Permissions.find({_id: {$in: this.permissions}});
     }
 });
 
@@ -109,7 +146,7 @@ Template.editRoleModal.events({
         if (selectedPermissionId) {
             var selectedRoleId = Session.get("selectedRoleId");
             if (selectedRoleId) {
-                roles.update({_id: selectedRoleId}, {$push: {permissions: selectedPermissionId}});
+                Roles.update({_id: selectedRoleId}, {$push: {permissions: selectedPermissionId}});
             }
         }
     },
@@ -117,12 +154,11 @@ Template.editRoleModal.events({
         // Get selected role
         var selectedRoleId = Session.get("selectedRoleId");
         if (selectedRoleId) {
-            roles.update({_id: selectedRoleId}, {$pull: {permissions: this._id}});
+            Roles.update({_id: selectedRoleId}, {$pull: {permissions: this._id}});
         }
     },
-    "submit #edit-role-modal form": function (e, t) {
+    "click #edit-role": function (e, t) {
         e.preventDefault();
-
 
         var selectedRoleId = Session.get("selectedRoleId");
 
@@ -135,7 +171,7 @@ Template.editRoleModal.events({
 
             this.selectedRole.set(roleDoc);
 
-            if(this.selectedRole.validateAll()){
+            if (this.selectedRole.validate()) {
                 this.selectedRole.save();
                 $("#edit-role-modal").modal('hide');
                 toastr.success("Role successfully updated!");
@@ -144,26 +180,23 @@ Template.editRoleModal.events({
             }
 
         }
-
-        // Prevent form reload
-        return false;
     }
 });
 
 Template.deleteRoleModal.helpers({
     selectedRole: function () {
-        return roles.findOne({_id: Session.get("selectedRoleId")});
+        return Roles.findOne({_id: Session.get("selectedRoleId")});
     }
 });
 
 Template.deleteRoleModal.events({
-    "submit #delete-role-modal form": function (e, t) {
+    "click #delete-role": function (e, t) {
         e.preventDefault();
 
         var selectedRoleId = Session.get("selectedRoleId");
 
         if (selectedRoleId) {
-            roles.remove({_id: selectedRoleId}, function (err) {
+            Roles.remove({_id: selectedRoleId}, function (err) {
                 if (err) {
                     toastr.error(getErrorMessage(err.reason));
                 } else {
@@ -172,23 +205,20 @@ Template.deleteRoleModal.events({
                 }
             });
         }
-
-        // Prevent form reload
-        return false;
     }
 });
 
 Template.editPermissionModal.helpers({
-    operationEquals: function(operationName){
-      return this.operation == operationName ? "selected" : "";
+    operationEquals: function (operationName) {
+        return this.operation == operationName ? "selected" : "";
     },
     selectedPermission: function () {
-        return permissions.findOne({_id: Session.get("selectedPermissionId")});
+        return Permissions.findOne({_id: Session.get("selectedPermissionId")});
     }
 });
 
 Template.editPermissionModal.events({
-    "submit #edit-permission-modal form": function (e, t) {
+    "click #edit-permission": function (e, t) {
         e.preventDefault();
 
         var selectedPermissionId = Session.get("selectedPermissionId");
@@ -196,13 +226,13 @@ Template.editPermissionModal.events({
         if (selectedPermissionId) {
             var permissionDoc = {
                 _id: selectedPermissionId,
-                module: t.find("#new-permission-module").value,
-                operation: t.find("#new-permission-operation").value != "empty" ? t.find("#new-permission-operation").value : ""
+                module: t.find("#edit-permission-module").value,
+                operation: t.find("#edit-permission-operation").value != "empty" ? t.find("#edit-permission-operation").value : ""
             };
 
             this.selectedPermission.set(permissionDoc);
 
-            if(this.selectedPermission.validateAll()){
+            if (this.selectedPermission.validate()) {
                 this.selectedPermission.save();
                 t.find("form").reset();
                 toastr.success("Permission successfully updated!");
@@ -210,26 +240,23 @@ Template.editPermissionModal.events({
                 toastr.error(getErrorMessage(this.selectedPermission.getValidationErrors()));
             }
         }
-
-        // Prevent form reload
-        return false;
     }
 });
 
 Template.deletePermissionModal.helpers({
     selectedPermission: function () {
-        return permissions.findOne({_id: Session.get("selectedPermissionId")});
+        return Permissions.findOne({_id: Session.get("selectedPermissionId")});
     }
 });
 
 Template.deletePermissionModal.events({
-    "submit #delete-permission-modal form": function (e, t) {
+    "delete #delete-permission": function (e, t) {
         e.preventDefault();
 
         var selectedPermissionId = Session.get("selectedPermissionId");
 
         if (selectedPermissionId) {
-            permissions.remove({_id: selectedPermissionId}, function (err) {
+            Permissions.remove({_id: selectedPermissionId}, function (err) {
                 if (err) {
                     toastr.error(err.reason);
                 } else {
@@ -238,8 +265,5 @@ Template.deletePermissionModal.events({
                 }
             });
         }
-
-        // Prevent form reload
-        return false;
     }
 });
