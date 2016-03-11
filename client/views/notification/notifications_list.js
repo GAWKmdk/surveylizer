@@ -4,7 +4,7 @@ Template.notificationsList.created = function () {
       sentOn: -1
     }
   });
-}
+};
 
 Template.notificationsList.helpers({
   templatePagination: function () {
@@ -16,8 +16,8 @@ Template.notificationsList.helpers({
   hasNotifications: function () {
     return Notifications.find({receiverId: Meteor.userId()}).count() > 0;
   },
-  isNotificationSelected: function () {
-    return Session.get("isNotificationSelected");
+  notificationSelected: function () {
+    return Session.get("isNotificationSelected") ? "" : "disabled";
   }
 });
 

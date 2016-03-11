@@ -84,6 +84,10 @@ Template.continueSurvey.events({
         }
 
         return false;
+    },
+    "change #continue-survey-search-field": function (e, t) {
+        var selectedOption = t.$(e.target).val();
+        Session.set("continueSurveySearchAttr", selectedOption);
     }
 });
 

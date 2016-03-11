@@ -30,6 +30,10 @@ Template.rolesAndPermissions.events({
 
         return false;
     },
+    "change #role-search-field": function (e, t) {
+        var selectedOption = t.$(e.target).val();
+        Session.set("roleSearchAttr", selectedOption);
+    },
     "submit #new-role-form": function (e, t) {
         e.preventDefault();
 
@@ -64,6 +68,10 @@ Template.rolesAndPermissions.events({
         }
 
         return false;
+    },
+    "change #permission-search-field": function (e, t) {
+        var selectedOption = t.$(e.target).val();
+        Session.set("permissionSearchAttr", selectedOption);
     },
     'submit #new-permission-form': function (e, t) {
         e.preventDefault();
@@ -125,7 +133,7 @@ Template.roles.helpers({
 
 Template.roles.events({
     "click table#roles-list thead td": function (e, t) {
-        if(!$(e.target).hasClass("disabled")){
+        if (!$(e.target).hasClass("disabled")) {
             t.$("table thead td.active").removeClass("active");
             t.$(e.target).addClass("active");
 
@@ -181,7 +189,7 @@ Template.permissions.helpers({
 
 Template.permissions.events({
     "click table#permissions-list thead td": function (e, t) {
-        if(!$(e.target).hasClass("disabled")){
+        if (!$(e.target).hasClass("disabled")) {
             t.$("table thead td.active").removeClass("active");
             t.$(e.target).addClass("active");
 

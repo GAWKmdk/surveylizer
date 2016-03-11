@@ -188,6 +188,12 @@ div#tax-form{
   }
 }
 
+form.new-form{
+  padding: 10px 20px;
+  background-color: #efefef;
+  margin-bottom: 20px;
+}
+
 ul.navbar-nav{
   li.with-icon {
     >a {
@@ -206,6 +212,27 @@ ul.navbar-nav{
       }
       i{
         font-size: 1.8em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px){
+  ul.navbar-nav{
+    li#login-dropdown-list{
+      div.dropdown-menu{
+        background-color: #fff;
+      }
+    }
+  }
+  ul#notification-dropdown{
+    ul.dropdown-menu{
+      background-color: #fff;
+      color: #777777;
+      li {
+        a:hover {
+          background-color: #efefef;
+        }
       }
     }
   }

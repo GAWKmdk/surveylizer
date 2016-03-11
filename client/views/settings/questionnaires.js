@@ -1,10 +1,14 @@
-Template.questionnaires.created = function () {
+Template.questionnaires.onCreated(function () {
     this.pagination = new Meteor.Pagination(Questionnaires, {
         sort: {
             name: 1
         }
     });
-};
+});
+
+Template.questionnaires.onRendered(function () {
+    Session.set("questionnaireSearchAttr", $("table thead td.active").data("search-name"));
+});
 
 Template.questionnaires.helpers({
     templatePagination: function () {
@@ -88,11 +92,11 @@ Template.questionnaires.events({
             Session.set("questionnaireSearchValue", null);
         }
         return false;
+    },
+    "change #questionnaire-search-field": function(e, t){
+        var selectedOption = t.$(e.target).val();
+        Session.set("questionnaireSearchAttr", selectedOption);
     }
-});
-
-Template.questionnaires.onRendered(function () {
-    Session.set("questionnaireSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.editQuestionnaireModal.helpers({
@@ -155,13 +159,17 @@ Template.deleteQuestionnaireModal.events({
     }
 });
 
-Template.questionnaireQuestions.created = function () {
+Template.questionnaireQuestions.onCreated(function () {
     this.pagination = new Meteor.Pagination(Questions, {
         sort: {
             name: 1
         }
     });
-};
+});
+
+Template.questionnaireQuestions.onRendered(function () {
+    Session.set("questionSearchAttr", $("table thead td.active").data("search-name"));
+});
 
 Template.questionnaireQuestions.helpers({
     templatePagination: function () {
@@ -276,33 +284,10 @@ Template.questionnaireQuestions.events({
             Session.set("questionSearchValue", null);
         }
         return false;
-    }
-});
-
-Template.questionnaireQuestions.onRendered(function () {
-    Session.set("questionSearchAttr", $("table thead td.active").data("search-name"));
-});
-
-Template.editQuestionnaireQuestionModal.helpers({
-    selectedQuestion: function () {
-        this.selectedQuestion = Questions.findOne({_id: Session.get("selectedQuestionnaireQuestionId")});
-        return this.selectedQuestion;
     },
-    questionTypes: function () {
-        return QuestionTypes.find();
-    },
-    questionCategories: function () {
-        return QuestionCategories.find();
-    },
-    isQuestionType: function (typeOfQuestion) {
-        var questionType = QuestionTypes.findOne({_id: this.typeId});
-        return questionType.name == typeOfQuestion;
-    },
-    isQuestionTypeSelected: function () {
-        return this._id == Template.parentData(1).typeId ? "selected" : "";
-    },
-    isQuestionCategorySelected: function () {
-        return this._id == Template.parentData(1).categoryId ? "selected" : "";
+    "change #question-search-field": function(e, t){
+        var selectedOption = t.$(e.target).val();
+        Session.set("questionSearchAttr", selectedOption);
     }
 });
 
@@ -355,6 +340,29 @@ Template.choices.events({
                 Session.set("errorMessage", err.reason);
             }
         });
+    }
+});
+
+Template.editQuestionnaireQuestionModal.helpers({
+    selectedQuestion: function () {
+        this.selectedQuestion = Questions.findOne({_id: Session.get("selectedQuestionnaireQuestionId")});
+        return this.selectedQuestion;
+    },
+    questionTypes: function () {
+        return QuestionTypes.find();
+    },
+    questionCategories: function () {
+        return QuestionCategories.find();
+    },
+    isQuestionType: function (typeOfQuestion) {
+        var questionType = QuestionTypes.findOne({_id: this.typeId});
+        return questionType.name == typeOfQuestion;
+    },
+    isQuestionTypeSelected: function () {
+        return this._id == Template.parentData(1).typeId ? "selected" : "";
+    },
+    isQuestionCategorySelected: function () {
+        return this._id == Template.parentData(1).categoryId ? "selected" : "";
     }
 });
 

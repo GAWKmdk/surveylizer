@@ -1,10 +1,14 @@
-Template.surveyors.created = function () {
+Template.surveyors.onCreated(function () {
     this.pagination = new Meteor.Pagination(Surveyors, {
         sort: {
             firstName: 1
         }
     });
-};
+});
+
+Template.surveyors.onRendered(function () {
+    Session.set("surveyorSearchAttr", $("table thead td.active").data("search-name"));
+});
 
 Template.surveyors.helpers({
     templatePagination: function () {
@@ -15,7 +19,7 @@ Template.surveyors.helpers({
             var searchFilter = {};
             var searchObject;
 
-            if(Session.get("surveyorSearchAttr") == "firstName"){
+            if(Session.get("surveyorSearchAttr") == "fullName"){
                 searchFilter = {
                     $or: [
                         {firstName: {$regex: Session.get("surveyorSearchValue"), $options: 'i'}},
@@ -99,11 +103,11 @@ Template.surveyors.events({
             Session.set("surveyorSearchValue", null);
         }
         return false;
+    },
+    "change #surveyor-search-field": function(e, t){
+        var selectedOption = t.$(e.target).val();
+        Session.set("surveyorSearchAttr", selectedOption);
     }
-});
-
-Template.surveyors.onRendered(function () {
-    Session.set("surveyorSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.editSurveyorModal.helpers({

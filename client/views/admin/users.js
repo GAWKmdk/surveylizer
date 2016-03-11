@@ -55,6 +55,10 @@ Template.users.events({
         }
 
         return false;
+    },
+    "change #user-search-field": function(e, t){
+        var selectedOption = t.$(e.target).val();
+        Session.set("searchAttr", selectedOption);
     }
 });
 
