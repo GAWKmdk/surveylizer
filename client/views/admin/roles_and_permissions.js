@@ -15,7 +15,22 @@ Template.rolesAndPermissions.events({
             $("#new-permission-form").trigger("submit");
         }
     },
-    'submit #new-role-form': function (e, t) {
+    "keyup input#search-roles": function (e, t) {
+        $("#search-roles-form").trigger("submit");
+    },
+    "submit #search-roles-form": function (e, t) {
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-roles").value;
+        if (searchTerm) {
+            Session.set("roleSearchValue", searchTerm);
+        } else {
+            Session.set("roleSearchValue", null);
+        }
+
+        return false;
+    },
+    "submit #new-role-form": function (e, t) {
         e.preventDefault();
 
         var roleDoc = {
@@ -31,7 +46,21 @@ Template.rolesAndPermissions.events({
             toastr.success("Role successfully created!");
         } else {
             toastr.error(getErrorMessage(this.role.getValidationErrors()));
-            ;
+        }
+
+        return false;
+    },
+    "keyup input#search-permissions": function (e, t) {
+        $("#search-permissions-form").trigger("submit");
+    },
+    "submit #search-permissions-form": function (e, t) {
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-permissions").value;
+        if (searchTerm) {
+            Session.set("permissionSearchValue", searchTerm);
+        } else {
+            Session.set("permissionSearchValue", null);
         }
 
         return false;
@@ -80,8 +109,33 @@ Template.roles.helpers({
         return Template.instance().pagination;
     },
     roles: function () {
+        if (Session.get("roleSearchAttr") && Session.get("roleSearchValue")) {
+            var searchFilter = {};
+            var searchObject = {
+                $regex: Session.get("roleSearchValue"), $options: 'i'
+            };
+            searchFilter[Session.get("roleSearchAttr")] = searchObject;
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({});
+        }
         return Template.instance().pagination.getPage();
     }
+});
+
+Template.roles.events({
+    "click table#roles-list thead td": function (e, t) {
+        if(!$(e.target).hasClass("disabled")){
+            t.$("table thead td.active").removeClass("active");
+            t.$(e.target).addClass("active");
+
+            Session.set("roleSearchAttr", $(e.target).data("search-name"));
+        }
+    }
+});
+
+Template.roles.onRendered(function () {
+    Session.set("roleSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.role.helpers({
@@ -110,8 +164,34 @@ Template.permissions.helpers({
         return Template.instance().pagination;
     },
     permissions: function () {
+        if (Session.get("permissionSearchAttr") && Session.get("permissionSearchValue")) {
+            var searchFilter = {};
+            var searchObject = {
+                $regex: Session.get("permissionSearchValue"),
+                $options: 'i'
+            };
+            searchFilter[Session.get("permissionSearchAttr")] = searchObject;
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({});
+        }
         return Template.instance().pagination.getPage();
     }
+});
+
+Template.permissions.events({
+    "click table#permissions-list thead td": function (e, t) {
+        if(!$(e.target).hasClass("disabled")){
+            t.$("table thead td.active").removeClass("active");
+            t.$(e.target).addClass("active");
+
+            Session.set("permissionSearchAttr", $(e.target).data("search-name"));
+        }
+    }
+});
+
+Template.permissions.onRendered(function () {
+    Session.set("permissionSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.permission.helpers({

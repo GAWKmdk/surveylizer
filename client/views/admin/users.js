@@ -11,19 +11,17 @@ Template.users.helpers({
         return Template.instance().pagination;
     },
     users: function () {
-        return Template.instance().pagination.getPage();
-    },
-    systemUsers: function () {
         if (Session.get("searchAttr") && Session.get("searchValue")) {
             var searchFilter = {};
             var searchObject = {
                 $regex: Session.get("searchValue"), $options: 'i'
             };
             searchFilter["profile." + Session.get("searchAttr")] = searchObject;
-            return usersPaginator.pagedItems({find: searchFilter});
+            Template.instance().pagination.filters(searchFilter);
         } else {
-            return usersPaginator.pagedItems({});
+            Template.instance().pagination.filters({});
         }
+        return Template.instance().pagination.getPage();
     },
     canEditUser: function () {
         return Session.get("selectedUserId") ? "" : "disabled";
@@ -43,13 +41,21 @@ Template.users.events({
 
         Session.set("searchAttr", $(event.target).data("search-name"));
     },
-    'keyup #search-users input': function (e, t) {
-        if (e.target.value == "") {
-            Session.set("searchValue", null);
-        } else {
-            Session.set("searchValue", e.target.value);
-        }
+    "keyup input#search-users": function (e, t) {
+        $("#search-users-form").trigger("submit");
     },
+    "submit #search-users-form": function(e, t){
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-users").value;
+        if(searchTerm){
+            Session.set("searchValue", searchTerm);
+        } else {
+            Session.set("searchValue", null);
+        }
+
+        return false;
+    }
 });
 
 Template.users.onRendered(function () {

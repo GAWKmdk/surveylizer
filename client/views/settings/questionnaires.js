@@ -11,6 +11,17 @@ Template.questionnaires.helpers({
         return Template.instance().pagination;
     },
     questionnaires: function () {
+        if (Session.get("questionnaireSearchAttr") && Session.get("questionnaireSearchValue")) {
+            var searchFilter = {};
+            var searchObject = {
+                $regex: Session.get("questionnaireSearchValue"), $options: 'i'
+            };
+            searchFilter[Session.get("questionnaireSearchAttr")] = searchObject;
+
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({});
+        }
         return Template.instance().pagination.getPage();
     },
     selectedQuestionnaire: function () {
@@ -55,7 +66,33 @@ Template.questionnaires.events({
 
         // Prevent form reload
         return false;
+    },
+    "click table#questionnaires-list thead td": function (e, t) {
+        if(!$(e.target).hasClass("disabled")){
+            t.$("table thead td.active").removeClass("active");
+            t.$(e.target).addClass("active");
+
+            Session.set("questionnaireSearchAttr", $(e.target).data("search-name"));
+        }
+    },
+    "keyup input#search-questionnaires": function (e, t) {
+        $("#search-questionnaires-form").trigger("submit");
+    },
+    "submit #search-questionnaires-form": function (e, t) {
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-questionnaires").value;
+        if (searchTerm) {
+            Session.set("questionnaireSearchValue", searchTerm);
+        } else {
+            Session.set("questionnaireSearchValue", null);
+        }
+        return false;
     }
+});
+
+Template.questionnaires.onRendered(function () {
+    Session.set("questionnaireSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.editQuestionnaireModal.helpers({
@@ -118,7 +155,6 @@ Template.deleteQuestionnaireModal.events({
     }
 });
 
-
 Template.questionnaireQuestions.created = function () {
     this.pagination = new Meteor.Pagination(Questions, {
         sort: {
@@ -132,9 +168,27 @@ Template.questionnaireQuestions.helpers({
         return Template.instance().pagination;
     },
     questionnaireQuestions: function () {
-        Template.instance().pagination.filters({
-            questionnaireId: Session.get("selectedQuestionnaireId")
-        });
+        if (Session.get("questionSearchAttr") && Session.get("questionSearchValue")) {
+            var searchFilter = {};
+            var searchObject;
+
+            if (Session.get("questionSearchAttr") == "orderNumber") {
+                searchFilter = {$where: "/.*" + Session.get("questionSearchValue") + ".*/.test(this.orderNumber)"};
+            } else {
+                searchObject = {
+                    $regex: Session.get("questionSearchValue"), $options: 'i'
+                };
+                searchFilter[Session.get("questionSearchAttr")] = searchObject;
+            }
+
+            searchFilter["questionnaireId"] = Session.get("selectedQuestionnaireId");
+
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({
+                questionnaireId: Session.get("selectedQuestionnaireId")
+            });
+        }
 
         Template.instance().pagination.sort({
             orderNumber: 1
@@ -200,7 +254,33 @@ Template.questionnaireQuestions.events({
 
         // Prevent form reload
         return false;
+    },
+    "click table#questionnaire-questions-list thead td": function (e, t) {
+        if(!$(e.target).hasClass("disabled")){
+            t.$("table thead td.active").removeClass("active");
+            t.$(e.target).addClass("active");
+
+            Session.set("questionSearchAttr", $(e.target).data("search-name"));
+        }
+    },
+    "keyup input#search-questions": function (e, t) {
+        $("#search-questions-form").trigger("submit");
+    },
+    "submit #search-questions-form": function (e, t) {
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-questions").value;
+        if (searchTerm) {
+            Session.set("questionSearchValue", searchTerm);
+        } else {
+            Session.set("questionSearchValue", null);
+        }
+        return false;
     }
+});
+
+Template.questionnaireQuestions.onRendered(function () {
+    Session.set("questionSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.editQuestionnaireQuestionModal.helpers({

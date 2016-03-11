@@ -11,6 +11,28 @@ Template.surveyors.helpers({
         return Template.instance().pagination;
     },
     surveyors: function () {
+        if (Session.get("surveyorSearchAttr") && Session.get("surveyorSearchValue")) {
+            var searchFilter = {};
+            var searchObject;
+
+            if(Session.get("surveyorSearchAttr") == "firstName"){
+                searchFilter = {
+                    $or: [
+                        {firstName: {$regex: Session.get("surveyorSearchValue"), $options: 'i'}},
+                        {lastName: {$regex: Session.get("surveyorSearchValue"), $options: 'i'}}
+                    ]
+                };
+            }else{
+                searchObject = {
+                    $regex: Session.get("surveyorSearchValue"), $options: 'i'
+                };
+                searchFilter[Session.get("surveyorSearchAttr")] = searchObject;
+            }
+
+            Template.instance().pagination.filters(searchFilter);
+        } else {
+            Template.instance().pagination.filters({});
+        }
         return Template.instance().pagination.getPage();
     },
     selectedSurveyor: function () {
@@ -55,7 +77,33 @@ Template.surveyors.events({
     },
     "click button.btn-clear": function (e, t) {
         t.find("#new-surveyor-form").reset();
+    },
+    "click table#surveyors-list thead td": function (e, t) {
+        if(!$(e.target).hasClass("disabled")){
+            t.$("table thead td.active").removeClass("active");
+            t.$(e.target).addClass("active");
+
+            Session.set("surveyorSearchAttr", $(e.target).data("search-name"));
+        }
+    },
+    "keyup input#search-surveyors": function (e, t) {
+        $("#search-surveyors-form").trigger("submit");
+    },
+    "submit #search-surveyors-form": function(e, t){
+        e.preventDefault();
+
+        var searchTerm = t.find("#search-surveyors").value;
+        if(searchTerm){
+            Session.set("surveyorSearchValue", searchTerm);
+        } else {
+            Session.set("surveyorSearchValue", null);
+        }
+        return false;
     }
+});
+
+Template.surveyors.onRendered(function () {
+    Session.set("surveyorSearchAttr", $("table thead td.active").data("search-name"));
 });
 
 Template.editSurveyorModal.helpers({
