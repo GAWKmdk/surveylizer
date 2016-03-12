@@ -434,12 +434,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Delete Questionnaireor <i class="fa fa-warning"></i></h4>
+                        <h4 class="modal-title">Delete Question <i class="fa fa-warning"></i></h4>
                     </div>
                     <div class="modal-body">
-                        {{#with selectedQuestionnaireor}}
+                        {{#with selectedQuestionnaireQuestion}}
                             <div>
                                 <p>Are you sure you want to delete the question: <strong>{{detail}}</strong> ?</p>
+                                <p class="alert alert-danger">
+                                    <strong>WARNING:</strong> All related Answers will also be removed!
+                                </p>
                             </div>
                         {{/with}}
                     </div>
