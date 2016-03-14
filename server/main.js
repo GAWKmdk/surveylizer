@@ -20,7 +20,7 @@ Meteor.startup(function(){
         };
 
         // Add all permission available
-        var permissionIds = Permissions.Collection.find({}, {_id: 1}).fetch();
+        var permissionIds = Permissions.find({}, {_id: 1}).fetch();
         for(var k=0; k < permissionIds.length; k++){
             adminRole.permissions.push(permissionIds[k]._id);
         }
