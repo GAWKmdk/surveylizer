@@ -1,7 +1,9 @@
 {
-  "support_email": "support@example.com",
+  "supportEmail": "support@example.com",
   "public": {
     "operations": ["view", "add", "edit", "delete"],
-    "modules": ["user", "notification", "report", "setting", "survey"]
+    "modules": ["user", "notification", "report", "setting", "survey"],
+    "surveyStatusStarted": "started",
+    "surveyStatusFinished": "finished"
   }
 }

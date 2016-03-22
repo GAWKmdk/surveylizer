@@ -4,7 +4,7 @@ completeSurvey = function(){
     if(surveyToCompleteId){
         Surveys.update({_id: surveyToCompleteId}, {$set: {
             endDate: new Date(),
-            status: settings.surveyStatusFinished
+            status: Meteor.settings.public.surveyStatusFinished
         }});
         Notify.user("Survey Completed", "You have completed a Survey!", Meteor.userId());
     }

@@ -39,7 +39,7 @@ Meteor.methods({
         // Send the email
         Email.send({
             to: email,
-            from: Meteor.settings.support_email,
+            from: Meteor.settings.supportEmail,
             subject: "SYMS Support",
             html: "<h3>SYMS - Password Recovery</h3>" +
             "<p>Dear Sir/Madam,</p>" +

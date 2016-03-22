@@ -110,7 +110,7 @@ Template.startSurveyModal.events({
                     longitude: t.find("#survey-geo-longitude").value
                 },
                 endDate: null,
-                status: settings.surveyStatusStarted,
+                status: Meteor.settings.public.surveyStatusStarted,
                 orderNumber: 1
             }, function (err) {
                 if (err) {
