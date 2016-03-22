@@ -3,6 +3,16 @@ Meteor.methods({
         // If valid input provided, create user and return userId
         Accounts.createUser(userDoc);
     },
+    "updateUser": function (userObj) {
+        userObj.save();
+    },
+    "deleteUser": function (userObj) {
+        if(!userObj.profile.isSuper){
+            userObj.remove();
+        } else {
+            throw new Meteor.Error("delete-super-error", "Cannot delete the super administrator account!");
+        }
+    },
     "checkIfEmailExists": function (email) {
         var count = Meteor.users.find({
             emails: {$elemMatch: {address: email}}
@@ -29,10 +39,10 @@ Meteor.methods({
         // Send the email
         Email.send({
             to: email,
-            from: "noreply@onepageaccounting.com",
-            subject: "One Page Accounting Support",
-            html: "<h3>One Page Accounting - Password Recovery</h3>" +
-            "<p>Dear Customer,</p>" +
+            from: Meteor.settings.support_email,
+            subject: "SYMS Support",
+            html: "<h3>SYMS - Password Recovery</h3>" +
+            "<p>Dear Sir/Madam,</p>" +
             "<p>Please use the link provided below to recover your password.</p>" +
             "<a href='" + recoveryUrl + "'>Recover Your Password</a>"
         });

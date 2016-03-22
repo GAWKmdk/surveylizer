@@ -2,11 +2,11 @@ Meteor.startup(function(){
 
     // Create Permissions Available for the entire system
     if(Permissions.find({}).count() == 0){
-        for(var i=0; i < modules.length; i++) {
-            for (var j = 0; j < operations.length; j++) {
+        for(var i=0; i < Meteor.settings.public.modules.length; i++) {
+            for (var j = 0; j < Meteor.settings.public.operations.length; j++) {
                 Permissions.insert({
-                    module: modules[i],
-                    operation: operations[j]
+                    module: Meteor.settings.public.modules[i],
+                    operation: Meteor.settings.public.operations[j]
                 });
             }
         }

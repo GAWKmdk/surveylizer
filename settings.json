@@ -1,0 +1,7 @@
+{
+  "support_email": "support@example.com",
+  "public": {
+    "operations": ["view", "add", "edit", "delete"],
+    "modules": ["user", "notification", "report", "setting", "survey"]
+  }
+}
