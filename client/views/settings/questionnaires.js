@@ -120,12 +120,19 @@ Template.editQuestionnaireModal.events({
                 description: t.find("#edit-questionnaire-description").value
             };
 
+            this.selectedQuestionnaire = Questionnaires.findOne({_id: selectedQuestionnaireId});
             this.selectedQuestionnaire.set(questionnaireDoc);
 
             if (this.selectedQuestionnaire.validate()) {
-                this.selectedQuestionnaire.save();
-                $("#edit-questionnaire-modal").modal('hide');
-                toastr.success("Questionnaire successfully edited!");
+                Meteor.call("updateQuestionnaire", this.selectedQuestionnaire, function(err){
+                    if(err){
+                        toastr.error(err.reason);
+                    } else {
+                        t.find("form").reset();
+                        $("#edit-questionnaire-modal").modal('hide');
+                        toastr.success("Questionnaire successfully edited!");
+                    }
+                });
             }
         }
 
@@ -147,11 +154,17 @@ Template.deleteQuestionnaireModal.events({
         var selectedQuestionnaireId = Session.get("selectedQuestionnaireId");
 
         if (selectedQuestionnaireId) {
-            var questionnaire = Questionnaires.findOne({_id: selectedQuestionnaireId});
-            questionnaire.remove();
-            Session.set("selectedQuestionnaireId", null);
-            $("#delete-questionnaire-modal").modal('hide');
-            toastr.success("Questionnaire successfully deleted!");
+            this.selectedQuestionnaire = Questionnaires.findOne({_id: selectedQuestionnaireId});
+
+            Meteor.call("deleteQuestionnaire", this.selectedQuestionnaire, function(err){
+                if (err) {
+                    toastr.error(err.reason);
+                } else {
+                    Session.set("selectedQuestionnaireId", null);
+                    $("#delete-questionnaire-modal").modal('hide');
+                    toastr.success("Questionnaire successfully deleted!");
+                }
+            });
         }
 
         // Prevent form reload
@@ -387,12 +400,18 @@ Template.editQuestionnaireQuestionModal.events({
                 t.find("#edit-questionnaire-question-single-choice").checked ? "Single" : "Multiple"
             };
 
+            this.selectedQuestion = Questions.findOne({_id: selectedQuestionnaireQuestionId});
             this.selectedQuestion.set(questionDoc);
 
             if (this.selectedQuestion.validate()) {
-                this.selectedQuestion.save();
-                $("#edit-questionnaire-question-modal").modal('hide');
-                toastr.success("Question successfully edited!");
+                Meteor.call("updateQuestion", this.selectedQuestion, function(err){
+                    if (err) {
+                        toastr.error(err.reason);
+                    } else {
+                        $("#edit-questionnaire-question-modal").modal('hide');
+                        toastr.success("Question successfully updated!");
+                    }
+                });
             }
 
         }
@@ -415,13 +434,15 @@ Template.deleteQuestionnaireQuestionModal.events({
         var selectedQuestionnaireQuestionId = Session.get("selectedQuestionnaireQuestionId");
 
         if (selectedQuestionnaireQuestionId) {
-            Questions.remove({_id: selectedQuestionnaireQuestionId}, function (err) {
+            this.selectedQuestion = Question.findOne({_id: selectedQuestionnaireQuestionId});
+
+            Meteor.call("deleteQuestion", this.selectedQuestion, function(err){
                 if (err) {
-                    Session.set("errorMessage", err.reason);
+                    toastr.error(err.reason);
                 } else {
-                    // TODO: @tsega Delete Question Answers as well
                     Session.set("selectedQuestionnaireQuestionId", null);
                     $("#delete-questionnaire-question-modal").modal('hide');
+                    toastr.success("Question successfully deleted!");
                 }
             });
         }

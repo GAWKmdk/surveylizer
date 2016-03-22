@@ -160,16 +160,17 @@ Template.editRoleModal.events({
             };
 
             this.selectedRole = Roles.findOne({_id: selectedRoleId});
-
             this.selectedRole.set(roleDoc);
 
             if (this.selectedRole.validate()) {
                 Meteor.call("updateRole", this.selectedRole, function(err){
-                    if(err) throw err;
-
-                    $("#edit-role-modal").modal('hide');
-                    t.find("form").reset();
-                    toastr.success("Role successfully updated!");
+                    if (err) {
+                        toastr.error(err.reason);
+                    } else {
+                        $("#edit-role-modal").modal('hide');
+                        t.find("form").reset();
+                        toastr.success("Role successfully updated!");
+                    }
                 });
             } else {
                 toastr.error(getErrorMessage(this.selectedRole.getValidationErrors()));
@@ -195,10 +196,13 @@ Template.deleteRoleModal.events({
             this.selectedRole = Roles.findOne({_id: selectedRoleId});
 
             Meteor.call("deleteRole", this.selectedRole, function(err){
-                if(err) throw err;
-
-                $("#delete-role-modal").modal('hide');
-                toastr.success("Role successfully deleted!");
+                if (err) {
+                    toastr.error(err.reason);
+                } else {
+                    Session.set("selectedRoleId", null);
+                    $("#delete-role-modal").modal('hide');
+                    toastr.success("Role successfully deleted!");
+                }
             });
         }
     }

@@ -67,15 +67,23 @@ Template.editQuestionCategoryModal.events({
 
         if (selectedQuestionCategoryId) {
 
-            this.selectedQuestionCategory.set({
+            var questionCategoryDoc = {
                 _id: selectedQuestionCategoryId,
                 name: t.find("#edit-question-category-name").value
-            });
+            };
+
+            this.selectedQuestionCategory = QuestionCategories.findOne({_id: selectedQuestionCategoryId });
+            this.selectedQuestionCategory.set(questionCategoryDoc);
 
             if (this.selectedQuestionCategory.validate()) {
-                this.selectedQuestionCategory.save();
-                $("#edit-question-category-modal").modal("hide");
-                toastr.success("Question Category successfully edited!");
+                Meteor.call("updateQuestionCategory", this.selectedQuestionCategory, function(err){
+                    if (err) {
+                        toastr.error(err.reason);
+                    } else {
+                        $("#edit-question-category-modal").modal("hide");
+                        toastr.success("Question Category successfully updated!");
+                    }
+                });
             }
         }
 
@@ -97,14 +105,16 @@ Template.deleteQuestionCategoryModal.events({
         var selectedQuestionCategoryId = Session.get("selectedQuestionCategoryId");
 
         if (selectedQuestionCategoryId) {
-            QuestionCategories.remove({_id: selectedQuestionCategoryId}, function (err) {
+
+            this.selectedQuestionCategory = QuestionCategories.findOne({_id: selectedQuestionCategoryId });
+
+            Meteor.call("deleteQuestionCategory", this.selectedQuestionCategory, function(err){
                 if (err) {
-                    Session.set("errorMessage", err.reason);
                     toastr.error(err.reason);
                 } else {
+                    Session.set("selectedQuestionCategoryId", null);
                     $("#delete-question-category-modal").modal("hide");
                     toastr.success("Question Category successfully deleted!");
-                    Session.set("selectedQuestionCategoryId", null);
                 }
             });
         }

@@ -127,11 +127,13 @@ Template.editPermissionModal.events({
 
             if (this.selectedPermission.validate()) {
                 Meteor.call("updatePermission", this.selectedPermission, function(err){
-                    if(err) throw err;
-
-                    $("#edit-permission-modal").modal('hide');
-                    t.find("form").reset();
-                    toastr.success("Permission successfully updated!");
+                    if (err) {
+                        toastr.error(err.reason);
+                    } else {
+                        t.find("form").reset();
+                        $("#edit-permission-modal").modal('hide');
+                        toastr.success("Permission successfully updated!");
+                    }
                 });
             } else {
                 toastr.error(getErrorMessage(this.selectedPermission.getValidationErrors()));
@@ -156,10 +158,12 @@ Template.deletePermissionModal.events({
             this.selectedPermission = Permissions.findOne({_id: selectedPermissionId});
 
             Meteor.call("deletePermission", this.selectedPermission, function(err){
-                if(err) throw err;
-
-                $("#delete-permission-modal").modal('hide');
-                toastr.success("Permission successfully deleted!");
+                if (err) {
+                    toastr.error(err.reason);
+                } else {
+                    $("#delete-permission-modal").modal('hide');
+                    toastr.success("Permission successfully deleted!");
+                }
             });
         }
     }

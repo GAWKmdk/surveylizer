@@ -3,6 +3,7 @@ Meteor.methods({
         questionObj.save();
     },
     "deleteQuestion": function(questionObj){
+        // TODO: @tsega Delete Question Answers as well
         questionObj.remove();
     }
 });

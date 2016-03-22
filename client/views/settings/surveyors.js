@@ -134,13 +134,18 @@ Template.editSurveyorModal.events({
                 telephone: t.find("#edit-surveyor-telephone").value
             };
 
+            this.selectedSurveyor = Surveyors.findOne({_id: selectedSurveyorId});
             this.selectedSurveyor.set(surveyorDoc);
 
-
             if (this.selectedSurveyor.validate()) {
-                this.selectedSurveyor.save();
-                $("#edit-surveyor-modal").modal('hide');
-                toastr.success("Surveyor successfully edited!");
+                Meteor.call("updateSurveyor", this.selectedSurveyor, function(err){
+                    if (err) {
+                        toastr.error(err.reason);
+                    } else {
+                        $("#edit-surveyor-modal").modal('hide');
+                        toastr.success("Surveyor successfully updated!");
+                    }
+                });
             }
         }
 
@@ -165,16 +170,17 @@ Template.deleteSurveyorModal.events({
         var selectedSurveyorId = Session.get("selectedSurveyorId");
 
         if (selectedSurveyorId) {
-            Surveyors.remove({_id: selectedSurveyorId}, function (err) {
+            this.selectedSurveyor = Surveyors.findOne({_id: selectedSurveyorId});
+
+            Meteor.call("deleteSurveyor", this.selectedSurveyor, function(err){
                 if (err) {
                     toastr.error(err.reason);
                 } else {
+                    Session.set("selectedSurveyorId", null);
                     $("#delete-surveyor-modal").modal('hide');
                     toastr.success("Surveyor successfully deleted!");
                 }
             });
-
-            Session.set("selectedSurveyorId", null);
         }
 
         // Prevent form reload

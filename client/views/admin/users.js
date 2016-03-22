@@ -155,40 +155,39 @@ Template.editUserModal.events({
     "submit #edit-user-modal form": function (e, t) {
         e.preventDefault();
 
-        // Edit user document
-        var userDoc = {
-            profile: {
-                roleId: t.find("#edit-user-role").value != "empty" ? t.find("#edit-user-role").value : "",
-                firstName: t.find("#edit-user-first-name").value,
-                lastName: t.find("#edit-user-last-name").value,
-                address: t.find("#edit-user-address").value,
-                city: t.find("#edit-user-city").value,
-                state: t.find("#edit-user-state").value,
-                postalCode: t.find("#edit-user-postal-code").value
-            }
-        };
-
-
         var selectedUserId = Session.get("selectedUserId");
 
         if (selectedUserId) {
 
+            var userDoc = {
+                profile: {
+                    roleId: t.find("#edit-user-role").value != "empty" ? t.find("#edit-user-role").value : "",
+                    firstName: t.find("#edit-user-first-name").value,
+                    lastName: t.find("#edit-user-last-name").value,
+                    address: t.find("#edit-user-address").value,
+                    city: t.find("#edit-user-city").value,
+                    state: t.find("#edit-user-state").value,
+                    postalCode: t.find("#edit-user-postal-code").value
+                }
+            };
+
+            this.selectedUser = Meteor.users.findOne({_id: selectedUserId});
             this.selectedUser.set(userDoc);
 
-            // Hack: Temporarily add password field so that the validation will pass
+            // @hack: Temporarily add password field so that the validation will pass
             this.selectedUser.set({password: "P@ssw0rd!"});
 
             if (this.selectedUser.validate()) {
-                // remove the password field
+                // remove the password field relate to above @hack
                 delete this.selectedUser.password;
 
                 // Update the selected user
                 Meteor.call("updateUser", this.selectedUser, function(err){
                     if (err) {
-                        Session.set("errorMessage", err.reason);
+                        toastr.error(err.reason);
                     } else {
-                        Session.set("selectedUserId", null);
                         $("#edit-user-modal").modal('hide');
+                        toastr.success("User successfully updated!");
                     }
                 });
             }
@@ -221,8 +220,8 @@ Template.deleteUserModal.events({
                 if (err) {
                     toastr.error(err.reason);
                 } else {
-                    $("#delete-user-modal").modal('hide');
                     Session.set("selectedUserId", null);
+                    $("#delete-user-modal").modal('hide');
                     toastr.success("User successfully deleted!");
                 }
             });
