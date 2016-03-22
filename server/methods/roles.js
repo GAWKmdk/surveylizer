@@ -1,8 +1,8 @@
 Meteor.methods({
-    "addPermission": function(roleId, permissionId){
+    "addRolePermission": function(roleId, permissionId){
         Roles.update({_id: roleId}, {$push: {permissions: permissionId}});
     },
-    "removePermission": function(roleId, permissionId){
+    "removeRolePermission": function(roleId, permissionId){
         Roles.update({_id: roleId}, {$pull: {permissions: permissionId}});
     },
     "updateRole": function(roleObj){
