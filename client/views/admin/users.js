@@ -12,11 +12,14 @@ Template.users.helpers({
     },
     users: function () {
         if (Session.get("searchAttr") && Session.get("searchValue")) {
+            var selectedField = Session.equals("searchAttr", "username") ?
+                Session.get("searchAttr") : "profile." + Session.get("searchAttr");
             var searchFilter = {};
             var searchObject = {
                 $regex: Session.get("searchValue"), $options: 'i'
             };
-            searchFilter["profile." + Session.get("searchAttr")] = searchObject;
+
+            searchFilter[selectedField] = searchObject;
             Template.instance().pagination.filters(searchFilter);
         } else {
             Template.instance().pagination.filters({});
