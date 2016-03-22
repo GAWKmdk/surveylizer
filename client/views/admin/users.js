@@ -179,10 +179,12 @@ Template.editUserModal.events({
             this.selectedUser.set({password: "P@ssw0rd!"});
 
             if (this.selectedUser.validate()) {
+                // remove the password field
+                delete this.selectedUser.password;
+
                 // Update the selected user
-                Meteor.users.update({_id: selectedUserId}, {$set: userDoc}, function (err) {
+                Meteor.call("updateUser", this.selectedUser, function(err){
                     if (err) {
-                        // Handle any errors, also checks for uniqueness of email address
                         Session.set("errorMessage", err.reason);
                     } else {
                         Session.set("selectedUserId", null);
@@ -213,11 +215,11 @@ Template.deleteUserModal.events({
         var selectedUserId = Session.get("selectedUserId");
 
         if (selectedUserId) {
-            // Remove selected user from the collection
-            Meteor.users.remove({_id: selectedUserId}, function (err) {
+            this.selectedUser = Meteor.users.findOne({_id: selectedUserId});
+
+            Meteor.call("deleteUser", this.selectedUser, function (err) {
                 if (err) {
-                    // Handle any errors, also checks for uniqueness of email address
-                    Session.set("errorMessage", err.reason);
+                    toastr.error(err.reason);
                 } else {
                     $("#delete-user-modal").modal('hide');
                     Session.set("selectedUserId", null);

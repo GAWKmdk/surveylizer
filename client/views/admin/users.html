@@ -30,7 +30,8 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr class="hidden-xs text-center">
-                    <td class="active" data-search-name="firstName"><span class="hidden-xs">First Name</span></td>
+                    <td class="active" data-search-name="username"><span class="hidden-xs">Username</span></td>
+                    <td data-search-name="firstName">First Name</td>
                     <td data-search-name="lastName">Last Name</td>
                     <td data-search-name="address">Address</td>
                     <td data-search-name="city">City</td>
@@ -77,8 +78,9 @@
 <template name="user">
     <tr class="{{selectedUser}}">
         <td>
-            <span class="hidden-xs">{{profile.firstName}}</span>
+            <span class="hidden-xs">{{username}}</span>
             <div class="visible-xs">
+                <p><strong>Username</strong>: {{username}}</p>
                 <p><strong>First Name</strong>: {{profile.firstName}}</p>
                 <p><strong>Last Name</strong>: {{profile.lastName}}</p>
                 <p><strong>Address</strong>: {{profile.address}}</p>
@@ -88,6 +90,7 @@
                 <p><strong>Account Type</strong>: {{userRole}}</p>
             </div>
         </td>
+        <td class="hidden-xs">{{profile.firstName}}</td>
         <td class="hidden-xs">{{profile.lastName}}</td>
         <td class="hidden-xs text-center">{{profile.address}}</td>
         <td class="hidden-xs text-center">{{profile.city}}</td>
@@ -127,10 +130,10 @@
                             <div class="form-group  {{#if hasValidationError 'password'}} has-error {{/if}}">
                                 <input id="new-user-password" class="form-control" type="password"
                                        placeholder="Password">
-              <span class="help-block small">
-                Password should be 8-14 characters long and contain a lowercase and an uppercase letter,
-                at least one number (0-9) and a special character of either $@#?!%*&^|
-              </span>
+                                      <span class="help-block small">
+                                        Password should be 8-14 characters long and contain a lowercase and an uppercase letter,
+                                        at least one number (0-9) and a special character of either $@#?!%*&^|
+                                      </span>
                                 {{#if hasValidationError 'password'}}
                                     <span class="helper-block small has-error">{{getValidationError 'password'}}</span>
                                 {{/if}}
