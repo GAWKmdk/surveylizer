@@ -12,10 +12,16 @@ Template.deleteSurveyModal.events({
 
         if (selectedSurveyId) {
             var survey = Surveys.findOne({_id: selectedSurveyId});
-            survey.remove();
-            Session.set("selectedSurveyId", null);
-            $("#delete-survey-modal").modal('hide');
-            toastr.success("Survey successfully deleted!");
+
+            Meteor.call("deleteSurvey", survey, function(err){
+               if(err){
+                   toastr.error(err.message);
+               } else {
+                   Session.set("selectedSurveyId", null);
+                   $("#delete-survey-modal").modal('hide');
+                   toastr.success("Survey successfully deleted!");
+               }
+            });
         }
 
         // Prevent form reload

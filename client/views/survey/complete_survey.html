@@ -12,8 +12,7 @@
             </div>
             <div class="panel-body">
                 {{#if isTypeOpenEnded}}
-                    <textarea class="answer form-control" name="answer" rows="5"
-                              placeholder="Please provide your answer here">{{previousAnswer}}</textarea>
+                    {{> textareaInput }}
                 {{ else }}
                     <div class="answer">
                         {{#if isSingleChoice}}
@@ -30,23 +29,30 @@
             </div>
             <div class="panel-footer text-right">
                 {{#if canNavigateBackward}}
-                    <button id="previous-question" class="btn btn-sm  btn-primary" type="button">
+                    <button id="previous-question" class="btn btn-sm btn-raised btn-default" type="button">
                         <i class="fa fa-chevron-circle-left"></i> Previous
                     </button>
                 {{/if}}
                 {{#if canNavigateForward}}
-                    <button id="next-question" class="btn btn-sm  btn-primary" type="button">
+                    <button id="next-question" class="btn btn-sm btn-raised btn-default" type="button">
                         <i class="fa fa-chevron-circle-right"></i> Next
                     </button>
                 {{/if}}
                 {{#if lastQuestion}}
-                    <button id="finish-survey" class="btn btn-sm  btn-primary" type="button">
+                    <button id="finish-survey" class="btn btn-sm btn-raised btn-primary" type="button">
                         <i class="fa fa-check-square-o"></i> Finish
                     </button>
                 {{/if}}
             </div>
         </div>
     {{/with}}
+</template>
+
+<template name="textareaInput">
+    <div class="form-group">
+        <textarea class="answer form-control" name="answer" rows="5"
+                  placeholder="Please provide your answer here">{{previousAnswer}}</textarea>
+    </div>
 </template>
 
 <template name="radioInput">

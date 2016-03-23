@@ -1,8 +1,9 @@
 Meteor.methods({
-    "updateAnswer": function(answerObj){
+    "addOrUpdateAnswer": function (answerObj) {
         answerObj.save();
     },
-    "deleteAnswer": function(answerObj){
+    "deleteAnswer": function (answerObj) {
         answerObj.remove();
     }
-});
+})
+;

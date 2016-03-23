@@ -1,18 +1,20 @@
-completeSurvey = function(){
+completeSurvey = function () {
     var surveyToCompleteId = Session.get("surveyToCompleteId");
 
-    if(surveyToCompleteId){
-        Surveys.update({_id: surveyToCompleteId}, {$set: {
-            endDate: new Date(),
-            status: Meteor.settings.public.surveyStatusFinished
-        }});
+    if (surveyToCompleteId) {
+        Surveys.update({_id: surveyToCompleteId}, {
+            $set: {
+                endDate: new Date(),
+                status: Meteor.settings.public.surveyStatusFinished
+            }
+        });
         Notify.user("Survey Completed", "You have completed a Survey!", Meteor.userId());
     }
 };
 
-newAnswer = function(questionId, value, choiceOrderNumber){
+newAnswer = function (questionId, value, choiceOrderNumber) {
     var surveyToCompleteId = Session.get("surveyToCompleteId");
-    var answer = {
+    var answerDoc = {
         surveyId: surveyToCompleteId,
         userId: Meteor.userId(),
         questionId: questionId,
@@ -21,39 +23,38 @@ newAnswer = function(questionId, value, choiceOrderNumber){
         answeredOn: new Date()
     };
 
-    var previousAnswer = Answers.findOne({
-        surveyId: answer.surveyId,
-        userId: answer.userId,
-        questionId: answer.questionId,
-        choiceOrderNumber: answer.choiceOrderNumber
-    });
+    var answerObj = Answers.findOne({
+            surveyId: answerDoc.surveyId,
+            userId: answerDoc.userId,
+            questionId: answerDoc.questionId,
+            choiceOrderNumber: answerDoc.choiceOrderNumber ? answerDoc.choiceOrderNumber : 0
+        });
 
-    if(previousAnswer){
-        Answers.update({_id: previousAnswer._id}, {$set: answer}, function(err){
-            if(err){
-                throw new Meteor.Error(err);
-            }
-        });
+    if (answerObj) {
+        answerObj.set(answerDoc);
     } else {
-        Answers.insert(answer, function(err){
-            if(err){
-                throw new Meteor.Error(err);
-            }
-        });
+        answerObj = new Answer();
+        answerObj.set(answerDoc);
     }
+
+    Meteor.call("addOrUpdateAnswer", answerObj, function (err) {
+        if (err) {
+            toastr.error(err.reason);
+        }
+    });
 };
 
-submitAnswer = function(template, question){
+submitAnswer = function (template, question) {
     // Get all the answers first
-    if(question.isTypeOpenEnded()){
+    if (question.isTypeOpenEnded()) {
         // Just get the value of the textarea
         var answerValue = template.$("textarea.answer")[0].value;
         newAnswer(question._id, answerValue);
     } else {
         // Multiple Choice Answers
         var answers = template.$(".answer input:checked");
-        if(answers.length > 0){
-            answers.each(function(){
+        if (answers.length > 0) {
+            answers.each(function () {
                 newAnswer(question._id, $(this).val(), $(this).data('order-number'));
             });
         }
@@ -61,42 +62,42 @@ submitAnswer = function(template, question){
 };
 
 Template.completeSurvey.helpers({
-    "surveyToComplete": function(){
+    "surveyToComplete": function () {
         return Surveys.findOne({_id: Session.get("surveyToCompleteId")});
     }
 });
 
 Template.question.helpers({
-    "currentQuestion": function(){
+    "currentQuestion": function () {
         return this.currentQuestion();
     },
-    "canNavigateBackward": function(){
+    "canNavigateBackward": function () {
         return Template.parentData(1).canNavigateBackward();
     },
-    "canNavigateForward": function(){
+    "canNavigateForward": function () {
         return Template.parentData(1).canNavigateForward();
     },
-    "lastQuestion": function(){
+    "lastQuestion": function () {
         return Template.parentData(1).orderNumber == Template.parentData(1).totalNumberOfQuesitons();
     },
-    "previousAnswer": function(){
+    "previousAnswer": function () {
         var previousAnswer = this.answer(Session.get("surveyToCompleteId"));
         return previousAnswer ? previousAnswer.value : null;
     }
 });
 
 Template.question.events({
-    "click #next-question": function(e, t){
+    "click #next-question": function (e, t) {
         var question = this;
         submitAnswer(t, question);
 
         // Move to the next question
         Template.parentData(0).moveForward();
     },
-    "click #previous-question": function(e, t){
+    "click #previous-question": function (e, t) {
         Template.parentData(0).moveBackward();
     },
-    "click #finish-survey": function(e, t){
+    "click #finish-survey": function (e, t) {
         var question = this;
         submitAnswer(t, question);
 
@@ -106,49 +107,70 @@ Template.question.events({
     }
 });
 
-Template.radioInput.onRendered(function(){
+Template.textareaInput.onRendered(function () {
+    $.material.init();
+});
+
+Template.textareaInput.helpers({
+    "previousAnswer": function () {
+        var previousAnswer = this.answer(Session.get("surveyToCompleteId"));
+        return previousAnswer ? previousAnswer.value : null;
+    }
+});
+
+Template.radioInput.onRendered(function () {
     $.material.radio();
 });
 
 Template.radioInput.helpers({
-    "previousChoice": function(choiceOrderNumber){
+    "previousChoice": function (choiceOrderNumber) {
         var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
         return previousChoice ? "checked" : "";
     }
 });
 
 Template.radioInput.events({
-    "change input": function(e, t){
-        if(!e.currentTarget.checked){
+    "change input": function (e, t) {
+        if (!e.currentTarget.checked) {
             var choiceOrderNumber = e.currentTarget.dataset.orderNumber;
             var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
-            if(previousChoice){
-                // Remove answer from collection
-                Answers.remove({_id: previousChoice._id});
+            if (previousChoice) {
+                var answerObj = Answers.findOne({_id: previousChoice._id});
+
+                Meteor.call("deleteAnswer", answerObj, function (err) {
+                    if (err) {
+                        toastr.error(err.message);
+                    }
+                });
             }
         }
     }
 });
 
-Template.checkboxInput.onRendered(function(){
+Template.checkboxInput.onRendered(function () {
     $.material.checkbox();
 });
 
 Template.checkboxInput.helpers({
-    "previousChoice": function(choiceOrderNumber){
+    "previousChoice": function (choiceOrderNumber) {
         var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
         return previousChoice ? "checked" : "";
     }
 });
 
 Template.checkboxInput.events({
-    "change input": function(e, t){
-        if(!e.currentTarget.checked){
+    "change input": function (e, t) {
+        if (!e.currentTarget.checked) {
             var choiceOrderNumber = e.currentTarget.dataset.orderNumber;
             var previousChoice = Template.parentData(1).choiceAnswer(Session.get("surveyToCompleteId"), choiceOrderNumber);
-            if(previousChoice){
-                // Remove answer from collection
-                Answers.remove({_id: previousChoice._id});
+            if (previousChoice) {
+                var answerObj = Answers.findOne({_id: previousChoice._id});
+
+                Meteor.call("deleteAnswer", answerObj, function (err) {
+                    if (err) {
+                        toastr.error(err.message);
+                    }
+                });
             }
 
         }

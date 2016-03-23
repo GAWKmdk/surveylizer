@@ -89,5 +89,5 @@ Template.completedSurveys.events({
     "change #completed-survey-search-field": function (e, t) {
         var selectedOption = t.$(e.target).val();
         Session.set("completedSurveySearchAttr", selectedOption);
-    },
+    }
 });
