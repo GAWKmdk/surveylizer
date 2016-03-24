@@ -5,16 +5,40 @@ todayEnd = new Date();
 todayEnd.setHours(23, 59, 59, 999);
 
 Template.main.helpers({
-    todaysSurveys: function(){
-        return Surveys.find({startDate: {$gte: todayStart, $lt: todayEnd}}).count();
+    dailyTotalSurveysStarted: function(){
+        var dailyTotal = clientDailyTotalSurveysStarted.findOne({
+            startDate: {
+                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+            }
+        });
+        return dailyTotal ? dailyTotal.total : 0;
     },
-    todaysCompletedSurveyors: function(){
-        return Surveys.find({endDate: {$gte: todayStart, $lt: todayEnd}}).count();
+    dailyTotalSurveysCompleted: function(){
+        var dailyTotal = clientDailyTotalSurveysCompleted.findOne({
+            endDate: {
+                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+            }
+        });
+        return dailyTotal ? dailyTotal.total : 0;
     },
-    todaysAnswers: function(){
-        return Answers.find({answeredOn: {$gte: todayStart, $lt: todayEnd}}).count();
+    dailyTotalAnswers: function(){
+        var dailyTotal = clientDailyTotalAnswers.findOne({
+            answeredOn: {
+                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+            }
+        });
+        return dailyTotal ? dailyTotal.total : 0;
     },
-    todaysReports: function(){
-
+    dailyTotalRespondents: function(){
+        var dailyTotal = clientDailyTotalRespondents.find({
+            answeredOn: {
+                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+            }
+        }).count();
+        return dailyTotal;
     }
 });

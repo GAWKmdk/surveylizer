@@ -1,68 +1,74 @@
 <template name="main">
-    <h3>Welcome to your Dashboard</h3>
+    <div class="clearfix">
+        <h3 class="pull-left">Statistic for {{selectedDate}} </h3>
+        <div class="pull-right">
+            {{> selectDate}}
+        </div>
+    </div>
+
     <div id="dashboard">
         <div id="widgets" class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="widget widget-primary clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
                             <h4 class="widget-title">Surveys</h4>
-                            <p class="widget-facts">{{todaysSurveys}}</p>
+                            <p class="widget-facts">{{dailyTotalSurveysStarted}}</p>
                         </div>
-                        <div class="widget-icon col-xs-4">
+                        <div class="widget-icon col-xs-4 text-right">
                             <i class="fa fa-file"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        The number of surveys started today.
+                        Number of surveys started.
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="widget widget-success clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
                             <h4 class="widget-title">Completed</h4>
-                            <p class="widget-facts">{{todaysCompletedSurveyors}}</p>
+                            <p class="widget-facts">{{dailyTotalSurveysCompleted}}</p>
                         </div>
-                        <div class="widget-icon col-xs-4">
-                            <i class="fa fa-users"></i>
+                        <div class="widget-icon col-xs-4 text-right">
+                            <i class="fa fa-check-square-o"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        The number of surveys completed today.
+                        Number of surveys completed.
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="widget widget-warning clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
                             <h4 class="widget-title">Answers</h4>
-                            <p class="widget-facts">{{todaysAnswers}}</p>
+                            <p class="widget-facts">{{dailyTotalAnswers}}</p>
                         </div>
-                        <div class="widget-icon col-xs-4">
+                        <div class="widget-icon col-xs-4 text-right">
                             <i class="fa fa-comment"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        Total number of answers filled out today.
+                        Number of answers given.
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="widget widget-danger clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">Reports</h4>
-                            <p class="widget-facts">{{todaysReports}}</p>
+                            <h4 class="widget-title">Respondents</h4>
+                            <p class="widget-facts">{{dailyTotalRespondents}}</p>
                         </div>
-                        <div class="widget-icon col-xs-4">
-                            <i class="fa fa-bar-chart"></i>
+                        <div class="widget-icon col-xs-4 text-right">
+                            <i class="fa fa-users"></i>
                         </div>
                     </div>
                     <p class="widget-detail">
-                        The number of reports that have been generated today.
+                        Number of respondents.
                     </p>
                 </div>
             </div>

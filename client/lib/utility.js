@@ -85,3 +85,9 @@ Notify = {
         notification.sendToAdmin();
     }
 };
+
+Template.registerHelper("selectedDate", function () {
+    return Session.get("selectedDate") ?
+        moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
+        moment().format("MMMM DD, YYYY");
+});

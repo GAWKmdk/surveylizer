@@ -109,9 +109,9 @@ Template.startSurveyModal.events({
                     latitude: t.find("#survey-geo-latitude").value,
                     longitude: t.find("#survey-geo-longitude").value
                 },
-                endDate: null,
                 status: Meteor.settings.public.surveyStatusStarted,
-                orderNumber: 1
+                orderNumber: 1,
+                endDate: moment("01-01-0001", "DD-MM-YYYY").toDate()
             }, function (err) {
                 if (err) {
                     new Error.throw(err);

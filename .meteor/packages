@@ -30,7 +30,8 @@ spacebars
 check
 fezvrasta:bootstrap-material-design
 mdg:geolocation
-jagi:astronomy
-jagi:astronomy-validators
 kurounin:pagination
 kurounin:pagination-blaze
+jcbernack:reactive-aggregate
+jagi:astronomy
+jagi:astronomy-validators

@@ -281,7 +281,8 @@ div#dashboard{
   div#widgets{
     div.widget{
       color: #fff;
-      height: 140px;
+      min-height: 140px;
+      margin-bottom: 10px;
       &.widget-primary{
         background-color: #009688;
       }
@@ -400,5 +401,13 @@ button.btn-fab.btn-fab-mini{
   &:hover{
     color: #ffffff;
     background-color: #009688 !important;
+  }
+}
+
+.clearfix{
+  form.form-inline{
+    div.form-group{
+      margin-top: 20px;
+    }
   }
 }

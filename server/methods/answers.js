@@ -5,5 +5,4 @@ Meteor.methods({
     "deleteAnswer": function (answerObj) {
         answerObj.remove();
     }
-})
-;
+});
