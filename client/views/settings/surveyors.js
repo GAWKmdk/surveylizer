@@ -1,4 +1,6 @@
 Template.surveyors.onCreated(function () {
+    $.material.init();
+    
     this.pagination = new Meteor.Pagination(Surveyors, {
         sort: {
             firstName: 1

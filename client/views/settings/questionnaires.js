@@ -7,6 +7,7 @@ Template.questionnaires.onCreated(function () {
 });
 
 Template.questionnaires.onRendered(function () {
+    $.material.init();
     Session.set("questionnaireSearchAttr", $("table thead td.active").data("search-name"));
 });
 
@@ -99,6 +100,10 @@ Template.questionnaires.events({
     }
 });
 
+Template.editQuestionnaireModal.onCreated(function(){
+   $.material.init();
+});
+
 Template.editQuestionnaireModal.helpers({
     "selectedQuestionnaire": function () {
         this.selectedQuestionnaire = Questionnaires.findOne({_id: Session.get("selectedQuestionnaireId")});
@@ -173,6 +178,7 @@ Template.deleteQuestionnaireModal.events({
 });
 
 Template.questionnaireQuestions.onCreated(function () {
+    $.material.init();
     this.pagination = new Meteor.Pagination(Questions, {
         sort: {
             name: 1

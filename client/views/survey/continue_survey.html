@@ -1,18 +1,18 @@
 <template name="continueSurvey">
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
-            <h4 class="pull-left">Continue Survey</h4>
+            <h4 class="pull-left">{{_ "continueSurvey" }}</h4>
             <div class="visible-xs">
                 <select id="continue-survey-search-field" class="form-control">
-                    <option value="code">Code</option>
-                    <option value="name">Name</option>
+                    <option value="code">{{_ "code" }}</option>
+                    <option value="name">{{_ "name" }}</option>
                 </select>
             </div>
             <form id="search-surveys-to-continue-form" class="pull-right form-inline">
                 <div class="form-group">
                     <div class="input-group">
                         <input id="search-surveys-to-continue" type="text" class="form-control" data-form-type="role"
-                               aria-label="Search" placeholder="Search"/>
+                               aria-label="Search" placeholder="{{_ "search" }}"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-fab btn-fab-mini">
                                 <i class="fa fa-search" data-form-type="search"></i>
@@ -26,10 +26,10 @@
             <table id="surveys-to-continue-list" class="table table-striped table-hover">
                 <thead>
                 <tr class="hidden-xs text-center">
-                    <td class="active" data-search-name="code">Code</td>
-                    <td data-search-name="name">Name</td>
-                    <td class="disabled">User</td>
-                    <td class="disabled">Started</td>
+                    <td class="active" data-search-name="code">{{_ "code" }}</td>
+                    <td data-search-name="name">{{_ "name" }}</td>
+                    <td class="disabled">{{_ "user" }}</td>
+                    <td class="disabled">{{_ "startedDate" }}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,10 +38,10 @@
                         <td>
                             <span class="hidden-xs">{{questionnaire.code}}</span>
                             <div class="visible-xs">
-                                <p><strong>Code:</strong> {{questionnaire.code}}</p>
-                                <p><strong>Name:</strong> {{questionnaire.name}}</p>
-                                <p><strong>Full Name:</strong> {{user.fullName}}</p>
-                                <p><strong>Started:</strong> {{timeStarted}}</p>
+                                <p><strong>{{_ "code" }}:</strong> {{questionnaire.code}}</p>
+                                <p><strong>{{_ "name" }}:</strong> {{questionnaire.name}}</p>
+                                <p><strong>{{_ "user" }}:</strong> {{user.fullName}}</p>
+                                <p><strong>{{_ "startedDate" }}:</strong> {{timeStarted}}</p>
                             </div>
                         </td>
                         <td class="hidden-xs">{{questionnaire.name}}</td>
@@ -62,15 +62,15 @@
         <div class="panel-footer">
             <a id="continue-completed-survey" type="button"
                class="btn btn-sm btn-primary btn-raised" {{canContinueSurvey}} >
-                <i class="fa fa-forward"></i> Continue
+                <i class="fa fa-forward"></i> {{_ "continue" }}
             </a>
             <a id="view-completed-survey" type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
                data-target="#view-survey-modal" {{canContinueSurvey}}>
-                <i class="fa fa-list-ol"></i> View
+                <i class="fa fa-list-ol"></i> {{_ "view" }}
             </a>
             <a id="delete-completed-survey" type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
                data-target="#delete-survey-modal" {{canContinueSurvey}}>
-                <i class="fa fa-times"></i> Delete
+                <i class="fa fa-times"></i> {{_ "delete" }}
             </a>
         </div>
     </div>
@@ -84,7 +84,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Survey Details</h4>
+                    <h4 class="modal-title">{{_ "surveyDetails" }}</h4>
                 </div>
                 <div class="modal-body">
                     {{#with selectedSurvey}}
@@ -92,9 +92,9 @@
                             <div class="panel-heading">
                                 <h4>{{questionnaire.name}}</h4>
                                 <ul>
-                                    <li><strong>Address:</strong> {{location.address}}</li>
-                                    <li><strong>Latitude:</strong> {{location.latitude}}</li>
-                                    <li><strong>Longitude:</strong> {{location.longitude}}</li>
+                                    <li><strong>{{_ "address" }}:</strong> {{location.address}}</li>
+                                    <li><strong>{{_ "latitude" }}:</strong> {{location.latitude}}</li>
+                                    <li><strong>{{_ "longitude" }}:</strong> {{location.longitude}}</li>
                                 </ul>
                             </div>
                             <div class="panel-body">

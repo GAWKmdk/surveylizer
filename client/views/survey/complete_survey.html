@@ -30,17 +30,17 @@
             <div class="panel-footer text-right">
                 {{#if canNavigateBackward}}
                     <button id="previous-question" class="btn btn-sm btn-raised btn-default" type="button">
-                        <i class="fa fa-chevron-circle-left"></i> Previous
+                        <i class="fa fa-chevron-circle-left"></i> {{_ "previous" }}
                     </button>
                 {{/if}}
                 {{#if canNavigateForward}}
                     <button id="next-question" class="btn btn-sm btn-raised btn-default" type="button">
-                        <i class="fa fa-chevron-circle-right"></i> Next
+                        <i class="fa fa-chevron-circle-right"></i> {{_ "next" }}
                     </button>
                 {{/if}}
                 {{#if lastQuestion}}
                     <button id="finish-survey" class="btn btn-sm btn-raised btn-primary" type="button">
-                        <i class="fa fa-check-square-o"></i> Finish
+                        <i class="fa fa-check-square-o"></i> {{_ "finish" }}
                     </button>
                 {{/if}}
             </div>
@@ -51,7 +51,7 @@
 <template name="textareaInput">
     <div class="form-group">
         <textarea class="answer form-control" name="answer" rows="5"
-                  placeholder="Please provide your answer here">{{previousAnswer}}</textarea>
+                  placeholder="{{_ "provideAnswer" }}">{{previousAnswer}}</textarea>
     </div>
 </template>
 
