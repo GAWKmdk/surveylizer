@@ -1,3 +1,17 @@
-<template name="reportGeneral">
-
+<template name="generalReport">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{_ "general"}} {{_ "report"}}</h4>
+        </div>
+        <div class="panel-body">
+            <ul id="general-report-list">
+                <li><span class="icon-container"><i class="fa fa-2x fa-file-text-o"></i></span> <strong>{{_ "questionnaire_plural"}}: {{totalQuestionnaires}}</strong></li>
+                <li><span class="icon-container"><i class="fa fa-2x fa-question"></i></span> <strong>{{_ "question_plural"}}: {{totalQuestions}}</strong></li>
+                <li><span class="icon-container"><i class="fa fa-2x fa-list-alt"></i></span> <strong>{{_ "survey_plural"}}: {{totalSurveys}}</strong></li>
+                <li><span class="icon-container"><i class="fa fa-2x fa-male"></i></span> <strong>{{_ "surveyor_plural"}}: {{totalSurveyors}}</strong></li>
+                <li><span class="icon-container"><i class="fa fa-2x fa-user"></i></span> <strong>{{_ "respondent_plural"}}: {{totalRespondents}}</strong></li>
+                <li><span class="icon-container"><i class="fa fa-2x fa-comment-o"></i></span> <strong>{{_ "answer_plural"}}: {{totalAnswers}}</strong></li>
+            </ul>
+        </div>
+    </div>
 </template>

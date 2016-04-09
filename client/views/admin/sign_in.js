@@ -1,3 +1,16 @@
+Template.signIn.onCreated(function(){
+    if(Session.get("language")){
+        TAPi18n.setLanguage(Session.get("language"));
+    } else {
+        Session.set("language", "am");
+        TAPi18n.setLanguage("am");
+    }
+});
+
+Template.signIn.onRendered(function(){
+    $.material.init();
+});
+
 Template.signIn.helpers({
     "usernameHasError": function(){
         return Session.get("usernameHasError") ? "has-error" : "";
@@ -66,5 +79,9 @@ Template.signIn.events({
 
         // Prevent form reload
         return false;
+    },
+    "click a.language": function(e, t){
+        Session.set("language", $(e.target).data("language"));
+        TAPi18n.setLanguage(Session.get("language"));
     }
 });

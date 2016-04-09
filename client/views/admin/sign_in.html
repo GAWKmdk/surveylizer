@@ -3,9 +3,14 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form id="sign-in-form" role="form">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2>Sign In</h2>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading clearfix">
+                            <h2 class="pull-left">{{_ "signIn" }}</h2>
+                            <div id="language-select" class="pull-right">
+                                <i class="fa fa-language"></i>
+                                <a href="#" class="language" data-language="en">English</a> |
+                                <a href="#" class="language" data-language="am">አማርኛ</a>
+                            </div>
                         </div>
                         <div class="panel-body">
                             {{#if hasErrors}}
@@ -16,23 +21,17 @@
                                     <strong>Error!</strong> {{ errors }}
                                 </div>
                             {{/if}}
-                            {{#if success}}
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <strong>Success!</strong> {{ success }}
-                                </div>
-                            {{/if}}
-                            <div class="form-group {{#if usernameHasError}} has-error {{/if}}">
-                                <input type="username" class="form-control " id="sign-in-username" placeholder="Username"/>
+                            <div class="form-group label-floating {{#if usernameHasError}} has-error {{/if}}">
+                                <label class="control-label" for="sign-in-username">{{_ "username"}}</label>
+                                <input type="text" class="form-control " id="sign-in-username" />
                             </div>
-                            <div class="form-group {{#if passwordHasError}} has-error {{/if}}">
-                                <input type="password" class="form-control" id="sign-in-password" placeholder="Password"/>
+                            <div class="form-group label-floating {{#if passwordHasError}} has-error {{/if}}">
+                                <label class="control-label" for="sign-in-password">{{_ "password" }}</label>
+                                <input type="password" class="form-control" id="sign-in-password" />
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-raised btn-sm btn-primary">Sign In</button>
+                            <button type="submit" class="btn btn-raised btn-sm btn-primary">{{_ "signIn" }}</button>
                         </div>
                     </div>
                 </form>

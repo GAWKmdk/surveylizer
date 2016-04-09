@@ -6,6 +6,10 @@ body {
   color: #333;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  text-transform: capitalize;
+}
+
 nav.navbar{
   a#sidebar-toggle{
     float: left;
@@ -408,6 +412,58 @@ button.btn-fab.btn-fab-mini{
   form.form-inline{
     div.form-group{
       margin-top: 20px;
+    }
+  }
+}
+
+ul#general-report-list{
+  list-style: none;
+  padding-left: 0px;
+  li{
+    padding: 10px 5px;
+    text-transform: capitalize;
+    border-bottom: 1px #efefef solid;
+    &:last-child{
+      border-bottom: none;
+    }
+    span.icon-container{
+      display: inline-block;
+      min-width: 50px;
+      text-align: center;
+      margin-right: 10px;
+      padding: 10px 2px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #777;
+    }
+    strong{
+      font-size: 1.2em;
+    }
+  }
+}
+
+ul#language-dropdown{
+  li{
+    a.active{
+      background-color: #dfdfdf;
+      color: #009688;
+    }
+  }
+}
+
+div#language-select{
+  font-size: 1.3em;
+  font-weight: lighter;
+  padding-top: 20px;
+  i{
+    display: inline-block;
+    margin-right: 10px;
+  }
+  a{
+    color: rgba(255, 255, 255, 0.843137);
+    text-decoration: none;
+    &:hover {
+      color: rgba(255, 255, 255, 1);
     }
   }
 }

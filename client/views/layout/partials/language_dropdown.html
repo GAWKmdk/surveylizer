@@ -1,0 +1,14 @@
+<template name="languageDropDown">
+    <ul id="language-dropdown" class="nav navbar-nav navbar-right">
+        <li class="dropdown with-icon">
+            <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-language"></i>
+            </a>
+            <ul class="dropdown-menu notification-list">
+                <li><a href="#" class="language {{activeLanguage "am"}}" data-language="am">{{_ "am"}}</a></li>
+                <li><a href="#" class="language {{activeLanguage "en"}}" data-language="en">{{_ "en"}}</a></li>
+            </ul>
+        </li>
+    </ul>
+</template>
+

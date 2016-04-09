@@ -14,10 +14,13 @@ completeSurvey = function () {
 
 newAnswer = function (questionId, value, choiceOrderNumber) {
     var surveyToCompleteId = Session.get("surveyToCompleteId");
+    var question = Question.findOne({_id: questionId});
     var answerDoc = {
         surveyId: surveyToCompleteId,
         userId: Meteor.userId(),
         questionId: questionId,
+        questionOrderNumber: question.orderNumber,
+        questionDetail: question.detail,
         value: value,
         choiceOrderNumber: choiceOrderNumber,
         answeredOn: new Date()

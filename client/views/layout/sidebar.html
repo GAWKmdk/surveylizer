@@ -17,47 +17,46 @@
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-file-text-o"></i>
-                        <span>Survey</span>
+                        <span>{{_ "survey" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='startSurvey'}}">Start New</a></li>
-                        <li><a href="{{pathFor route='continueSurvey'}}">Continue Previous</a></li>
-                        <li><a href="{{pathFor route='completedSurveys'}}">Completed</a></li>
+                        <li><a href="{{pathFor route='startSurvey'}}">{{_ "start_new" }}</a></li>
+                        <li><a href="{{pathFor route='continueSurvey'}}">{{_ "continue_previous" }}</a></li>
+                        <li><a href="{{pathFor route='completedSurveys'}}">{{_ "completed" }} {{_ "survey_plural" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-cog"></i>
-                        <span>Setup</span>
+                        <span>{{_ "setup" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li ><a href="{{pathFor route='questionnaires'}}">Questionnaires</a></li>
-                        <li><a href="{{pathFor route='questions'}}">Question Settings</a></li>
-                        <li><a href="{{pathFor route='surveyors'}}">Surveyors</a></li>
+                        <li ><a href="{{pathFor route='questionnaires'}}">{{_ "questionnaire_plural" }}</a></li>
+                        <li><a href="{{pathFor route='questions'}}">{{_ "question"}} {{_ "setting_plural" }}</a></li>
+                        <li><a href="{{pathFor route='surveyors'}}">{{_ "surveyor_plural" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-bar-chart"></i>
-                        <span>Reports</span>
+                        <span>{{_ "report_plural" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='reportGeneral'}}">General</a></li>
-                        <li><a href="{{pathFor route='reportRegional'}}">Regional</a></li>
-                        <!--<li><a href="{{pathFor route='reportSummary'}}">Summary</a></li>-->
+                        <li><a href="{{pathFor route='generalReport'}}">{{_ "general" }}</a></li>
+                        <li><a href="{{pathFor route='summaryReport'}}">{{_ "summary" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-users"></i>
-                        <span>Users</span>
+                        <span>{{_ "user_plural" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='userAdministration'}}">Accounts</a></li>
-                        <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">Roles and Permissions</a></li>
+                        <li><a href="{{pathFor route='userAdministration'}}">{{_ "account_plural" }}</a></li>
+                        <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">{{_ "role_plural" }} {{_ "and" }} {{_ "permission_plural" }}</a></li>
                     </ul>
                 </li>
             </ul>

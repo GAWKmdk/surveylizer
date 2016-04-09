@@ -80,8 +80,8 @@ Template.user.helpers({
 
 Template.user.events({});
 
-Template.user.onRendered(function () {
-
+Template.newUserModal.onRendered(function () {
+    $.material.init();
 });
 
 Template.newUserModal.helpers({

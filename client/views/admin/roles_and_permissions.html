@@ -3,7 +3,7 @@
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <h4 class="pull-left">User Roles</h4>
+                    <h4 class="pull-left">{{_ "userRoles"}}</h4>
                     {{> rolesSearch}}
                 </div>
                 <div class="panel-body">
@@ -13,11 +13,11 @@
                 <div class="panel-footer">
                     <a id="edit-role" class="btn btn-raised btn-sm btn-primary" data-toggle="modal"
                        data-target="#edit-role-modal" {{canEditRole}}>
-                        <i class="fa fa-pencil"></i> Edit
+                        <i class="fa fa-pencil"></i> {{_ "edit" }}
                     </a>
                     <a id="delete-role" class="btn btn-raised btn-sm btn-danger" data-toggle="modal"
                        data-target="#delete-role-modal" {{canEditRole}}>
-                        <i class="fa fa-times"></i> Delete
+                        <i class="fa fa-times"></i> {{_ "delete" }}
                     </a>
                 </div>
             </div>
@@ -26,7 +26,7 @@
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <h4 class="pull-left">User Permissions</h4>
+                    <h4 class="pull-left">{{_ "userPermissions" }}</h4>
                     {{> permissionsSearch }}
                 </div>
                 <div class="panel-body">
@@ -36,11 +36,11 @@
                 <div class="panel-footer">
                     <a id="edit-permission" class="btn btn-raised btn-sm btn-primary" data-toggle="modal"
                        data-target="#edit-permission-modal" {{canEditPermission}}>
-                        <i class="fa fa-pencil"></i> Edit
+                        <i class="fa fa-pencil"></i> {{_ "edit"}}
                     </a>
                     <a id="delete-permission" class="btn btn-raised btn-sm btn-danger" data-toggle="modal"
                        data-target="#delete-permission-modal" {{canEditPermission}}>
-                        <i class="fa fa-times"></i> Delete
+                        <i class="fa fa-times"></i> {{_ "delete"}}
                     </a>
                 </div>
             </div>

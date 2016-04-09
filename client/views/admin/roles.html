@@ -1,14 +1,14 @@
 <template name="rolesSearch">
     <div class="visible-xs">
         <select id="role-search-field" class="form-control">
-            <option value="name">Name</option>
+            <option value="name">{{_ "name"}}</option>
         </select>
     </div>
     <form id="search-roles-form" class="pull-right form-inline">
         <div class="form-group">
             <div class="input-group">
                 <input id="search-roles" type="text" class="form-control" data-form-type="role"
-                       aria-label="Search" placeholder="Search"/>
+                       aria-label="Search" placeholder="{{_ "search"}}"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-fab btn-fab-mini">
                         <i class="fa fa-search" data-form-type="search"></i>
@@ -22,10 +22,9 @@
 <template name="newRole">
     <form id="new-role-form" class="form-inline new-form">
         <div class="form-group label-floating">
-            <label class="control-label" for="new-role-name">Add New Role</label>
+            <label class="control-label" for="new-role-name">{{_ "addNewRole"}}</label>
             <div class="input-group">
-                <input id="new-role-name" type="text" class="form-control" data-form-type="role"
-                       aria-label="New Role"/>
+                <input id="new-role-name" type="text" class="form-control" data-form-type="role"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-fab btn-fab-mini">
                         <i class="fa fa-plus"></i>
@@ -40,8 +39,8 @@
     <table id="roles-list" class="table table-striped table-hover">
         <thead>
         <tr class="hidden-xs">
-            <td class="active" data-search-name="name">Name</td>
-            <td class="disabled">No. of Users</td>
+            <td class="active" data-search-name="name">{{_ "name" }}</td>
+            <td class="disabled">{{_ "numberOfUsers" }}</td>
         </tr>
         </thead>
         <tbody>
@@ -64,8 +63,8 @@
         <td>
             <span class="hidden-xs">{{name}}</span>
             <div class="visible-xs">
-                <p><strong>Name:</strong> {{name}}</p>
-                <p><strong>No. of Users:</strong> {{numberOfUsers _id}}</p>
+                <p><strong>{{_ "name" }}:</strong> {{name}}</p>
+                <p><strong>{{_ "numberOfUsers" }}:</strong> {{numberOfUsers _id}}</p>
             </div>
         </td>
         <td class="hidden-xs">{{numberOfUsers _id}}</td>
@@ -79,20 +78,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Edit Role</h4>
+                        <h4 class="modal-title">{{_ "editRole" }}</h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedRole}}
                             <div class="form-group">
-                                <input id="edit-role-name" class="form-control" type="text" placeholder="Name"
+                                <input id="edit-role-name" class="form-control" type="text" placeholder="{{_ "name" }}"
                                        value="{{name}}">
                             </div>
-                            <h4>Permissions</h4>
+                            <h4>{{_ "permission_plural"}}</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div id="add-permission" class="input-group">
                                         <select id="available-permission" class="form-control">
-                                            <option value="empty" disabled selected>--Select Permission--</option>
+                                            <option value="empty" disabled selected>--{{_ "selectPermission" }}--</option>
                                             {{#each availablePermissions}}
                                                 <option value="{{_id}}">{{ module }} - {{ operation }}</option>
                                             {{/each}}
@@ -115,7 +114,7 @@
                                             {{/each}}
                                         {{ else }}
                                             <li class="list-group-item">
-                                                <i class="fa fa-info"></i> No Permissions added yet!
+                                                <i class="fa fa-info"></i> {{_ "noPermissionsAdded" }}
                                             </li>
                                         {{/if}}
                                     </ul>
@@ -125,10 +124,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary btn-raised">
-                            <i class="fa fa-floppy-o"></i> Save
+                            <i class="fa fa-floppy-o"></i> {{_ "save" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-danger" data-dismiss="modal">
-                            <i class="fa fa-times"></i> Close
+                            <i class="fa fa-times"></i> {{_ "close" }}
                         </button>
                     </div>
                 </div>
@@ -144,24 +143,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Delete Role <i class="fa fa-warning"></i></h4>
+                        <h4 class="modal-title">{{_ "deleteRole" }} <i class="fa fa-warning"></i></h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedRole}}
                             <div>
-                                <p>Are you sure you want to delete the user role: <strong>{{name}}</strong> ?</p>
+                                <p>{{_ "deleteAcceptMessage" }} <strong>{{name}}</strong> ?</p>
                                 <p class="alert alert-danger">
-                                    <strong>WARNING:</strong> All related data will also be removed!
+                                    <strong>{{_ "warning" }}:</strong> {{_ "warningMessage" }}!
                                 </p>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-raised btn-sm btn-danger">
-                            <i class="fa fa-check"></i> Accept
+                            <i class="fa fa-check"></i> {{_ "accept" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-primary" data-dismiss="modal">
-                            <i class="fa fa-times"></i> Cancel
+                            <i class="fa fa-times"></i> {{_ "cancel" }}
                         </button>
                     </div>
                 </div>

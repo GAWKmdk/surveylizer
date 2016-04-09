@@ -1,3 +1,68 @@
-<template name="reportSummary">
+<template name="summaryReport">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{_ "summary"}} {{_ "report"}}</h4>
+        </div>
+        <div class="panel-body">
+            <form id="summary-report-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="select-questionnaire" class="control-label">{{_ "select_questionnaire"}}</label>
+                            <select id="select-questionnaire" class="form-control">
+                                {{#each questionnaires}}
+                                    <option value="{{_id}}">{{code}} - {{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="filter-by-location">{{_ "filter_by_location"}}</label>
+                            <input type="text" id="filter-by-location" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="start-date">{{_ "start_date"}}</label>
+                            <div class="input-group date-time-picker">
+                                <input id="start-date" type="text" class="form-control"/>
+                                <span class="input-group-addon input-group-btn">
+                                    <button type="button" class="btn btn-fab btn-fab-mini">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="end-date">{{_ "end_date"}}</label>
+                            <div class="input-group date-time-picker">
+                                <input id="end-date" type="text" class="form-control"/>
+                                <span class="input-group-addon input-group-btn">
+                                    <button type="button" class="btn btn-fab btn-fab-mini">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn btn-sm btn-primary btn-raised"><i
+                            class="fa fa-file-text-o"></i> {{_ "generate_report" }}
+                    </button>
+                    <button type="button" class="btn btn btn-sm btn-danger btn-raised"><i class="fa fa-eraser"></i>
+                        {{_ "clear" }}
+                    </button>
+                </div>
+            </form>
+            <div id="summary-report">
 
+            </div>
+        </div>
+    </div>
 </template>
