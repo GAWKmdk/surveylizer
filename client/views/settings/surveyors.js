@@ -75,7 +75,7 @@ Template.surveyors.events({
         if (this.surveyor.validate()) {
             newSurveyor.save();
             t.find("form").reset();
-            toastr.success("Surveyor successfully created!");
+            toastr.success(i18n("toastr.surveyorCreated"));
         }
 
         // Prevent form reload
@@ -145,7 +145,7 @@ Template.editSurveyorModal.events({
                         toastr.error(err.reason);
                     } else {
                         $("#edit-surveyor-modal").modal('hide');
-                        toastr.success("Surveyor successfully updated!");
+                        toastr.success(i18n("toastr.surveyorUpdated"));
                     }
                 });
             }
@@ -180,7 +180,7 @@ Template.deleteSurveyorModal.events({
                 } else {
                     Session.set("selectedSurveyorId", null);
                     $("#delete-surveyor-modal").modal('hide');
-                    toastr.success("Surveyor successfully deleted!");
+                    toastr.success(i18n("toastr.surveyorDeleted"));
                 }
             });
         }

@@ -17,46 +17,46 @@
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-file-text-o"></i>
-                        <span>{{_ "survey" }}</span>
+                        <span>{{i18n "survey" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='startSurvey'}}">{{_ "start_new" }}</a></li>
-                        <li><a href="{{pathFor route='continueSurvey'}}">{{_ "continue_previous" }}</a></li>
-                        <li><a href="{{pathFor route='completedSurveys'}}">{{_ "completed" }} {{_ "survey_plural" }}</a></li>
+                        <li><a href="{{pathFor route='startSurvey'}}">{{i18n "start_new" }}</a></li>
+                        <li><a href="{{pathFor route='continueSurvey'}}">{{i18n "continue_previous" }}</a></li>
+                        <li><a href="{{pathFor route='completedSurveys'}}">{{i18n "completed" }} {{i18n "survey_plural" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-cog"></i>
-                        <span>{{_ "setup" }}</span>
+                        <span>{{i18n "setup" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li ><a href="{{pathFor route='questionnaires'}}">{{_ "questionnaire_plural" }}</a></li>
-                        <li><a href="{{pathFor route='questions'}}">{{_ "question"}} {{_ "setting_plural" }}</a></li>
-                        <li><a href="{{pathFor route='surveyors'}}">{{_ "surveyor_plural" }}</a></li>
+                        <li ><a href="{{pathFor route='questionnaires'}}">{{i18n "questionnaire_plural" }}</a></li>
+                        <li><a href="{{pathFor route='questions'}}">{{i18n "question"}} {{i18n "setting_plural" }}</a></li>
+                        <li><a href="{{pathFor route='surveyors'}}">{{i18n "surveyor_plural" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-bar-chart"></i>
-                        <span>{{_ "report_plural" }}</span>
+                        <span>{{i18n "report_plural" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='generalReport'}}">{{_ "general" }}</a></li>
-                        <li><a href="{{pathFor route='summaryReport'}}">{{_ "summary" }}</a></li>
+                        <li><a href="{{pathFor route='generalReport'}}">{{i18n "general" }}</a></li>
+                        <li><a href="{{pathFor route='summaryReport'}}">{{i18n "summary" }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="main-menu-item">
                         <i class="fa fa-chevron-right pull-right"></i>
                         <i class="fa fa-users"></i>
-                        <span>{{_ "user_plural" }}</span>
+                        <span>{{i18n "user_plural" }}</span>
                     </a>
                     <ul class="sub-menu-1">
-                        <li><a href="{{pathFor route='userAdministration'}}">{{_ "account_plural" }}</a></li>
-                        <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">{{_ "role_plural" }} {{_ "and" }} {{_ "permission_plural" }}</a></li>
+                        <li><a href="{{pathFor route='userAdministration'}}">{{i18n "account_plural" }}</a></li>
+                        <li><a href="{{pathFor route='rolesAndPermissionsAdministration'}}">{{i18n "role_plural" }} {{i18n "and" }} {{i18n "permission_plural" }}</a></li>
                     </ul>
                 </li>
             </ul>

@@ -19,7 +19,7 @@ Template.deleteSurveyModal.events({
                } else {
                    Session.set("selectedSurveyId", null);
                    $("#delete-survey-modal").modal('hide');
-                   toastr.success("Survey successfully deleted!");
+                   toastr.success(i18n("toastr.surveyDeleted"));
                }
             });
         }

@@ -1,6 +1,6 @@
 <template name="main">
     <div class="clearfix">
-        <h3 class="pull-left">{{_ "dashboard_title" selectedDate}}</h3>
+        <h3 class="pull-left">{{selectedDate}} - {{i18n "dashboard_title"}}</h3>
         <div class="pull-right">
             {{> selectDate}}
         </div>
@@ -12,7 +12,7 @@
                 <div class="widget widget-primary clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">{{_ "survey_plural" }}</h4>
+                            <h4 class="widget-title">{{i18n "survey_plural" }}</h4>
                             <p class="widget-facts">{{dailyTotalSurveysStarted}}</p>
                         </div>
                         <div class="widget-icon col-xs-4 text-right">
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <p class="widget-detail">
-                        {{_ "survey_dashboard_text" }}
+                        {{i18n "survey_dashboard_text" }}
                     </p>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="widget widget-success clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">{{_ "completed" }}</h4>
+                            <h4 class="widget-title">{{i18n "completed" }}</h4>
                             <p class="widget-facts">{{dailyTotalSurveysCompleted}}</p>
                         </div>
                         <div class="widget-icon col-xs-4 text-right">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <p class="widget-detail">
-                        {{_ "completed_dashboard_text" }}
+                        {{i18n "completed_dashboard_text" }}
                     </p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="widget widget-warning clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">{{_ "answer_plural" }}</h4>
+                            <h4 class="widget-title">{{i18n "answer_plural" }}</h4>
                             <p class="widget-facts">{{dailyTotalAnswers}}</p>
                         </div>
                         <div class="widget-icon col-xs-4 text-right">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <p class="widget-detail">
-                        {{_ "answer_dashboard_text" }}
+                        {{i18n "answer_dashboard_text" }}
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="widget widget-danger clearfix">
                     <div class="widget-top row">
                         <div class="widget-stats col-xs-8">
-                            <h4 class="widget-title">{{_ "respondent_plural" }}</h4>
+                            <h4 class="widget-title">{{i18n "respondent_plural" }}</h4>
                             <p class="widget-facts">{{dailyTotalRespondents}}</p>
                         </div>
                         <div class="widget-icon col-xs-4 text-right">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <p class="widget-detail">
-                        {{_ "respondent_dashboard_text" }}
+                        {{i18n "respondent_dashboard_text" }}
                     </p>
                 </div>
             </div>

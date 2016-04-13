@@ -124,8 +124,8 @@ Template.newUserModal.events({
                 } else {
                     $("#new-user-modal").modal('hide');
                     // Send notification to Admin(s)
-                    Notify.admin("New User Created", "A new user has been created!");
-                    toastr.success("User successfully created!");
+                    Notify.admin(i18n('notificationNewUserTitle'), i18n('notificationNewUserDetail'));
+                    toastr.success(i18n("toastr.userCreated"));
                 }
             });
         }
@@ -190,7 +190,7 @@ Template.editUserModal.events({
                         toastr.error(err.reason);
                     } else {
                         $("#edit-user-modal").modal('hide');
-                        toastr.success("User successfully updated!");
+                        toastr.success(i18n("toastr.userUpdated"));
                     }
                 });
             }
@@ -225,7 +225,7 @@ Template.deleteUserModal.events({
                 } else {
                     Session.set("selectedUserId", null);
                     $("#delete-user-modal").modal('hide');
-                    toastr.success("User successfully deleted!");
+                    toastr.success(i18n("toastr.userDeleted"));
                 }
             });
         }

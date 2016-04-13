@@ -1,14 +1,14 @@
 <template name="rolesSearch">
     <div class="visible-xs">
         <select id="role-search-field" class="form-control">
-            <option value="name">{{_ "name"}}</option>
+            <option value="name">{{i18n "name"}}</option>
         </select>
     </div>
     <form id="search-roles-form" class="pull-right form-inline">
         <div class="form-group">
             <div class="input-group">
                 <input id="search-roles" type="text" class="form-control" data-form-type="role"
-                       aria-label="Search" placeholder="{{_ "search"}}"/>
+                       aria-label="Search" placeholder="{{i18n "search"}}"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-fab btn-fab-mini">
                         <i class="fa fa-search" data-form-type="search"></i>
@@ -22,7 +22,7 @@
 <template name="newRole">
     <form id="new-role-form" class="form-inline new-form">
         <div class="form-group label-floating">
-            <label class="control-label" for="new-role-name">{{_ "addNewRole"}}</label>
+            <label class="control-label" for="new-role-name">{{i18n "addNewRole"}}</label>
             <div class="input-group">
                 <input id="new-role-name" type="text" class="form-control" data-form-type="role"/>
                 <span class="input-group-btn">
@@ -39,8 +39,8 @@
     <table id="roles-list" class="table table-striped table-hover">
         <thead>
         <tr class="hidden-xs">
-            <td class="active" data-search-name="name">{{_ "name" }}</td>
-            <td class="disabled">{{_ "numberOfUsers" }}</td>
+            <td class="active" data-search-name="name">{{i18n "name" }}</td>
+            <td class="disabled">{{i18n "numberOfUsers" }}</td>
         </tr>
         </thead>
         <tbody>
@@ -61,10 +61,10 @@
 <template name="role">
     <tr class="{{selectedRole}}">
         <td>
-            <span class="hidden-xs">{{name}}</span>
+            <span class="hidden-xs">{{ localize "roles" name}}</span>
             <div class="visible-xs">
-                <p><strong>{{_ "name" }}:</strong> {{name}}</p>
-                <p><strong>{{_ "numberOfUsers" }}:</strong> {{numberOfUsers _id}}</p>
+                <p><strong>{{i18n "name" }}:</strong> {{ localize "roles" name}}</p>
+                <p><strong>{{i18n "numberOfUsers" }}:</strong> {{numberOfUsers _id}}</p>
             </div>
         </td>
         <td class="hidden-xs">{{numberOfUsers _id}}</td>
@@ -78,22 +78,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "editRole" }}</h4>
+                        <h4 class="modal-title">{{i18n "editRole" }}</h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedRole}}
                             <div class="form-group">
-                                <input id="edit-role-name" class="form-control" type="text" placeholder="{{_ "name" }}"
+                                <input id="edit-role-name" class="form-control" type="text" placeholder="{{i18n "name" }}"
                                        value="{{name}}">
                             </div>
-                            <h4>{{_ "permission_plural"}}</h4>
+                            <h4>{{i18n "permission_plural"}}</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div id="add-permission" class="input-group">
                                         <select id="available-permission" class="form-control">
-                                            <option value="empty" disabled selected>--{{_ "selectPermission" }}--</option>
+                                            <option value="empty" disabled selected>--{{i18n "selectPermission" }}--</option>
                                             {{#each availablePermissions}}
-                                                <option value="{{_id}}">{{ module }} - {{ operation }}</option>
+                                                <option value="{{_id}}">{{ localize "modules" module}} - {{ localize "operations" operation }}</option>
                                             {{/each}}
                                         </select>
                                         <span class="input-group-addon">
@@ -109,12 +109,12 @@
                                             {{#each rolePermissions}}
                                                 <li class="list-group-item">
                                                     <a href="#"><i class="remove-permission fa fa-times-circle"></i></a>
-                                                    {{module}} - {{operation}}
+                                                    {{ localize "modules" module}} - {{ localize "operations" operation }}
                                                 </li>
                                             {{/each}}
                                         {{ else }}
                                             <li class="list-group-item">
-                                                <i class="fa fa-info"></i> {{_ "noPermissionsAdded" }}
+                                                <i class="fa fa-info"></i> {{i18n "noPermissionsAdded" }}
                                             </li>
                                         {{/if}}
                                     </ul>
@@ -124,10 +124,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary btn-raised">
-                            <i class="fa fa-floppy-o"></i> {{_ "save" }}
+                            <i class="fa fa-floppy-o"></i> {{i18n "save" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-danger" data-dismiss="modal">
-                            <i class="fa fa-times"></i> {{_ "close" }}
+                            <i class="fa fa-times"></i> {{i18n "close" }}
                         </button>
                     </div>
                 </div>
@@ -143,24 +143,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "deleteRole" }} <i class="fa fa-warning"></i></h4>
+                        <h4 class="modal-title">{{i18n "deleteRole" }} <i class="fa fa-warning"></i></h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedRole}}
                             <div>
-                                <p>{{_ "deleteAcceptMessage" }} <strong>{{name}}</strong> ?</p>
+                                <p>{{i18n "deleteAcceptMessage" }} <strong>{{localize "roles" name}}</strong> ?</p>
                                 <p class="alert alert-danger">
-                                    <strong>{{_ "warning" }}:</strong> {{_ "warningMessage" }}!
+                                    <strong>{{i18n "warning" }}:</strong> {{i18n "warningMessage" }}!
                                 </p>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-raised btn-sm btn-danger">
-                            <i class="fa fa-check"></i> {{_ "accept" }}
+                            <i class="fa fa-check"></i> {{i18n "accept" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-primary" data-dismiss="modal">
-                            <i class="fa fa-times"></i> {{_ "cancel" }}
+                            <i class="fa fa-times"></i> {{i18n "cancel" }}
                         </button>
                     </div>
                 </div>

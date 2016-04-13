@@ -20,7 +20,8 @@ Template.sidebar.helpers({
         return this.profile.firstName + " " + this.profile.lastName;
     },
     accountType: function(){
-        return this.role() ? this.role().name : "";
+        var role = this.role() ? this.role().name : "";
+        return i18n("roles." + camelize(role));
     }
 });
 

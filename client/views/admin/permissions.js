@@ -39,7 +39,7 @@ Template.newPermission.events({
         if (this.permission.validate()) {
             newPermission.save();
             t.find("form").reset();
-            toastr.success("Permission successfully created!");
+            toastr.success(i18n("toastr.permissionCreated"));
         } else {
             toastr.error(getErrorMessage(this.permission.getValidationErrors()));
         }
@@ -132,7 +132,7 @@ Template.editPermissionModal.events({
                     } else {
                         t.find("form").reset();
                         $("#edit-permission-modal").modal('hide');
-                        toastr.success("Permission successfully updated!");
+                        toastr.success(i18n("toastr.permissionUpdated"));
                     }
                 });
             } else {
@@ -162,7 +162,7 @@ Template.deletePermissionModal.events({
                     toastr.error(err.reason);
                 } else {
                     $("#delete-permission-modal").modal('hide');
-                    toastr.success("Permission successfully deleted!");
+                    toastr.success(i18n("toastr.permissionDeleted"));
                 }
             });
         }

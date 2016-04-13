@@ -2,7 +2,7 @@
   "supportEmail": "support@example.com",
   "public": {
     "operations": ["view", "add", "edit", "delete"],
-    "modules": ["user", "notification", "report", "setting", "survey"],
+    "modules": ["accounts", "notification", "report", "settings", "survey"],
     "surveyStatusStarted": "started",
     "surveyStatusFinished": "finished"
   }

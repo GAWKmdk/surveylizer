@@ -9,6 +9,13 @@ cleanOutput = function (val) {
     return val;
 };
 
+camelize = function (str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
+        return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+    }).replace(/\s+/g, '');
+};
+
+
 checkEmail = Match.Where(function (email) {
     check(email, String);
     return email.match(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/);
@@ -88,6 +95,10 @@ Notify = {
 
 Template.registerHelper("selectedDate", function () {
     return Session.get("selectedDate") ?
-        moment(Session.get("selectedDate"), "DD-MM-YYYY").format("MMMM DD, YYYY") :
+        moment(Session.get("selectedDate"), "MMMM DD, YYYY").format("MMMM DD, YYYY") :
         moment().format("MMMM DD, YYYY");
+});
+
+Template.registerHelper("localize", function (category, key) {
+    return i18n(category + "." + camelize(key));
 });

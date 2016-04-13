@@ -7,12 +7,12 @@
             <div class="panel-body">
                 <p>{{{ detail }}}</p>
                 <p class="sent">
-                    Sent: {{ sent }}
+                    {{i18n "sent" }}: {{ sent }}
                 </p>
             </div>
             <div class="panel-footer">
               <a class="btn btn-sm btn-primary btn-raised" href="{{pathFor route='notifications'}}">
-                  <i class="fa fa-arrow-left"></i> Back to List
+                  <i class="fa fa-arrow-left"></i> {{i18n "backToList" }}
               </a>
             </div>
         </div>

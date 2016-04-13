@@ -1,9 +1,11 @@
 Template.signIn.onCreated(function(){
     if(Session.get("language")){
-        TAPi18n.setLanguage(Session.get("language"));
+        i18n.setLanguage(Session.get("language"));
+        moment.locale(Session.get("language"));
     } else {
         Session.set("language", "am");
-        TAPi18n.setLanguage("am");
+        i18n.setLanguage("am");
+        moment.locale("am");
     }
 });
 
@@ -51,7 +53,7 @@ Template.signIn.events({
             check(username, nonEmptyString);
         } catch(e) {
             Session.set("usernameHasError", true);
-            Session.set("errorMessage", "Please provide a proper username.");
+            Session.set("errorMessage", i18n('provideUsernameMessage'));
             return false;
         }
 
@@ -60,7 +62,7 @@ Template.signIn.events({
             check(password, nonEmptyString);
         } catch(e) {
             Session.set("passwordHasError", true);
-            Session.set("errorMessage", "Please provide a proper password.");
+            Session.set("errorMessage", i18n('providePasswordMessage'));
             return false;
         }
 
@@ -70,7 +72,7 @@ Template.signIn.events({
             if(err){
                 Session.set("usernameHasError", "Incorrect");
                 Session.set("passwordHasError", "Incorrect");
-                Session.set("errorMessage", "The username/password combination is incorrect.");
+                Session.set("errorMessage", i18n('usernamePasswordErrorMessage'));
             } else {
                 // Move the user to main page
                 Router.go("/");
@@ -82,6 +84,7 @@ Template.signIn.events({
     },
     "click a.language": function(e, t){
         Session.set("language", $(e.target).data("language"));
-        TAPi18n.setLanguage(Session.get("language"));
+        i18n.setLanguage(Session.get("language"));
+        moment.locale(Session.get("language"));
     }
 });

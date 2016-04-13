@@ -8,8 +8,8 @@ Template.main.helpers({
     dailyTotalSurveysStarted: function(){
         var dailyTotal = clientDailyTotalSurveysStarted.findOne({
             startDate: {
-                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
-                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+                $gte: moment(Session.get("selectedDate"), "MMMM DD, YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "MMMM DD, YYYY").endOf("day").toDate()
             }
         });
         return dailyTotal ? dailyTotal.total : 0;
@@ -17,8 +17,8 @@ Template.main.helpers({
     dailyTotalSurveysCompleted: function(){
         var dailyTotal = clientDailyTotalSurveysCompleted.findOne({
             endDate: {
-                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
-                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+                $gte: moment(Session.get("selectedDate"), "MMMM DD, YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "MMMM DD, YYYY").endOf("day").toDate()
             }
         });
         return dailyTotal ? dailyTotal.total : 0;
@@ -26,8 +26,8 @@ Template.main.helpers({
     dailyTotalAnswers: function(){
         var dailyTotal = clientDailyTotalAnswers.findOne({
             answeredOn: {
-                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
-                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+                $gte: moment(Session.get("selectedDate"), "MMMM DD, YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "MMMM DD, YYYY").endOf("day").toDate()
             }
         });
         return dailyTotal ? dailyTotal.total : 0;
@@ -35,8 +35,8 @@ Template.main.helpers({
     dailyTotalRespondents: function(){
         var dailyTotal = clientDailyTotalRespondents.find({
             answeredOn: {
-                $gte: moment(Session.get("selectedDate"), "DD-MM-YYYY").startOf("day").toDate(),
-                $lt: moment(Session.get("selectedDate"), "DD-MM-YYYY").endOf("day").toDate()
+                $gte: moment(Session.get("selectedDate"), "MMMM DD, YYYY").startOf("day").toDate(),
+                $lt: moment(Session.get("selectedDate"), "MMMM DD, YYYY").endOf("day").toDate()
             }
         }).count();
         return dailyTotal;

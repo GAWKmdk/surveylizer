@@ -1,15 +1,15 @@
 <template name="permissionsSearch">
     <div class="visible-xs">
         <select id="permission-search-field" class="form-control">
-            <option value="module">{{_ "module" }}</option>
-            <option value="operation">{{_ "operation" }}</option>
+            <option value="module">{{i18n "module" }}</option>
+            <option value="operation">{{i18n "operation" }}</option>
         </select>
     </div>
     <form id="search-permissions-form" class="pull-right form-inline">
         <div class="form-group">
             <div class="input-group">
                 <input id="search-permissions" type="text" class="form-control" data-form-type="role"
-                       aria-label="Search" placeholder="{{_ "search" }}"/>
+                       aria-label="Search" placeholder="{{i18n "search" }}"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-fab btn-fab-mini">
                         <i class="fa fa-search" data-form-type="search"></i>
@@ -23,17 +23,17 @@
 <template name="newPermission">
     <form id="new-permission-form" class="form-inline new-form">
         <div class="form-group label-floating">
-            <label class="control-label" for="new-permission-module">{{_ "module" }}</label>
+            <label class="control-label" for="new-permission-module">{{i18n "module" }}</label>
             <input id="new-permission-module" type="text" class="form-control">
         </div>
         <div class="form-group">
             <div class="input-group">
                 <select id="new-permission-operation" class="form-control">
-                    <option value="empty" disabled selected> -- {{_ "selectOperation" }} --</option>
-                    <option value="view">{{_ "view" }}</option>
-                    <option value="add">{{_ "add" }}</option>
-                    <option value="edit">{{_ "edit" }}</option>
-                    <option value="delete">{{_ "delete" }}</option>
+                    <option value="empty" disabled selected> -- {{i18n "selectOperation" }} --</option>
+                    <option value="view">{{i18n "view" }}</option>
+                    <option value="add">{{i18n "add" }}</option>
+                    <option value="edit">{{i18n "edit" }}</option>
+                    <option value="delete">{{i18n "delete" }}</option>
                 </select>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-fab btn-fab-mini">
@@ -49,8 +49,8 @@
     <table id="permissions-list" class="table table-striped table-hover">
         <thead>
         <tr class="hidden-xs">
-            <td class="active" data-search-name="module">{{_ "module" }}</td>
-            <td data-search-name="operation">{{_ "operation" }}</td>
+            <td class="active" data-search-name="module">{{i18n "module" }}</td>
+            <td data-search-name="operation">{{i18n "operation" }}</td>
         </tr>
         </thead>
         <tbody>
@@ -71,13 +71,13 @@
 <template name="permission">
     <tr class="{{selectedPermission}}">
         <td>
-            <span class="hidden-xs">{{ module }}</span>
+            <span class="hidden-xs">{{localize "modules" module }}</span>
             <div class="visible-xs">
-                <p><strong>{{_ "module" }}:</strong> {{ module }}</p>
-                <p><strong>{{_ "operation" }}:</strong> {{ operation }}</p>
+                <p><strong>{{i18n "module" }}:</strong> {{localize "modules" module }}</p>
+                <p><strong>{{i18n "operation" }}:</strong> {{localize "operations" operation }}</p>
             </div>
         </td>
-        <td class="hidden-xs">{{ operation }}</td>
+        <td class="hidden-xs">{{localize "operations" operation }}</td>
     </tr>
 </template>
 
@@ -88,7 +88,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "editPermission" }}</h4>
+                        <h4 class="modal-title">{{i18n "editPermission" }}</h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedPermission}}
@@ -98,21 +98,21 @@
                             </div>
                             <div class="form-group">
                                 <select id="edit-permission-operation" class="form-control">
-                                    <option value="empty" disabled selected>--{{_ "selectOperation" }}--</option>
-                                    <option value="view" {{operationEquals 'view'}} >{{_ "viewOperation" }}</option>
-                                    <option value="add" {{operationEquals 'add' }} >{{_ "addOperation" }}</option>
-                                    <option value="edit" {{operationEquals 'edit' }} >{{_ "editOperation" }}</option>
-                                    <option value="delete" {{operationEquals 'delete' }} >{{_ "deleteOperation" }}</option>
+                                    <option value="empty" disabled selected>--{{i18n "selectOperation" }}--</option>
+                                    <option value="view" {{operationEquals 'view'}} >{{i18n "viewOperation" }}</option>
+                                    <option value="add" {{operationEquals 'add' }} >{{i18n "addOperation" }}</option>
+                                    <option value="edit" {{operationEquals 'edit' }} >{{i18n "editOperation" }}</option>
+                                    <option value="delete" {{operationEquals 'delete' }} >{{i18n "deleteOperation" }}</option>
                                 </select>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-raised btn-sm btn-primary">
-                            <i class="fa fa-floppy-o"></i> {{_ "save" }}
+                            <i class="fa fa-floppy-o"></i> {{i18n "save" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-danger" data-dismiss="modal">
-                            <i class="fa fa-times"></i> {{_ "close" }}
+                            <i class="fa fa-times"></i> {{i18n "close" }}
                         </button>
                     </div>
                 </div>
@@ -128,24 +128,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "deletePermission" }} <i class="fa fa-warning"></i></h4>
+                        <h4 class="modal-title">{{i18n "deletePermission" }} <i class="fa fa-warning"></i></h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedPermission}}
                             <div>
-                                <p>{{_ "deleteAcceptMessage" }}  <strong>{{module}} - {{operation}}</strong> ?</p>
+                                <p>{{i18n "deleteAcceptMessage" }}  <strong>{{module}} - {{operation}}</strong> ?</p>
                                 <p class="alert alert-danger">
-                                    <strong>{{_ "warning" }}:</strong> {{_ "warningMessage" }}
+                                    <strong>{{i18n "warning" }}:</strong> {{i18n "warningMessage" }}
                                 </p>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-raised btn-sm btn-danger">
-                            <i class="fa fa-check"></i> {{_ "accept" }}
+                            <i class="fa fa-check"></i> {{i18n "accept" }}
                         </button>
                         <button type="button" class="btn btn-raised btn-sm btn-primary" data-dismiss="modal">
-                            <i class="fa fa-times"></i> {{_ "cancel" }}
+                            <i class="fa fa-times"></i> {{i18n "cancel" }}
                         </button>
                     </div>
                 </div>

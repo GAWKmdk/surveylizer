@@ -8,7 +8,7 @@ completeSurvey = function () {
                 status: Meteor.settings.public.surveyStatusFinished
             }
         });
-        Notify.user("Survey Completed", "You have completed a Survey!", Meteor.userId());
+        Notify.user(i18n('notificationSurveyCompletedTitle'), i18n('notificationSurveyCompletedDetail'), Meteor.userId());
     }
 };
 

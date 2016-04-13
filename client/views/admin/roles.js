@@ -38,7 +38,7 @@ Template.newRole.events({
         if (this.role.validate()) {
             newRole.save();
             t.find("form").reset();
-            toastr.success("Role successfully created!");
+            toastr.success(i18n("toastr.roleCreated"));
         } else {
             toastr.error(getErrorMessage(this.role.getValidationErrors()));
         }
@@ -130,7 +130,7 @@ Template.editRoleModal.events({
                 Meteor.call("addRolePermission", selectedRoleId, selectedPermissionId, function(err){
                     if(err) throw err;
 
-                    toastr.success("Permission added to Role!");
+                    toastr.success(i18n("toastr.permissionAddToRole"));
                 });
             }
         }
@@ -144,7 +144,7 @@ Template.editRoleModal.events({
             Meteor.call("removeRolePermission", selectedRoleId, this._id, function(err){
                 if(err) throw err;
 
-                toastr.success("Permission removed from Role!");
+                toastr.success(i18n("toastr.permissionRemovedFromRole"));
             });
         }
     },
@@ -169,7 +169,7 @@ Template.editRoleModal.events({
                     } else {
                         $("#edit-role-modal").modal('hide');
                         t.find("form").reset();
-                        toastr.success("Role successfully updated!");
+                        toastr.success(i18n("toastr.roleUpdated"));
                     }
                 });
             } else {
@@ -201,7 +201,7 @@ Template.deleteRoleModal.events({
                 } else {
                     Session.set("selectedRoleId", null);
                     $("#delete-role-modal").modal('hide');
-                    toastr.success("Role successfully deleted!");
+                    toastr.success(i18n("toastr.roleDeleted"));
                 }
             });
         }

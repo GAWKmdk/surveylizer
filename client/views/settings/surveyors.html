@@ -3,41 +3,41 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>{{_ "addNewSurveyor" }}</h4>
+                    <h4>{{i18n "addNewSurveyor" }}</h4>
                 </div>
                 <form id="new-surveyor-form">
                     {{#with surveyor}}
                         <div class="panel-body">
                             <div class="form-group label-floating is-empty{{#if hasValidationError 'firstName'}} has-error {{/if}}">
-                                <label class="control-label" for="new-surveyor-first-name">{{_ "firstName" }}</label>
+                                <label class="control-label" for="new-surveyor-first-name">{{i18n "firstName" }}</label>
                                 <input id="new-surveyor-first-name" class="form-control" name="newSurveyorFirstName" value="" />
                                 {{#if hasValidationError 'firstName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'firstName'}}</span>
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating is-empty {{#if hasValidationError 'lastName'}} has-error {{/if}}">
-                                <label class="control-label" for="new-surveyor-last-name">{{_ "lastName" }}</label>
+                                <label class="control-label" for="new-surveyor-last-name">{{i18n "lastName" }}</label>
                                 <input id="new-surveyor-last-name" class="form-control" name="newSurveyorLastName" />
                                 {{#if hasValidationError 'lastName'}}
                                     <span class="helper-block small has-error">{{getValidationError 'lastName'}}</span>
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating is-empty {{#if hasValidationError 'email'}} has-error {{/if}}">
-                                <label class="control-label" for="new-surveyor-email">{{_ "email" }}</label>
+                                <label class="control-label" for="new-surveyor-email">{{i18n "email" }}</label>
                                 <input id="new-surveyor-email" class="form-control" name="newSurveyorEmail"/>
                                 {{#if hasValidationError 'email'}}
                                     <span class="helper-block small has-error">{{getValidationError 'email'}}</span>
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating is-empty {{#if hasValidationError 'telephone'}} has-error {{/if}}">
-                                <label class="control-label" for="new-surveyor-telephone">{{_ "telephone" }}</label>
+                                <label class="control-label" for="new-surveyor-telephone">{{i18n "telephone" }}</label>
                                 <input id="new-surveyor-telephone" class="form-control" name="newSurveyorTelephone" />
                                 {{#if hasValidationError 'telephone'}}
                                     <span class="helper-block small has-error">{{getValidationError 'telephone'}}</span>
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating is-empty {{#if hasValidationError 'position'}} has-error {{/if}}">
-                                <label class="control-label" for="new-surveyor-position">{{_ "position" }}</label>
+                                <label class="control-label" for="new-surveyor-position">{{i18n "position" }}</label>
                                 <input id="new-surveyor-position" class="form-control" name="newSurveyorPosition" />
                                 {{#if hasValidationError 'position'}}
                                     <span class="helper-block small has-error">{{getValidationError 'position'}}</span>
@@ -47,10 +47,10 @@
                     {{/with}}
                     <div class="panel-footer text-right">
                         <button class="btn btn-sm btn-primary btn-raised" type="submit">
-                            <i class="fa fa-plus"></i> {{_ "add" }}
+                            <i class="fa fa-plus"></i> {{i18n "add" }}
                         </button>
                         <button class="btn btn-sm btn-danger btn-raised btn-clear" type="button">
-                            <i class="fa fa-eraser"></i> {{_ "clear" }}
+                            <i class="fa fa-eraser"></i> {{i18n "clear" }}
                         </button>
                     </div>
                 </form>
@@ -59,20 +59,20 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <h4 class="pull-left">{{_ "surveyor_plural" }}</h4>
+                    <h4 class="pull-left">{{i18n "surveyor_plural" }}</h4>
                     <div class="visible-xs">
                         <select id="surveyor-search-field" class="form-control">
-                            <option value="fullName">{{_ "fullName" }}</option>
-                            <option value="position">{{_ "position" }}</option>
-                            <option value="email">{{_ "email" }}</option>
-                            <option value="telephone">{{_ "telephone" }}</option>
+                            <option value="fullName">{{i18n "fullName" }}</option>
+                            <option value="position">{{i18n "position" }}</option>
+                            <option value="email">{{i18n "email" }}</option>
+                            <option value="telephone">{{i18n "telephone" }}</option>
                         </select>
                     </div>
                     <form id="search-surveyors-form" class="pull-right form-inline">
                         <div class="form-group">
                             <div class="input-group">
                                 <input id="search-surveyors" type="text" class="form-control" data-form-type="role"
-                                       aria-label="Search" placeholder="{{_ "search" }}"/>
+                                       aria-label="Search" placeholder="{{i18n "search" }}"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-fab btn-fab-mini">
                                         <i class="fa fa-search" data-form-type="search"></i>
@@ -86,10 +86,10 @@
                     <table id="surveyors-list" class="table table-striped table-hover">
                         <thead>
                         <tr class="hidden-xs">
-                            <td class="active" data-search-name="fullName">{{_ "fullName" }}</td>
-                            <td data-search-name="position">{{_ "position" }}</td>
-                            <td data-search-name="email">{{_ "email" }}</td>
-                            <td data-search-name="telephone">{{_ "telephone" }}</td>
+                            <td class="active" data-search-name="fullName">{{i18n "fullName" }}</td>
+                            <td data-search-name="position">{{i18n "position" }}</td>
+                            <td data-search-name="email">{{i18n "email" }}</td>
+                            <td data-search-name="telephone">{{i18n "telephone" }}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -98,10 +98,10 @@
                                 <td>
                                     <span class="hidden-xs">{{fullName}}</span>
                                     <div class="visible-xs">
-                                        <p><strong>{{_ "fullName" }}:</strong> {{fullName}}</p>
-                                        <p><strong>{{_ "position" }}:</strong> {{position}}</p>
-                                        <p><strong>{{_ "email" }}:</strong> {{email}}</p>
-                                        <p><strong>{{_ "telephone" }}:</strong> {{telephone}}</p>
+                                        <p><strong>{{i18n "fullName" }}:</strong> {{fullName}}</p>
+                                        <p><strong>{{i18n "position" }}:</strong> {{position}}</p>
+                                        <p><strong>{{i18n "email" }}:</strong> {{email}}</p>
+                                        <p><strong>{{i18n "telephone" }}:</strong> {{telephone}}</p>
                                     </div>
                                 </td>
                                 <td class="hidden-xs">{{position}}</td>
@@ -122,11 +122,11 @@
                 <div class="panel-footer">
                     <a type="button" class="btn btn-sm btn-primary btn-raised" data-toggle="modal"
                        data-target="#edit-surveyor-modal" {{canEditSurveyor}}>
-                        <i class="fa fa-pencil"></i> {{_ "edit" }}
+                        <i class="fa fa-pencil"></i> {{i18n "edit" }}
                     </a>
                     <a type="button" class="btn btn-sm btn-danger btn-raised" data-toggle="modal"
                        data-target="#delete-surveyor-modal" {{canEditSurveyor}}>
-                        <i class="fa fa-times"></i> {{_ "delete" }}
+                        <i class="fa fa-times"></i> {{i18n "delete" }}
                     </a>
                 </div>
             </div>
@@ -143,12 +143,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "editSurveyor" }}</h4>
+                        <h4 class="modal-title">{{i18n "editSurveyor" }}</h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedSurveyor}}
                             <div class="form-group label-floating {{#if hasValidationError 'firstName'}} has-error {{/if}}">
-                                <label class="control-label" for="edit-surveyor-first-name">{{_ "firstName" }}</label>
+                                <label class="control-label" for="edit-surveyor-first-name">{{i18n "firstName" }}</label>
                                 <input id="edit-surveyor-first-name" class="form-control" name="editSurveyorFirstName"
                                        value="{{firstName}}"/>
                                 {{#if hasValidationError 'firstName'}}
@@ -156,7 +156,7 @@
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating {{#if hasValidationError 'lastName'}} has-error {{/if}}">
-                                <label class="control-label" for="edit-surveyor-last-name">{{_ "lastName" }}</label>
+                                <label class="control-label" for="edit-surveyor-last-name">{{i18n "lastName" }}</label>
                                 <input id="edit-surveyor-last-name" class="form-control" name="editSurveyorLastName"
                                        value="{{lastName}}"/>
                                 {{#if hasValidationError 'lastName'}}
@@ -164,7 +164,7 @@
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating {{#if hasValidationError 'email'}} has-error {{/if}}">
-                                <label class="control-label" for="edit-surveyor-email">{{_ "email" }}</label>
+                                <label class="control-label" for="edit-surveyor-email">{{i18n "email" }}</label>
                                 <input id="edit-surveyor-email" class="form-control" name="editSurveyorEmail"
                                        value="{{email}}"/>
                                 {{#if hasValidationError 'email'}}
@@ -172,7 +172,7 @@
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating {{#if hasValidationError 'telephone'}} has-error {{/if}}">
-                                <label class="control-label" for="edit-surveyor-telephone">{{_ "telephone" }}</label>
+                                <label class="control-label" for="edit-surveyor-telephone">{{i18n "telephone" }}</label>
                                 <input id="edit-surveyor-telephone" class="form-control" name="editSurveyorTelephone"
                                        value="{{telephone}}"/>
                                 {{#if hasValidationError 'telephone'}}
@@ -180,7 +180,7 @@
                                 {{/if}}
                             </div>
                             <div class="form-group label-floating {{#if hasValidationError 'position'}} has-error {{/if}}">
-                                <label class="control-label" for="edit-surveyor-position">{{_ "position" }}</label>
+                                <label class="control-label" for="edit-surveyor-position">{{i18n "position" }}</label>
                                 <input id="edit-surveyor-position" class="form-control" name="editSurveyorPosition"
                                        placeholder="Position" value="{{position}}"/>
                                 {{#if hasValidationError 'position'}}
@@ -191,10 +191,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary btn-raised" >
-                            <i class="fa fa-floppy-o"></i> {{_ "save" }}
+                            <i class="fa fa-floppy-o"></i> {{i18n "save" }}
                         </button>
                         <button type="button" class="btn btn-sm btn-danger btn-raised" data-dismiss="modal">
-                            <i class="fa fa-times"></i> {{_ "close" }}
+                            <i class="fa fa-times"></i> {{i18n "close" }}
                         </button>
                     </div>
                 </div>
@@ -210,24 +210,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">{{_ "deleteSurveyor" }} <i class="fa fa-warning"></i></h4>
+                        <h4 class="modal-title">{{i18n "deleteSurveyor" }} <i class="fa fa-warning"></i></h4>
                     </div>
                     <div class="modal-body">
                         {{#with selectedSurveyor}}
                             <div>
-                                <p>{{_ "deleteAcceptMessage" }}  <strong>{{fullName}}</strong> ?</p>
+                                <p>{{i18n "deleteAcceptMessage" }}  <strong>{{fullName}}</strong> ?</p>
                                 <p class="alert alert-danger">
-                                    <strong>{{_ "warning" }}:</strong> {{_ "warningMessage" }}
+                                    <strong>{{i18n "warning" }}:</strong> {{i18n "warningMessage" }}
                                 </p>
                             </div>
                         {{/with}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-danger btn-raised">
-                            <i class="fa fa-check"></i> {{_ "accept" }}
+                            <i class="fa fa-check"></i> {{i18n "accept" }}
                         </button>
                         <button type="button" class="btn btn-sm btn-primary btn-raised" data-dismiss="modal"><i
-                                class="fa fa-times"></i> {{_ "cancel" }}
+                                class="fa fa-times"></i> {{i18n "cancel" }}
                         </button>
                     </div>
                 </div>

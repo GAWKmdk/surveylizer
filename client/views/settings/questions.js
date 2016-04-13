@@ -40,7 +40,7 @@ Template.questions.events({
         if (this.questionCategory.validate()) {
             newQuestionCategory.save();
             t.find("#new-question-category-form").reset();
-            toastr.success("Question Category successfully created!");
+            toastr.success(i18n("toastr.questionCategoryCreated"));
         }
 
         return false;
@@ -81,7 +81,7 @@ Template.editQuestionCategoryModal.events({
                         toastr.error(err.reason);
                     } else {
                         $("#edit-question-category-modal").modal("hide");
-                        toastr.success("Question Category successfully updated!");
+                        toastr.success(i18n("toastr.questionCategoryUpdated"));
                     }
                 });
             }
@@ -114,7 +114,7 @@ Template.deleteQuestionCategoryModal.events({
                 } else {
                     Session.set("selectedQuestionCategoryId", null);
                     $("#delete-question-category-modal").modal("hide");
-                    toastr.success("Question Category successfully deleted!");
+                    toastr.success(i18n("toastr.questionCategoryDeleted"));
                 }
             });
         }

@@ -5,7 +5,7 @@
                 <form id="sign-in-form" role="form">
                     <div class="panel panel-primary">
                         <div class="panel-heading clearfix">
-                            <h2 class="pull-left">{{_ "signIn" }}</h2>
+                            <h2 class="pull-left">{{i18n "signIn" }}</h2>
                             <div id="language-select" class="pull-right">
                                 <i class="fa fa-language"></i>
                                 <a href="#" class="language" data-language="en">English</a> |
@@ -18,20 +18,20 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <strong>Error!</strong> {{ errors }}
+                                    {{ errors }}
                                 </div>
                             {{/if}}
                             <div class="form-group label-floating {{#if usernameHasError}} has-error {{/if}}">
-                                <label class="control-label" for="sign-in-username">{{_ "username"}}</label>
+                                <label class="control-label" for="sign-in-username">{{i18n "username"}}</label>
                                 <input type="text" class="form-control " id="sign-in-username" />
                             </div>
                             <div class="form-group label-floating {{#if passwordHasError}} has-error {{/if}}">
-                                <label class="control-label" for="sign-in-password">{{_ "password" }}</label>
+                                <label class="control-label" for="sign-in-password">{{i18n "password" }}</label>
                                 <input type="password" class="form-control" id="sign-in-password" />
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-raised btn-sm btn-primary">{{_ "signIn" }}</button>
+                            <button type="submit" class="btn btn-raised btn-sm btn-primary">{{i18n "signIn" }}</button>
                         </div>
                     </div>
                 </form>

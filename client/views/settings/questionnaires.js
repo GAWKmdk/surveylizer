@@ -64,9 +64,9 @@ Template.questionnaires.events({
         if (this.questionnaire.validate()) {
             newQuestionnaire.save();
             // Notify the user
-            Notify.user("New Questionnaire Created", "A new questionnaire has been created!", Meteor.userId());
+            Notify.user(i18n('notificationNewQuestionnaireTitle'), i18n('notificationNewQuestionnaireTitle'),Meteor.userId());
             t.find("#new-questionnaire-form").reset();
-            toastr.success("Questionnaire successfully created!");
+            toastr.success(i18n("toastr.questionnaireCreated"));
         }
 
         // Prevent form reload
@@ -135,7 +135,7 @@ Template.editQuestionnaireModal.events({
                     } else {
                         t.find("form").reset();
                         $("#edit-questionnaire-modal").modal('hide');
-                        toastr.success("Questionnaire successfully edited!");
+                        toastr.success(i18n("toastr.questionnaireUpdated"));
                     }
                 });
             }
@@ -167,7 +167,7 @@ Template.deleteQuestionnaireModal.events({
                 } else {
                     Session.set("selectedQuestionnaireId", null);
                     $("#delete-questionnaire-modal").modal('hide');
-                    toastr.success("Questionnaire successfully deleted!");
+                    toastr.success(i18n("toastr.questionnaireDeleted"));
                 }
             });
         }
@@ -275,7 +275,7 @@ Template.questionnaireQuestions.events({
             if (this.question.validate()) {
                 newQuestion.save();
                 t.find("#new-questionnaire-question-form").reset();
-                toastr.success("Question successfully created!");
+                toastr.success(i18n("toastr.questionCreated"));
             }
         }
 
@@ -415,7 +415,7 @@ Template.editQuestionnaireQuestionModal.events({
                         toastr.error(err.reason);
                     } else {
                         $("#edit-questionnaire-question-modal").modal('hide');
-                        toastr.success("Question successfully updated!");
+                        toastr.success(i18n("toastr.questionUpdated"));
                     }
                 });
             }
@@ -448,7 +448,7 @@ Template.deleteQuestionnaireQuestionModal.events({
                 } else {
                     Session.set("selectedQuestionnaireQuestionId", null);
                     $("#delete-questionnaire-question-modal").modal('hide');
-                    toastr.success("Question successfully deleted!");
+                    toastr.success(i18n("toastr.questionDeleted"));
                 }
             });
         }
