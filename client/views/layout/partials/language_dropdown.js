@@ -31,6 +31,8 @@ Template.languageDropDown.events({
         var selectedDate = moment(Session.get("selectedDate"), "MMMM DD, YYYY");
         moment.locale(Session.get("language"));
         Session.set("selectedDate", selectedDate.locale(Session.get("language")).format("MMMM DD, YYYY"));
-        $('.date-time-picker').data("DateTimePicker").locale(moment.locale());
+        if($('.date-time-picker').length > 0){
+            $('.date-time-picker').data("DateTimePicker").locale(moment.locale());
+        }
     }
 });
