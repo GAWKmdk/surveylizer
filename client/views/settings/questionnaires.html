@@ -220,7 +220,7 @@
                                 <select id="new-questionnaire-question-type" class="form-control">
                                     <option value="empty" disabled selected>--{{i18n "selectQuestionType" }}--</option>
                                     {{#each questionTypes}}
-                                        <option value="{{_id}}">{{name}}</option>
+                                        <option value="{{_id}}">{{localize "questionTypesCategory" name}}</option>
                                     {{/each}}
                                 </select>
                                 {{#if hasValidationError 'typeId'}}
@@ -308,12 +308,12 @@
                                     <span class="hidden-xs">{{orderNumber}}</span>
                                     <div class="visible-xs">
                                         <p><strong>#:</strong> {{orderNumber}}</p>
-                                        <p><strong>{{i18n "type" }}:</strong> {{type.name}}</p>
+                                        <p><strong>{{i18n "type" }}:</strong> {{localize "questionTypesCategory" type.name}}</p>
                                         <p><strong>{{i18n "category" }}:</strong> {{category.name}}</p>
                                         <p><strong>{{i18n "detail" }}:</strong> {{detail}}</p>
                                     </div>
                                 </td>
-                                <td class="hidden-xs">{{type.name}}</td>
+                                <td class="hidden-xs">{{localize "questionTypesCategory" type.name}}</td>
                                 <td class="hidden-xs">{{category.name}}</td>
                                 <td class="hidden-xs">{{detail}}</td>
                             </tr>
