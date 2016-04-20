@@ -27,11 +27,11 @@ newAnswer = function (questionId, value, choiceOrderNumber) {
     };
 
     var answerObj = Answers.findOne({
-            surveyId: answerDoc.surveyId,
-            userId: answerDoc.userId,
-            questionId: answerDoc.questionId,
-            choiceOrderNumber: answerDoc.choiceOrderNumber ? answerDoc.choiceOrderNumber : 0
-        });
+        surveyId: answerDoc.surveyId,
+        userId: answerDoc.userId,
+        questionId: answerDoc.questionId,
+        choiceOrderNumber: answerDoc.choiceOrderNumber ? answerDoc.choiceOrderNumber : 0
+    });
 
     if (answerObj) {
         answerObj.set(answerDoc);
